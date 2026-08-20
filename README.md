@@ -1,4 +1,4 @@
-# sistema-laTradicion-proyecto
+# Sistema-laTradicion-proyecto
 Proyecto de base de datos y aplicación web
 
 # Integrantes
