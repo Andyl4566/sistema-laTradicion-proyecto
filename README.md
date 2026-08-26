@@ -13,5 +13,5 @@ carnet: 2690-24-22602
 
 # SGBD
 Oracle Database
-#Herramienta CASE
+# Herramienta CASE
 Oracle Data Modeler
