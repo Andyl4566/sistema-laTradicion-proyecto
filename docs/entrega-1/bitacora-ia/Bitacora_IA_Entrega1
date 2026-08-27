@@ -1,2 +1,144 @@
-Bitacora IA Entrega 1
+# Bitacora IA Entrega 1
 
+# Registro 1 — Estructura general del proyecto
+
+  Fecha: 20/08/2026
+  Herramienta: Gemini
+  Objetivo: Comprender la estructura de carpetas y los componentes requeridos para el proyecto
+  
+  Prompt utilizado:
+  nombre-proyecto/ ... web/ (explícame punto por punto de esto)
+  
+  Resultado obtenido:
+  La IA explicó la función de las diferentes carpetas del proyecto, incluyendo:
+  docs/
+  sql/
+  web/
+  diagramas/
+  certificaciones/
+  bitacora-ia/
+  casos-prueba/
+  También se explicó qué componentes corresponden a las diferentes entregas.
+  
+  Validación del grupo:
+  El grupo revisó la explicación y la utilizó como guía para organizar el repositorio del proyecto
+
+# Registro 2 - Evaluación de la propuesta y requerimientos
+  Fecha: 20/08.2026
+  Herramienta: Gemini
+  Objetivo: Revisar la propuesta del sistema y detectar errores o aspectos que pudieran mejorarse
+
+  Prompt utilizado:
+  puntua Problema: ... Proveedores, Productos, Clientes, Empleados, Ventas, Gastos, Compras, Materia Prima, Producción...
+
+  Resultado obtenido:
+  La IA evaluó la propuesta y señaló aspectos que podían mejorarse en la definición de las entidades y requerimientos
+  
+  También se revisó que cada módulo tuviera operaciones de:
+  Registrar
+  Consultar
+  Modificar
+  Eliminar
+  
+  Validación del grupo:
+  El grupo analizó las recomendaciones y decidió conservar las entidades propuestas porque representan procesos reales del negocio
+
+# Registro 3 - Revisión de las funciones y relaciones
+Fecha: 20/08/2026
+Herramienta: Gemini
+Objetivo: Revisar las relaciones entre las entidades y determinar sus cardinalidades
+
+Prompt utilizado:
+Funciones: Proveedores: Un proveedor puede brindar muchos productos de materia prima...
+
+Resultado obtenido:
+Se identificaron relaciones como:
+Proveedor — Materia Prima → N:M
+Proveedor — Compra → 1:N
+Compra — Materia Prima → N:M
+Materia Prima — Producto → N:M
+Cliente — Venta → 1:N
+Empleado — Venta → 1:N
+Venta — Producto → N:M
+Empleado — Producción → N:M
+Producción — Producto → N:M
+Producción — Materia Prima → N:M
+También se identificó que las relaciones N:M deberán resolverse posteriormente mediante entidades asociativas
+
+Validación del grupo:
+El grupo revisó las relaciones propuestas y modificó algunas descripciones para que representaran mejor el funcionamiento real de la empresa
+
+#Registro 4 - Revisión de Producción y Empleados
+Fecha: 20/08/2026
+Herramienta: Gemini
+Objetivo: Corregir la relación entre producción, productos, materias primas y empleados
+
+Prompt utilizado:
+en producción si es para muchos productos y si es mejor asignar empleados
+
+Resultado obtenido:
+Se determinó que:
+Una producción puede fabricar varios productos
+Un producto puede aparecer en diferentes producciones
+Una producción puede utilizar varias materias primas
+Una materia prima puede utilizarse en diferentes producciones
+Una producción puede contar con varios empleados
+Un empleado puede participar en diferentes producciones
+Por lo tanto, se identificaron relaciones N:M entre estas entidades
+
+Validación del grupo:
+El grupo confirmó que varios empleados pueden participar en una producción y que una producción puede involucrar diferentes productos
+
+#Registro 5 - Corrección de las funciones
+Fecha: 20/08/2026
+Herramienta: Gemini
+Objetivo: Revisar una versión corregida de las funciones del sistema
+
+Prompt utilizado:
+Funciones: Proveedores... Productos... Clientes... Empleados... Ventas... Gastos Operativos... Compras... Materia Prima... Producción... (Ya lo corregí...)
+
+Resultado obtenido:
+Se revisó nuevamente cada entidad y sus relaciones. Se detectaron principalmente aspectos de redacción y se confirmó que las cardinalidades planteadas fueran coherentes con el funcionamiento descrito
+
+Validación del grupo:
+El grupo aceptó las correcciones de redacción, pero las decisiones sobre el funcionamiento del negocio fueron tomadas por los integrantes con base en la información proporcionada por el patrón
+
+#Registro 6 - Gastos Operativos
+Fecha: 20/08/2026
+Herramienta: Gemini
+Objetivo: Determinar cómo representar los gastos operativos dentro del modelo conceptual
+
+Prompt utilizado:
+lo de gastos operativos me dijo el patrón que no se relacionaría a nada sino que sería algo aparte
+
+Resultado obtenido:
+Se recomendó mantener GASTO_OPERATIVO como una entidad independiente, debido a que el funcionamiento definido por el patrón indica que no necesita relaciones directas con las demás entidades
+
+Validación del grupo:
+El grupo confirmó esta decisión con base en la información proporcionada por el patrón de la empresa
+
+#Registro 7 - Organización de la documentación de Entrega 1
+Fecha: 20/08/2026
+Herramienta: Gemini
+Objetivo: Determinar qué documentos deben colocarse en las carpetas de la Entrega 1
+
+Prompt utilizado:
+explícame que se hace en la Certificación de calidad... qué debo poner en cada una de estas carpetas con respecto a lo que requiere la entrega 1
+
+Resultado obtenido:
+Se determinó la función de las cuatro carpetas:
+
+entrega-1/
+├── casos-pruebas/
+├── certificaciones/
+├── diagramas/
+└── bitacora-ia/
+
+Se recomendó:
+certificaciones/ → certificación de calidad
+diagramas/ → diagrama ER Chen en formatos correspondientes
+bitacora-ia/ → registro de uso de IA
+casos-pruebas/ → no desarrollar todavía los casos de prueba correspondientes a las fases posteriores
+
+Validación del grupo:
+El grupo revisará la estructura final de acuerdo con las instrucciones del proyecto antes de realizar la entrega
