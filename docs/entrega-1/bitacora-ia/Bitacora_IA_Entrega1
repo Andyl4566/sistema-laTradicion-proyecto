@@ -142,3 +142,75 @@ casos-pruebas/ → no desarrollar todavía los casos de prueba correspondientes 
 
 Validación del grupo:
 El grupo revisará la estructura final de acuerdo con las instrucciones del proyecto antes de realizar la entrega
+
+#Registro 8 - Evaluacion de errores
+Fecha: 27/08/2026
+Herramienta: Gemini
+Objetivo: Correccion de errores en la propuesta 1 
+
+Prompt utilizado:
+#ROL: Eres un desarrollador experto en proyectos. #CONTEXTO: ya realice la entrega 1 de mi proyecto pero hay algunos puntos que aun no estan muy buenos.#ENTRADA: Adjunte el pdf del proyecto, una captura de deficiencias encontradas en la entrega y La propuesta en pdf.#ALCANCE: Necesito que en base a las capturas que vaya enviando vayas corrigiendo el archivo de propuesta segun lo requerido.#SALIDA: 1. En orden y llendo punto por punto solo lo que sea necesario modificar 
+
+Resultado obtenido:
+se determino errores en los requerimientos correspondientes a la entrega 1 su propuesta
+Requerimientos Funcionales (RF)
+RF-01: Gestión de Proveedores
+
+RF-01.1: Registrar proveedores con sus datos de contacto.
+
+RF-01.2: Consultar lista de proveedores y detalle individual.
+
+RF-01.3: Actualizar la información de contacto y estado comercial.
+
+RF-01.4: Desactivar/Inactivar registros de proveedores.
+
+RF-02: Gestión de Productos Terminado
+
+RF-02.1: Registrar catálogo de productos (tortillas, tostadas, nachos).
+
+RF-02.2: Consultar productos disponibles y precios de venta.
+
+RF-02.3: Actualizar información de precios y nombres de producto.
+
+RF-03: Gestión de Clientes
+
+RF-03.1: Registrar información general de clientes frecuentes/comerciales.
+
+RF-03.2: Consultar historial de compras por cliente.
+
+RF-03.3: Modificar datos del cliente.
+
+RF-04: Gestión de Empleados
+
+RF-04.1: Registrar información personal y rol operativo del empleado.
+
+RF-04.2: Asignar empleados a turnos de producción y registrar ventas realizadas.
+
+RF-05: Gestión de Ventas
+
+RF-05.1: Registrar transacciones de venta asociando cliente, empleado y múltiples productos con sus cantidades.
+
+RF-05.2: Generar comprobantes y consultar histórico de ventas por fecha o empleado.
+
+RF-06: Gestión de Compras y Materia Prima
+
+RF-06.1: Registrar materia prima (harina, maíz, empaques) con unidades de medida.
+
+RF-06.2: Registrar compras de materia prima a un proveedor específico, detallando costo y cantidad recibida.
+
+RF-07: Gestión de Producción
+
+RF-07.1: Registrar órdenes de producción especificando el producto final obtenido y las materias primas consumidas.
+
+RF-07.2: Asignar los empleados responsables de cada lote de producción.
+
+RF-08: Gestión de Gastos Operativos
+
+RF-08.1: Registrar gastos recurrentes y eventuales de la sucursal (ej. servicios, fumigación, limpieza).
+
+RF-08.2: Consultar reportes de gastos categorizados por periodo.
+
+Se recomendo cambiar y especificar los requerimientos funcionales 
+
+Validación del grupo:
+El grupo revisará la estructura final de acuerdo con las instrucciones del proyecto antes de realizar la entrega
