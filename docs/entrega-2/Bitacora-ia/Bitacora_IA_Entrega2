@@ -1,0 +1,30 @@
+# Bitácora de Uso de Agentes de Inteligencia Artificial
+
+Proyecto: Sistema de Base de Datos - Empresa de Tortillas, Nachos y Harina  
+Entrega: Entrega 2 (Diseño lógico, diccionario e implementación)  
+
+# Registro 1
+
+Fecha: 27/08/2026
+Herramienta: Gemini
+Objetivo: Obtener la matriz evaluativa de requerimientos consolidados (Entrega 1 y Entrega 2) y estructurar un plan de distribución de tareas equilibrado para un equipo de 4 desarrolladores.
+Prompt utilizado:
+  > "#ROL: Necesito que seas un desarrollador de software especializado en planificación de proyecto. 
+#CONTEXTO: Actualmente me han solicitado desarrollar la propuesta de un proyecto de base de datos, para una empresa de tortillas, nachos, arina. En este momento ya fue realizada la entrega 1 y todo lo que le corresponde. 
+#ENTRADA: Te adjunto los requerimientos del proyecto en el .pdf. #ALCANCE: Necesito que evalues todo los requerimientos para la entrega 2. Ademas estaria bien agregar los elementos de la entrega 1 aunque ya haya sido entregada. 
+#SALIDA: 1. Necesito una tabla con los requerimientos. 2. tengo un grupo de cuatro desarrolladores incluyendome, me gustaria que unicamente para la entrega 2 repartieras todos los requerimientos entre los cuatro desarrolladores"
+
+Resultado obtenido:
+  Una tabla detallada con los 13 requerimientos técnicos, de calidad y documentación para las Entregas 1 y 2,
+junto con un desglose equitativo de tareas y entregables asignados individualmente a 4 desarrolladores (Líder BD, Ingeniero SQL, Arquitecto Backend y Desarrollador Frontend).
+
+Validación del grupo:
+  Se revisó la asignación propuesta y se verificó que cada integrante contara con entregables individuales para garantizar commits propios identificables en Git. 
+Se ajustaron los módulos CRUD propuestos para que coincidan con la gestión de Productos (Tortillas, Nachos, Harina) y Proveedores/Clientes del caso de estudio.
+
+Estándares aplicados:
+Sección 6.1 (R1 y R4): Trazabilidad de estructura de carpetas y distribución de trabajo para commits individuales.
+Sección 6.4 (D4): Matriz de trazabilidad de requerimientos.
+Sección 11: Cumplimiento con los entregables de BD y el 30% del avance de la app web para la Entrega 2.
+
+Responsable Ian
