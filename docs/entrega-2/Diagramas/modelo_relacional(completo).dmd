@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="modelo_relacional(completo)" id="33E00C1B-38EB-C052-3615-B5471AD01C5E" version="3.5">
+<createdBy>ianmo</createdBy>
+<createdTime>2026-08-31 13:09:34 UTC</createdTime>
+<ownerDesignName>modelo_relacional(completo)</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>33E00C1B-38EB-C052-3615-B5471AD01C5E</designId>
+</OSDM_Design>
