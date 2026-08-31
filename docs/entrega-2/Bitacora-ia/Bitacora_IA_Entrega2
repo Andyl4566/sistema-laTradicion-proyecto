@@ -3,7 +3,7 @@
 Proyecto: Sistema de Base de Datos - Empresa de Tortillas, Nachos y Harina  
 Entrega: Entrega 2 (Diseño lógico, diccionario e implementación)  
 
-# Registro 1
+## Registro 1
 
 Fecha: 27/08/2026
 Herramienta: Gemini
@@ -28,3 +28,66 @@ Sección 6.4 (D4): Matriz de trazabilidad de requerimientos.
 Sección 11: Cumplimiento con los entregables de BD y el 30% del avance de la app web para la Entrega 2.
 
 Responsable Ian
+
+## Registro 2
+Fecha:17/08/2026
+Herramienta: Gemini
+Objetivo:Elaboración de matriz de requerimientos y normalización 3FN.
+Prompt utilizado:
+  "Genera un ejemplo de proceso de normalización hasta 3FN 
+  a partir de una tabla desnormalizada de ventas y productos"
+Resultado obtenido:
+  Desglose paso a paso de 1FN, 2FN y 3FN eliminando dependencias transitivas y parciales.
+Validacion del grupo:
+  El grupo revisará la estructura final de acuerdo con las 
+  instrucciones del proyecto antes de realizar la entrega.
+Estandares aplicados:
+  S7 (Sin redundancia de datos calculables), D4 (Trazabilidad de requerimientos).
+Responsable: Ian
+
+## Registro 3
+Fecha:20/08/2026
+Herramienta: Gemini
+Objetivo:Redacción de la propuesta de proyecto y documento inicial.
+Prompt utilizado:
+  "Redacta una propuesta de proyecto y definición de requerimientos
+  funcionales para el sistema de base de datos"
+Resultado obtenido:
+Borrador formal de propuesta, alcances y especificación de requerimientos de información.
+Validacion del grupo:
+  El grupo revisará la estructura final de acuerdo con las 
+  instrucciones del proyecto antes de realizar la entrega.
+Estandares aplicados:
+  D1 (Ortografía y redacción clara), D2 (Versionado en ENTREGA1_PROPUESTA.md).
+Responsable: Ian
+
+## Registro 4
+Fecha: 31/08/2026
+Herramienta: Gemini
+Objetivo: Declaración de la restricción UNIQUE en SQL.
+Prompt utilizado:
+  "Cómo declaro una clave única UNIQUE en SQL y cómo se representa visualmente"
+Resultado obtenido:
+  Definición de sintaxis de restricciones UNIQUE y diagramas visuales estructurados.
+Validacion del grupo:
+  El grupo revisará la estructura final de acuerdo con las 
+  instrucciones del proyecto antes de realizar la entrega.
+Estandares aplicados:
+  S1 (Nomenclatura snake_case), S8 (Validación post-IA).
+Responsable: Ian
+
+## Registro 5
+Fecha: 31/08/2026
+Herramienta: Gemini
+Objetivo: Ubicación y ejecución de scripts DDL en la base de datos.
+Prompt utilizado:
+  "y esto donde lo coloco? aparte del lugar designado,
+  osea tengo que escribirlo en la base de datos?"
+Resultado obtenido:
+  Explicación del flujo de trabajo: guardar archivo .sql en /sql/ddl/ y ejecutarlo en el SGBD.
+Validacion del grupo:
+  El grupo revisará la estructura final de acuerdo con las 
+  instrucciones del proyecto antes de realizar la entrega.
+Estandares aplicados: 
+  R1 (Estructura de carpetas /sql/ddl/), S2 (Un script, un propósito).
+Responsable: Ian
