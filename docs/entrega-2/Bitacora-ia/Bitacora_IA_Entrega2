@@ -91,3 +91,66 @@ Validacion del grupo:
 Estandares aplicados: 
   R1 (Estructura de carpetas /sql/ddl/), S2 (Un script, un propósito).
 Responsable: Ian
+
+##Registro 6
+Fecha: 02/09/2026
+Herramienta: ChatGPT
+Objetivo: Revisión del script SQL exportado desde Oracle SQL Developer.
+Prompt utilizado:
+  "Te paso el SCRIPToracle.sql para que lo revises."
+Resultado obtenido:
+  Se revisó la estructura del script exportado desde Oracle, identificando tablas, 
+  claves primarias, claves foráneas, restricciones, secuencias y registros de prueba. 
+  También se verificó que los nombres de tablas y columnas siguen una estructura compatible con snake_case, 
+  aunque Oracle los exportó en mayúsculas.
+Validación del grupo:
+  El grupo revisará que las tablas, relaciones y restricciones identificadas coincidan con el modelo relacional aprobado y con los requerimientos del proyecto antes de utilizar el script como base para la migración.
+Estándares aplicados:
+  S1 (Nomenclatura snake_case uniforme en tablas y columnas), S4 (Integridad referencial), S8 (Validación de SQL generado o revisado con IA).
+Responsable: Ian
+
+##Registro 7
+Fecha: 02/09/2026
+Herramienta: ChatGPT
+Objetivo: Conversión del script de Oracle a un script compatible con MySQL.
+Prompt utilizado:
+  "Sí por favor, conviértelo a MySQL."
+Resultado obtenido:
+  Se generó una versión del script compatible con MySQL, sustituyendo elementos propios de Oracle como VARCHAR2, NUMBER, ENABLE, TABLESPACE, STORAGE, secuencias y funciones específicas. 
+  También se normalizaron los nombres de tablas y columnas a snake_case en minúsculas y se conservaron las claves primarias, foráneas, restricciones y datos existentes.
+Validación del grupo:
+  El grupo deberá ejecutar el script convertido en MySQL Workbench, verificar que todas las tablas se creen correctamente, 
+  comprobar las relaciones entre tablas y validar que los datos de prueba se inserten sin errores antes de realizar el commit.
+Estándares aplicados:
+  S1 (Nomenclatura snake_case), S2 (Un script, un propósito), S4 (Integridad referencial), S8 (Validación IA), R1 (Estructura de carpetas, ubicación del script en /sql/ddl/).
+Responsable: Ian
+
+##Registro 8
+Fecha: 02/09/2026
+Herramienta: ChatGPT
+Objetivo: Elaboración del diccionario de datos a partir de la estructura de la base de datos.
+Prompt utilizado:
+  "Aprovechando, ¿podrías hacer también el diccionario?"
+Resultado obtenido:
+  Se elaboró un diccionario de datos basado en las tablas y columnas existentes en el script SQL. 
+  El documento incluye nombres de tablas, campos, tipos de datos, claves primarias, claves foráneas, restricciones y descripciones funcionales de los atributos.
+Validación del grupo:
+  El grupo deberá comparar el diccionario con el modelo relacional y el script DDL definitivo para verificar que los nombres de tablas, columnas, tipos de datos y relaciones coincidan antes de incluirlo en la documentación de la Entrega 2.
+Estándares aplicados:
+  D1 (Redacción clara en documentación), D3 (Coherencia con los diagramas), D4 (Trazabilidad entre diseño e implementación), S1 (Nomenclatura uniforme).
+Responsable: Ian
+
+##Registro 9
+Fecha: 02/09/2026
+Herramienta: ChatGPT
+Objetivo: Verificación de compatibilidad entre el modelo realizado en Oracle y los requerimientos del proyecto para MySQL.
+Prompt utilizado:
+  "Quiero que el script de Oracle funcione en MySQL Workbench y que cumpla con los estándares del proyecto."
+  Resultado obtenido:
+  Se identificaron instrucciones exclusivas de Oracle que no pueden utilizarse directamente en MySQL y se adaptaron los tipos de datos y restricciones al nuevo SGBD. 
+  Se mantuvo la lógica original de la base de datos sin agregar tablas o relaciones que no aparecieran en el script proporcionado.
+Validación del grupo:
+  El grupo deberá realizar pruebas de ejecución en MySQL Workbench y comparar el resultado con el diseño lógico aprobado, documentando cualquier ajuste adicional necesario.
+Estándares aplicados:
+  S1 (Nomenclatura), S2 (Un script, un propósito), S4 (Integridad referencial), S8 (Validación IA), D4 (Trazabilidad).
+Responsable: Ian
