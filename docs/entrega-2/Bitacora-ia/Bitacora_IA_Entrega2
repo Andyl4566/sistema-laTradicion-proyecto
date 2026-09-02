@@ -154,3 +154,20 @@ Validación del grupo:
 Estándares aplicados:
   S1 (Nomenclatura), S2 (Un script, un propósito), S4 (Integridad referencial), S8 (Validación IA), D4 (Trazabilidad).
 Responsable: Ian
+
+##Registro 10
+Fecha: 02/09/2026
+Herramienta: ChatGPT
+Objetivo: Revisión y corrección de la documentación de normalización hasta Tercera Forma Normal (3FN).
+Prompt utilizado:
+  "Así lo había hecho. ¿Me pasas el documento en Word así como el que te mandé solo con las modificaciones, por favor?"
+Resultado obtenido:
+  Se revisó la documentación existente del proceso de normalización del caso de compra de materia prima desde el estado no normalizado hasta 3FN. 
+  Se corrigieron inconsistencias en los identificadores y datos de ejemplo, se agregó proveedor_id como clave foránea en la tabla de compra en 3FN y se ajustó el detalle de compra para incluir cantidad y precio_unitario. 
+  Finalmente, se generó una versión corregida del documento en formato Word, conservando la estructura del documento original. 
+  La documentación original contemplaba el proceso de 1FN, 2FN y 3FN para el caso de compra de materia prima.
+Validación del grupo:
+  El grupo deberá revisar que la normalización documentada coincida con el modelo relacional, el diccionario de datos y el script DDL implementado en MySQL antes de incluir el documento en la Entrega 2.
+Estándares aplicados:
+  D1 (Redacción clara), D3 (Coherencia con diagramas), D4 (Trazabilidad entre diseño e implementación), S1 (Nomenclatura snake_case), S4 (Integridad referencial), S8 (Validación de contenido generado o modificado con IA).
+Responsable: Ian
