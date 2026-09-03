@@ -18,4 +18,4 @@ carnet: 2690-24-22602
 # SGBD
 MySQL Data Base
 # Herramienta CASE
-Oracle Data Modeler
+MySQL Workbench
