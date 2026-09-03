@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title><%= titulo %></title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    >
+</head>
+
+<body class="login-page">
+
+    <div class="login-container">
+
+        <!-- Sección izquierda -->
+        <div class="login-branding">
+
+            <div class="login-logo">
+                <i class="fas fa-bread-slice"></i>
+            </div>
+
+            <h1 class="login-title">
+                Tortillas, Nachos & Harina
+            </h1>
+
+            <p class="login-subtitle">
+                Sistema de Gestión Empresarial
+            </p>
+
+            <p class="login-description">
+                Plataforma web para la gestión eficiente de productos,
+                órdenes y reportes.
+            </p>
+
+        </div>
+
+
+        <!-- Sección derecha -->
+        <div class="login-form-section">
+
+            <form
+                class="login-form"
+                method="POST"
+                action="/login"
+            >
+
+                <h2 class="form-title">
+                    Iniciar Sesión
+                </h2>
+
+
+                <!-- Mensaje de error -->
+                <% if (mensajeError) { %>
+
+                    <div class="alert alert-error">
+
+                        <i class="fas fa-exclamation-circle"></i>
+
+                        <%= mensajeError %>
+
+                    </div>
+
+                <% } %>
+
+
+                <!-- Nombre de usuario -->
+                <div class="form-group">
+
+                    <label
+                        for="nombreUsuario"
+                        class="form-label"
+                    >
+                        <i class="fas fa-user"></i>
+                        Nombre de Usuario
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nombreUsuario"
+                        name="nombreUsuario"
+                        class="form-input"
+                        placeholder="Ingresa tu nombre de usuario"
+                        required
+                        autofocus
+                    >
+
+                </div>
+
+
+                <!-- Contraseña -->
+                <div class="form-group">
+
+                    <label
+                        for="password"
+                        class="form-label"
+                    >
+                        <i class="fas fa-lock"></i>
+                        Contraseña
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="form-input"
+                        placeholder="Ingresa tu contraseña"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Botón -->
+                <button
+                    type="submit"
+                    class="btn btn-primary btn-block"
+                >
+
+                    <i class="fas fa-sign-in-alt"></i>
+
+                    Iniciar Sesión
+
+                </button>
+
+
+                <!-- Datos de prueba -->
+                <div class="login-info">
+
+                    <p class="info-text">
+
+                        <strong>Datos de prueba:</strong>
+                        <br>
+
+                        Usuario: admin
+                        <br>
+
+                        Contraseña: admin123
+
+                    </p>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        document
+            .querySelector('.login-form')
+            .addEventListener('submit', function (e) {
+
+                const usuario =
+                    document
+                        .getElementById('nombreUsuario')
+                        .value
+                        .trim();
+
+                const password =
+                    document
+                        .getElementById('password')
+                        .value
+                        .trim();
+
+                if (!usuario || !password) {
+
+                    e.preventDefault();
+
+                    alert(
+                        'Por favor completa todos los campos'
+                    );
+
+                    return false;
+                }
+
+            });
+
+    </script>
+
+</body>
+
+</html>

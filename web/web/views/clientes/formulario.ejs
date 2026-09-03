@@ -1,0 +1,142 @@
+<div class="dashboard-container">
+
+    <div class="section-heading">
+
+        <div>
+
+            <p class="section-eyebrow">
+                Clientes
+            </p>
+
+            <h1 class="section-title">
+                <%= cliente ? 'Editar Cliente' : 'Nuevo Cliente' %>
+            </h1>
+
+            <p class="section-description">
+                Completa la información del cliente.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <% if (error) { %>
+
+        <div class="alert alert-error">
+
+            <i class="fas fa-triangle-exclamation"></i>
+
+            <%= error %>
+
+        </div>
+
+    <% } %>
+
+
+    <div class="form-card">
+
+        <form
+            action="<%= accion %>"
+            method="POST"
+            class="crud-form"
+        >
+
+            <div class="form-group">
+
+                <label for="nombre">
+                    Nombre *
+                </label>
+
+                <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    maxlength="200"
+                    required
+                    value="<%= cliente ? (cliente.NOMBRE || cliente.nombre || '') : '' %>"
+                    placeholder="Nombre del cliente"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="telefono">
+                    Teléfono
+                </label>
+
+                <input
+                    type="text"
+                    id="telefono"
+                    name="telefono"
+                    maxlength="50"
+                    value="<%= cliente ? (cliente.TELEFONO || cliente.telefono || '') : '' %>"
+                    placeholder="Ej. 5555-5555"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="correo">
+                    Correo electrónico
+                </label>
+
+                <input
+                    type="email"
+                    id="correo"
+                    name="correo"
+                    maxlength="200"
+                    value="<%= cliente ? (cliente.CORREO || cliente.correo || '') : '' %>"
+                    placeholder="cliente@correo.com"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="direccion">
+                    Dirección
+                </label>
+
+                <input
+                    type="text"
+                    id="direccion"
+                    name="direccion"
+                    maxlength="200"
+                    value="<%= cliente ? (cliente.DIRECCION || cliente.direccion || '') : '' %>"
+                    placeholder="Dirección del cliente"
+                >
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <a
+                    href="/clientes"
+                    class="btn-action btn-delete"
+                >
+                    <i class="fas fa-xmark"></i>
+                    Cancelar
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn btn-module"
+                >
+                    <i class="fas fa-floppy-disk"></i>
+                    <%= textoBoton %>
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

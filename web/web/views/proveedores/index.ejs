@@ -1,0 +1,203 @@
+<div class="dashboard-container">
+
+    <div class="section-heading">
+
+        <div>
+
+            <p class="section-eyebrow">
+                Administración
+            </p>
+
+            <h1 class="section-title">
+                Proveedores
+            </h1>
+
+            <p class="section-description">
+                Consulta y administra los proveedores
+                registrados en la base de datos.
+            </p>
+
+        </div>
+
+
+        <a
+            href="/proveedores/nuevo"
+            class="btn btn-module"
+        >
+            <i class="fas fa-plus"></i>
+
+            Nuevo Proveedor
+        </a>
+
+    </div>
+
+
+    <% if (mensaje) { %>
+
+        <div class="alert alert-success">
+
+            <i class="fas fa-circle-check"></i>
+
+            <%= mensaje %>
+
+        </div>
+
+    <% } %>
+
+
+    <% if (error) { %>
+
+        <div class="alert alert-error">
+
+            <i class="fas fa-triangle-exclamation"></i>
+
+            <%= error %>
+
+        </div>
+
+    <% } %>
+
+
+    <div class="table-container">
+
+        <table class="data-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Nombre</th>
+
+                    <th>Teléfono</th>
+
+                    <th>Correo</th>
+
+                    <th>Acciones</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <%
+                if (
+                    !proveedores ||
+                    proveedores.length === 0
+                ) {
+                %>
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="empty-table"
+                        >
+                            No hay proveedores registrados.
+                        </td>
+
+                    </tr>
+
+                <% } else { %>
+
+
+                    <% proveedores.forEach(proveedor => { %>
+
+                        <tr>
+
+                            <td>
+                                <%= proveedor.ID_PROVEEDOR %>
+                            </td>
+
+
+                            <td>
+
+                                <strong>
+                                    <%= proveedor.NOMBRE %>
+                                </strong>
+
+                            </td>
+
+
+                            <td>
+                                <%= proveedor.TELEFONO || '-' %>
+                            </td>
+
+
+                            <td>
+                                <%= proveedor.CORREO || '-' %>
+                            </td>
+
+
+                            <td>
+
+                                <div class="table-actions">
+
+                                    <a
+                                        href="/proveedores/editar/<%= proveedor.ID_PROVEEDOR %>"
+                                        class="btn-action btn-edit"
+                                    >
+
+                                        <i class="fas fa-pen"></i>
+
+                                        Editar
+
+                                    </a>
+
+
+                                    <form
+                                        action="/proveedores/eliminar/<%= proveedor.ID_PROVEEDOR %>"
+                                        method="POST"
+                                        onsubmit="return confirm('¿Seguro que deseas eliminar este proveedor?');"
+                                    >
+
+                                        <button
+                                            type="submit"
+                                            class="btn-action btn-delete"
+                                        >
+
+                                            <i class="fas fa-trash"></i>
+
+                                            Eliminar
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    <% }); %>
+
+
+                <% } %>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <div style="margin-top: 25px;">
+
+        <a
+            href="/home"
+            class="btn-action btn-edit"
+        >
+
+            <i class="fas fa-arrow-left"></i>
+
+            Volver al Dashboard
+
+        </a>
+
+    </div>
+
+</div>

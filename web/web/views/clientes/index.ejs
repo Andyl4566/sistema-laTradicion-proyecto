@@ -1,0 +1,169 @@
+<div class="dashboard-container">
+
+    <div class="section-heading">
+
+        <div>
+            <p class="section-eyebrow">
+                Administración
+            </p>
+
+            <h1 class="section-title">
+                Clientes
+            </h1>
+
+            <p class="section-description">
+                Consulta y administra los clientes registrados
+                en la base de datos.
+            </p>
+        </div>
+
+        <a
+            href="/clientes/nuevo"
+            class="btn btn-module"
+        >
+            <i class="fas fa-plus"></i>
+            Nuevo Cliente
+        </a>
+
+    </div>
+
+
+    <% if (mensaje) { %>
+
+        <div class="alert alert-success">
+            <i class="fas fa-circle-check"></i>
+            <%= mensaje %>
+        </div>
+
+    <% } %>
+
+
+    <% if (error) { %>
+
+        <div class="alert alert-error">
+            <i class="fas fa-triangle-exclamation"></i>
+            <%= error %>
+        </div>
+
+    <% } %>
+
+
+    <div class="table-container">
+
+        <table class="data-table">
+
+            <thead>
+
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Dirección</th>
+                    <th>Acciones</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <% if (!clientes || clientes.length === 0) { %>
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            class="empty-table"
+                        >
+                            No hay clientes registrados.
+                        </td>
+
+                    </tr>
+
+                <% } else { %>
+
+                    <% clientes.forEach(cliente => { %>
+
+                        <tr>
+
+                            <td>
+                                <%= cliente.ID_CLIENTE %>
+                            </td>
+
+                            <td>
+                                <strong>
+                                    <%= cliente.NOMBRE %>
+                                </strong>
+                            </td>
+
+                            <td>
+                                <%= cliente.TELEFONO || '-' %>
+                            </td>
+
+                            <td>
+                                <%= cliente.CORREO || '-' %>
+                            </td>
+
+                            <td>
+                                <%= cliente.DIRECCION || '-' %>
+                            </td>
+
+                            <td>
+
+                                <div class="table-actions">
+
+                                    <a
+                                        href="/clientes/editar/<%= cliente.ID_CLIENTE %>"
+                                        class="btn-action btn-edit"
+                                    >
+                                        <i class="fas fa-pen"></i>
+                                        Editar
+                                    </a>
+
+
+                                    <form
+                                        action="/clientes/eliminar/<%= cliente.ID_CLIENTE %>"
+                                        method="POST"
+                                        onsubmit="return confirm('¿Seguro que deseas eliminar este cliente?');"
+                                    >
+
+                                        <button
+                                            type="submit"
+                                            class="btn-action btn-delete"
+                                        >
+                                            <i class="fas fa-trash"></i>
+                                            Eliminar
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    <% }); %>
+
+                <% } %>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <div style="margin-top: 25px;">
+
+        <a
+            href="/home"
+            class="btn-action btn-edit"
+        >
+            <i class="fas fa-arrow-left"></i>
+            Volver al Dashboard
+        </a>
+
+    </div>
+
+</div>

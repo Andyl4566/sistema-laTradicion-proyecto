@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title><%= titulo %></title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    >
+
+</head>
+
+<body>
+
+    <div class="page-layout">
+
+        <aside class="sidebar" id="sidebar">
+
+            <div class="sidebar-header">
+
+                <div class="sidebar-logo">
+
+                    <i class="fas fa-seedling"></i>
+
+                    <div class="sidebar-brand-name">
+
+                        <span class="brand-main">
+                            Tortillas & Nachos
+                        </span>
+
+                        <span class="brand-sub">
+                            Sistema Empresarial
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <ul class="sidebar-menu">
+
+                <!-- DASHBOARD -->
+                <li class="sidebar-menu-item">
+
+                    <a
+                        href="/home"
+                        class="sidebar-menu-link active"
+                    >
+
+                        <i class="fas fa-house"></i>
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+
+                <!-- PRODUCTOS -->
+                <li class="sidebar-menu-item">
+
+                    <a
+                        href="/productos"
+                        class="sidebar-menu-link"
+                    >
+
+                        <i class="fas fa-box"></i>
+
+                        Productos
+
+                    </a>
+
+                </li>
+
+
+                <!-- MATERIA PRIMA -->
+                <li class="sidebar-menu-item">
+
+                    <a
+                        href="/materia-prima"
+                        class="sidebar-menu-link"
+                    >
+
+                        <i class="fas fa-wheat-awn"></i>
+
+                        Materia Prima
+
+                    </a>
+
+                </li>
+
+
+                <!-- PROVEEDORES -->
+                <li class="sidebar-menu-item">
+
+                    <a
+                        href="/proveedores"
+                        class="sidebar-menu-link"
+                    >
+
+                        <i class="fas fa-truck"></i>
+
+                        Proveedores
+
+                    </a>
+
+                </li>
+
+
+                <!-- COMPRAS -->
+                <li class="sidebar-menu-item">
+
+                    <a
+                        href="/compras"
+                        class="sidebar-menu-link"
+                    >
+
+                        <i class="fas fa-cart-shopping"></i>
+
+                        Compras
+
+                    </a>
+
+                </li>
+
+
+                <!-- VENTAS -->
+                <li class="sidebar-menu-item">
+
+                    <a
+                        href="/ventas"
+                        class="sidebar-menu-link"
+                    >
+
+                        <i class="fas fa-cash-register"></i>
+
+                        Ventas
+
+                    </a>
+
+                </li>
+
+
+                <!-- CLIENTES -->
+                <li class="sidebar-menu-item">
+
+                    <a
+                        href="/clientes"
+                        class="sidebar-menu-link"
+                    >
+
+                        <i class="fas fa-users"></i>
+
+                        Clientes
+
+                    </a>
+
+                </li>
+
+
+                <!-- EMPLEADOS -->
+                <li class="sidebar-menu-item">
+
+                    <a
+                        href="/empleados"
+                        class="sidebar-menu-link"
+                    >
+
+                        <i class="fas fa-user-tie"></i>
+
+                        Empleados
+
+                    </a>
+
+                </li>
+
+
+                <!-- PRODUCCIÓN -->
+                <li class="sidebar-menu-item">
+
+                    <a
+                        href="/produccion"
+                        class="sidebar-menu-link"
+                    >
+
+                        <i class="fas fa-industry"></i>
+
+                        Producción
+
+                    </a>
+
+                </li>
+
+
+                <!-- GASTOS OPERATIVOS -->
+                <li class="sidebar-menu-item">
+
+                    <a
+                        href="/gastos-operativos"
+                        class="sidebar-menu-link"
+                    >
+
+                        <i class="fas fa-file-invoice-dollar"></i>
+
+                        Gastos Operativos
+
+                    </a>
+
+                </li>
+
+
+                <!-- USUARIOS -->
+                <li class="sidebar-menu-item">
+
+                    <a
+                        href="/usuarios"
+                        class="sidebar-menu-link"
+                    >
+
+                        <i class="fas fa-user-shield"></i>
+
+                        Usuarios
+
+                    </a>
+
+                </li>
+
+
+                <li class="sidebar-menu-divider"></li>
+
+
+                <!-- CERRAR SESIÓN -->
+                <li class="sidebar-menu-item">
+
+                    <a
+                        href="/logout"
+                        class="sidebar-menu-link sidebar-logout"
+                    >
+
+                        <i class="fas fa-right-from-bracket"></i>
+
+                        Cerrar Sesión
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </aside>
+
+
+        <div class="main-wrapper">
+
+            <header class="topbar">
+
+                <div class="topbar-left">
+
+                    <button
+                        class="mobile-menu-button"
+                        id="mobileMenuButton"
+                        type="button"
+                    >
+
+                        <i class="fas fa-bars"></i>
+
+                    </button>
+
+
+                    <div class="topbar-section-title">
+
+                        <i class="fas fa-chart-pie"></i>
+
+                        Dashboard
+
+                    </div>
+
+                </div>
+
+
+                <% if (typeof usuario !== 'undefined' && usuario) { %>
+
+                    <div class="topbar-user-section">
+
+                        <div class="user-avatar">
+
+                            <i class="fas fa-user"></i>
+
+                        </div>
+
+
+                        <div class="user-name">
+
+                            <span class="user-name-main">
+                                <%= usuario.nombreCompleto %>
+                            </span>
+
+                            <span class="user-name-role">
+                                Usuario del sistema
+                            </span>
+
+                        </div>
+
+
+                        <a
+                            href="/logout"
+                            class="logout-link"
+                        >
+
+                            <i class="fas fa-right-from-bracket"></i>
+
+                            Salir
+
+                        </a>
+
+                    </div>
+
+                <% } %>
+
+            </header>
+
+
+            <main class="main-content">
+
+                <%- body %>
+
+            </main>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        const menuButton =
+            document.getElementById('mobileMenuButton');
+
+        const sidebar =
+            document.getElementById('sidebar');
+
+        if (menuButton && sidebar) {
+
+            menuButton.addEventListener(
+                'click',
+                function () {
+
+                    sidebar.classList.toggle(
+                        'sidebar-open'
+                    );
+
+                }
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>

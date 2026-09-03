@@ -1,0 +1,104 @@
+<div class="dashboard-container">
+
+    <div class="section-heading">
+        <div>
+            <p class="section-eyebrow">
+                Administración
+            </p>
+
+            <h1 class="section-title">
+                <%= proveedor ? 'Editar Proveedor' : 'Nuevo Proveedor' %>
+            </h1>
+
+            <p class="section-description">
+                Completa la información del proveedor.
+            </p>
+        </div>
+    </div>
+
+    <% if (error) { %>
+        <div class="alert alert-error">
+            <i class="fas fa-triangle-exclamation"></i>
+            <%= error %>
+        </div>
+    <% } %>
+
+    <div class="form-card">
+
+        <form
+            action="<%= accion %>"
+            method="POST"
+            class="crud-form"
+        >
+
+            <div class="form-group">
+                <label for="nombre">
+                    Nombre del proveedor *
+                </label>
+
+                <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    maxlength="200"
+                    required
+                    placeholder="Ej. Distribuidora La Esperanza"
+                    value="<%= proveedor ? (proveedor.NOMBRE || proveedor.nombre || '') : '' %>"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">
+                    Teléfono
+                </label>
+
+                <input
+                    type="text"
+                    id="telefono"
+                    name="telefono"
+                    maxlength="50"
+                    placeholder="Ej. 5555-5555"
+                    value="<%= proveedor ? (proveedor.TELEFONO || proveedor.telefono || '') : '' %>"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="correo">
+                    Correo electrónico
+                </label>
+
+                <input
+                    type="email"
+                    id="correo"
+                    name="correo"
+                    maxlength="200"
+                    placeholder="proveedor@correo.com"
+                    value="<%= proveedor ? (proveedor.CORREO || proveedor.correo || '') : '' %>"
+                >
+            </div>
+
+            <div class="form-actions">
+
+                <a
+                    href="/proveedores"
+                    class="btn-action btn-delete"
+                >
+                    <i class="fas fa-xmark"></i>
+                    Cancelar
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn btn-module"
+                >
+                    <i class="fas fa-floppy-disk"></i>
+                    <%= textoBoton %>
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

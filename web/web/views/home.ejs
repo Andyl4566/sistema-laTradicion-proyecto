@@ -1,0 +1,341 @@
+<div class="dashboard-container">
+
+    <!-- BIENVENIDA -->
+    <section class="dashboard-header">
+
+        <div class="welcome-section">
+
+            <div class="welcome-icon">
+                <i class="fas fa-seedling"></i>
+            </div>
+
+            <div>
+
+                <p class="welcome-small">
+                    Panel administrativo
+                </p>
+
+                <h1 class="welcome-title">
+                    ¡Bienvenido, <%= usuario.nombreCompleto %>!
+                </h1>
+
+                <p class="welcome-subtitle">
+                    Empresa de Tortillas, Nachos y Harina
+                </p>
+
+                <p class="current-date">
+                    <i class="fas fa-calendar-days"></i>
+                    <%= fechaActual %>
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ESTADÍSTICAS -->
+    <section class="quick-stats">
+
+        <div class="stat-card">
+
+            <div class="stat-icon stat-green">
+                <i class="fas fa-box"></i>
+            </div>
+
+            <div class="stat-info">
+
+                <h3 class="stat-label">
+                    Productos
+                </h3>
+
+                <p class="stat-value">
+                    --
+                </p>
+
+                <span class="stat-description">
+                    Registrados
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon stat-yellow">
+                <i class="fas fa-truck"></i>
+            </div>
+
+            <div class="stat-info">
+
+                <h3 class="stat-label">
+                    Proveedores
+                </h3>
+
+                <p class="stat-value">
+                    --
+                </p>
+
+                <span class="stat-description">
+                    Registrados
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon stat-green-light">
+                <i class="fas fa-cash-register"></i>
+            </div>
+
+            <div class="stat-info">
+
+                <h3 class="stat-label">
+                    Ventas
+                </h3>
+
+                <p class="stat-value">
+                    Q --
+                </p>
+
+                <span class="stat-description">
+                    Total registrado
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon stat-yellow-dark">
+                <i class="fas fa-users"></i>
+            </div>
+
+            <div class="stat-info">
+
+                <h3 class="stat-label">
+                    Clientes
+                </h3>
+
+                <p class="stat-value">
+                    --
+                </p>
+
+                <span class="stat-description">
+                    Registrados
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MÓDULOS -->
+    <section class="modules-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <p class="section-eyebrow">
+                    Administración
+                </p>
+
+                <h2 class="section-title">
+                    Módulos de Gestión
+                </h2>
+
+                <p class="section-description">
+                    Acceso a las principales entidades y procesos
+                    de la base de datos.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="modules-grid">
+
+            <% modulos.forEach(modulo => { %>
+
+                <article class="module-card">
+
+                    <div class="module-icon">
+                        <span>
+                            <%= modulo.icono %>
+                        </span>
+                    </div>
+
+                    <h3 class="module-name">
+                        <%= modulo.nombre %>
+                    </h3>
+
+                    <p class="module-description">
+                        <%= modulo.descripcion %>
+                    </p>
+
+
+                    <% if (modulo.estado === 'en-desarrollo') { %>
+
+                        <div class="module-status">
+
+                            <span class="badge badge-warning">
+
+                                <i class="fas fa-clock"></i>
+
+                                En desarrollo
+
+                            </span>
+
+                        </div>
+
+                    <% } else { %>
+
+                        <a
+                            href="<%= modulo.ruta %>"
+                            class="btn btn-module"
+                        >
+
+                            Ver módulo
+
+                            <i class="fas fa-arrow-right"></i>
+
+                        </a>
+
+                    <% } %>
+
+                </article>
+
+            <% }); %>
+
+        </div>
+
+    </section>
+
+
+    <!-- INFORMACIÓN -->
+    <section class="info-section">
+
+        <article class="info-card">
+
+            <div class="info-card-icon">
+                <i class="fas fa-circle-info"></i>
+            </div>
+
+            <div class="info-card-content">
+
+                <h3 class="info-title">
+                    Información del Sistema
+                </h3>
+
+                <ul class="info-list">
+
+                    <li>
+                        <strong>Usuario:</strong>
+
+                        <span>
+                            <%= usuario.nombreUsuario %>
+                        </span>
+                    </li>
+
+                    <li>
+                        <strong>Email:</strong>
+
+                        <span>
+                            <%= usuario.email %>
+                        </span>
+                    </li>
+
+                    <li>
+                        <strong>Versión:</strong>
+
+                        <span>
+                            1.0 - Entrega 2
+                        </span>
+                    </li>
+
+                    <li>
+                        <strong>Estado:</strong>
+
+                        <span class="system-online">
+
+                            <i class="fas fa-circle"></i>
+
+                            Activo
+
+                        </span>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </article>
+
+
+        <article class="info-card">
+
+            <div class="info-card-icon info-card-icon-yellow">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+
+            <div class="info-card-content">
+
+                <h3 class="info-title">
+                    Guía Rápida
+                </h3>
+
+                <ul class="info-list guide-list">
+
+                    <li>
+                        <i class="fas fa-check"></i>
+                        Los módulos corresponden a las entidades
+                        principales de la base de datos.
+                    </li>
+
+                    <li>
+                        <i class="fas fa-check"></i>
+                        Utiliza el menú lateral para navegar.
+                    </li>
+
+                    <li>
+                        <i class="fas fa-check"></i>
+                        Los módulos CRUD se habilitarán progresivamente.
+                    </li>
+
+                    <li>
+                        <i class="fas fa-check"></i>
+                        Usa "Cerrar sesión" cuando termines.
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </article>
+
+    </section>
+
+
+    <!-- PIE DEL DASHBOARD -->
+    <div class="dashboard-footer">
+
+        <i class="fas fa-seedling"></i>
+
+        Sistema de Gestión Empresarial ·
+        Tortillas, Nachos y Harina
+
+    </div>
+
+</div>
