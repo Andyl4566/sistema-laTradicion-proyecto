@@ -174,3 +174,51 @@ Responsable: Ian
 
 
 
+
+Responsable: Andy
+
+### 3. Bitácora de Uso de IA (`/docs/bitacora-ia/dev2_sql_ddl.md`)
+
+```markdown
+# Bitácora de Desarrollo e Implementación IA: Entrega 2 (Scripts DDL)
+
+- **Fecha**: 30 de Agosto de 2026
+- **Rol**: Ingeniero de Base de Datos Senior
+- **Módulo**: Refactorización e Implementación de Scripts DDL SQL
+
+---
+
+## 1. Prompt Utilizado
+Se utilizó una indicación técnica solicitando la conversión directa del Modelo Relacional / DDL exportado por Oracle Data Modeler hacia scripts normalizados que cumplieran con las normas de calidad:
+- Transformación completa a `snake_case`.
+- Corrección de errores de longitud de restricciones FK (> 30 caracteres) detectados en el log del generador.
+- Separación modular de scripts DDL.
+- Incorporación de reglas de negocio en la capa de datos (`CHECK` constraints).
+
+---
+
+## 2. Ajustes y Decisiones de Diseño Tomadas
+
+1. **Corrección del Error de Longitud de Nombres FK**:
+   - *Problema*: El modelo original contenía un total de 12 errores por nombres de FK que superaban el límite máximo de 30 caracteres en Oracle Database[cite: 2] (ej. `MATERIAprima_PRODUCCION_MATERIA_PRIMA_FK`[cite: 2]).
+   - *Solución*: Se renombraron explícitamente todas las restricciones FK siguiendo el patrón corto `fk_<tabla1>_<tabla2_abrev>` (ej. `fk_matprod_mat`).
+
+2. **Estandarización de Nomenclatura (`snake_case`)**:
+   - *Problema*: Convenciones mixtas como `MATERIAprima_PRODUCCION`[cite: 1, 2], `FECHA_COMPRA`[cite: 1, 2], y `ID_Produccion`[cite: 1, 2].
+   - *Solución*: Se convirtieron todas las entidades, columnas y restricciones a minúsculas en formato `snake_case` pura (ej. `materia_prima_produccion`, `fecha_compra`, `id_produccion`).
+
+3. **Corrección de Tablas Pivote / Asociativas Sin Clave Primaria**:
+   - *Problema*: Tablas intermedia como `detalle_compra`, `producto_venta`, entre otras, no contaban con clave primaria asignada[cite: 2].
+   - *Solución*: Se definieron explícitamente Claves Primarias Compuestas integradas por las claves foráneas correspondientes.
+
+4. **Incorporación de Reglas de Negocio en Capa de Datos**:
+   - Se agregaron restricciones de validación `CHECK` para garantizar que montos, precios, salarios y stock no permitan valores negativos ni montos cero inconsistentes[cite: 2].
+   - Se aplicó restricción `UNIQUE` en el DPI de empleados y correos de clientes.
+
+---
+
+## 3. Validación de Sintaxis
+
+- **Sintaxis Evaluada**: Oracle SQL DDL Standard (11g/18c/19c/21c).
+- **Herramientas de Validación**: Parseo SQL y verificación estática de integridad de referencias.
+- **Resultado**: 100% ejecutable, sin advertencias ni conflictos de restricciones.
