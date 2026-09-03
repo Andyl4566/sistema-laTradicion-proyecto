@@ -420,3 +420,17 @@ Validación del grupo:
 Validado por todos los integrantes.
 Responsable: Ari Ben
 
+#Registro 4
+Fecha: 02/09/2026
+Herramienta: ChatGPT
+Objetivo: Revisión general del proyecto backend y reconstrucción del contexto técnico de la Entrega 2.
+Prompt utilizado:
+"Lee mi proyecto nuevamente y revisa cómo está organizado el backend, la autenticación, las rutas, los controladores, los modelos y las vistas."
+Resultado obtenido:
+Se revisó la estructura de la aplicación web desarrollada con Node.js, Express y EJS, junto con la configuración de conexión a MySQL. Se confirmó la separación por capas entre configuración, modelos, controladores, rutas y vistas. También se verificó que el punto de entrada registre los middlewares, las rutas, los archivos estáticos y el manejo global de errores.
+La revisión permitió actualizar el contexto de trabajo antes de continuar con la documentación y la validación de la Entrega 2.
+Validación del grupo:
+El grupo deberá confirmar que la estructura documentada coincida con los archivos existentes en la carpeta web y con la arquitectura por capas definida para el proyecto.
+Estándares aplicados:
+A1 (Arquitectura por capas), A2 (Manejo de errores), A6 (Documentación), D1 (Redacción clara), D4 (Trazabilidad entre diseño e implementación), S8 (Validación de contenido generado o modificado con IA).
+Responsable: Ari Ben
