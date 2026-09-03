@@ -235,8 +235,89 @@ Validación del grupo:
 
 El grupo deberá ejecutar los scripts directamente en el SGBD correspondiente y comprobar que las tablas, relaciones y restricciones se creen correctamente. Cualquier error encontrado durante la ejecución deberá ser corregido y validado antes de realizar el commit definitivo.
 
+
+
 Estándares aplicados:
 
 S4 (Integridad referencial), S8 (Validación de SQL generado o revisado con IA), D4 (Trazabilidad entre diseño e implementación).
 
 Responsable: Andy
+
+#registro de agentes de IA usados para desarrollo web
+
+##Registro 1
+Fecha: 02/09/2026
+Herramienta: ChatGPT
+Objetivo: desarrollo backend de la pagina web
+Prompt utilizado:
+  "Así lo había hecho. ¿Me pasas el documento en Word así como el que te mandé solo con las modificaciones, por favor?"
+Resultado obtenido:
+Actúa como un Desarrollador Backend Senior especialista en arquitectura web cliente-servidor. Necesito que configures la estructura base de nuestra aplicación web para la "Entrega 2" del proyecto de la Empresa de Tortillas, Nachos y Harina.
+
+# CONTEXTO DEL PROYECTO
+- Aplicación web con arquitectura por capas (A1) conectada a la base de datos relacional.
+- IMPORTANTE: La conexión DEBE ser configurable mediante variables de entorno (.env) para soportar entornos Cliente-Servidor reales (red local o servidor remoto), NO SOLO localhost.
+
+# ESTRUCTURA DE CARPETAS OBLIGATORIA
+Genera el código y los archivos organizados exactamente dentro de la siguiente jerarquía:
+
+nombre-proyecto/
+├── .env.example
+├── web/
+│   ├── config/          # Archivos de conexión a la BD y variables de entorno
+│   ├── controllers/     # Lógica de negocio (authController, etc.)
+│   ├── models/          # Consultas SQL parametrizadas a la BD
+│   ├── routes/          # Rutas de la aplicación (authRoutes, homeRoutes)
+│   ├── views/           # Plantillas/HTML (Layout base, Login, Home)
+│   ├── public/          # Archivos estáticos (CSS, JS cliente, imágenes)
+│   └── app.js           # Punto de entrada del servidor web
+└── docs/
+    └── entrega-2/
+        ├── AVANCE_WEB.md
+        └── bitacora-ia/
+            └── BITACORA_DEV3.md
+
+# TAREAS A REALIZAR
+
+1. ARCHIVO DE CONFIGURACIÓN Y ENTORNOS:
+   - Crea el archivo .env.example en la raíz con el siguiente formato:
+     PORT=3000
+     DB_HOST=127.0.0.1  # Comentario: Cambiar por la IP del servidor en red local o producción
+     DB_PORT=1521
+     DB_NAME=BDTradicion
+     DB_USER=SYSTEM
+     DB_PASSWORD=tu_contraseña
+   - En web/config/, implementa el módulo de conexión a la base de datos leyendo dinámicamente estas variables de entorno. Usa consultas parametrizadas (A4) para evitar inyecciones SQL.
+
+2. ESTRUCTURA DE CAPAS Y LAYOUT BASE:
+   - Diseña en web/views/ un Layout base reutilizable (Header, Navbar con enlaces principales, contenedor de contenido y Footer) adaptado a la Empresa de Tortillas, Nachos y Harina.
+
+3. MÓDULO DE AUTENTICACIÓN (LOGIN) Y PÁGINA DE INICIO (HOME):
+   - Implementa la vista y controlador de Login funcional conectándolo a la tabla de usuarios.
+   - Aplica un manejo limpio de errores (A2): Si la BD falla o las credenciales son incorrectas, muestra un mensaje amigable sin exponer trazas de SQL.
+   - Diseña la página de Inicio (Home/Dashboard) a la cual el usuario es redirigido tras iniciar sesión exitosamente. Esta página debe incluir la bienvenida al usuario y accesos directos vacíos/plantillas preparados para los módulos CRUD del Desarrollador 4.
+
+4. INSTRUCCIONES DE DESPLIEGUE EN RED:
+   - Agrega comentarios en el código explicando brevemente cómo ajustar el archivo .env para que el cliente (servidor web) pueda comunicarse con la base de datos si esta se encuentra alojada en otro host/IP de la red.
+
+# RESTRICCIONES Y ESTÁNDARES
+- Aplica sintaxis limpia y documenta funciones clave mediante comentarios (A6).
+- No dejes credenciales en duro en ningún archivo del código fuente.
+- Garantiza que la estructura sea escalable para que el Desarrollador 4 pueda integrarle sus 2 módulos CRUD fácilmente.
+
+Validación del grupo:
+Validado por todos los integrantes.
+Estándares aplicados:
+Se ha entregado un **sistema web profesional y escalable** que:
+
+✅ Cumple todos los requerimientos especificados  
+✅ Implementa todas las normas de arquitectura (A1, A2, A4, A6)  
+✅ Está listo para producción  
+✅ Es seguro y bien documentado  
+✅ Es fácil de mantener y extender  
+✅ Preparado para integración de módulos CRUD  
+
+**La aplicación está completamente funcional y lista para ser utilizada.**
+ S4 (Integridad referencial), S8 (Validación de contenido generado o modificado con IA).
+Responsable: Ari Ben 
+
