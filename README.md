@@ -12,6 +12,6 @@ Angelo Gabriel Machá Mota
 carnet: 2690-24-22602
 
 # SGBD
-Oracle Database
+MySQL Data Base
 # Herramienta CASE
 Oracle Data Modeler
