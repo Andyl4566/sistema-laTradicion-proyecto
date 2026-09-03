@@ -434,3 +434,18 @@ El grupo deberá confirmar que la estructura documentada coincida con los archiv
 Estándares aplicados:
 A1 (Arquitectura por capas), A2 (Manejo de errores), A6 (Documentación), D1 (Redacción clara), D4 (Trazabilidad entre diseño e implementación), S8 (Validación de contenido generado o modificado con IA).
 Responsable: Ari Ben
+
+#Registro5
+Fecha: 02/09/2026
+Herramienta: ChatGPT
+Objetivo: Revisión del flujo de autenticación y protección de rutas.
+Prompt utilizado:
+"Revisa el login del proyecto y documenta cómo se validan las credenciales, cómo se crea la sesión y cómo se protegen las rutas privadas."
+Resultado obtenido:
+Se revisaron authController.js, userModel.js y authRoutes.js. Se documentó la validación de campos, la búsqueda parametrizada del usuario, la comparación de contraseñas mediante bcryptjs, la creación de req.session.usuario y la redirección al módulo principal. También se confirmó el uso del middleware verificarAutenticacion para impedir el acceso no autenticado a las rutas protegidas.
+Se dejó registrado que los mensajes de error deben mantenerse genéricos para no revelar si un usuario existe o qué parte de las credenciales falló.
+Validación del grupo:
+El grupo deberá probar un inicio de sesión correcto, credenciales incorrectas, acceso directo a una ruta protegida sin sesión y cierre de sesión. Además, deberá verificar que las contraseñas almacenadas estén protegidas mediante hash.
+Estándares aplicados:
+A2 (Manejo de errores), A4 (Consultas parametrizadas), S2 (Protección de credenciales), S5 (Control de acceso), S8 (Validación de contenido generado o modificado con IA).
+Responsable: Ari Ben
