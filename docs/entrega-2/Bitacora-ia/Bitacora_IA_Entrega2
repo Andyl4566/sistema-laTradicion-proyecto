@@ -175,50 +175,68 @@ Responsable: Ian
 
 
 
+# Bitácora de Uso de Agentes de Inteligencia Artificial
+
+Proyecto: Sistema de Base de Datos - Empresa de Tortillas, Nachos y Harina
+Entrega: Entrega 2 (Diseño lógico, diccionario e implementación)
+
+## Registro 1
+
+Fecha: 30/08/2026
+Herramienta: chatgpt
+Objetivo: Refactorización e implementación de los scripts DDL del proyecto, adaptando el Modelo Relacional y el DDL exportado desde Oracle para cumplir con los estándares de nomenclatura, integridad y calidad establecidos para la Entrega 2.
+
+Prompt utilizado:
+
+> "Convertir y refactorizar el Modelo Relacional y el DDL exportado por Oracle Data Modeler en scripts SQL normalizados, aplicando nomenclatura snake_case, corrigiendo los nombres de restricciones de claves foráneas que superen el límite permitido, separando los scripts DDL de manera modular e incorporando las reglas de negocio mediante restricciones CHECK."
+
+Resultado obtenido:
+
+Se realizó la refactorización de los scripts DDL, aplicando diferentes ajustes para mejorar su compatibilidad, organización y cumplimiento de los estándares del proyecto.
+
+Entre los principales cambios realizados se encuentran:
+
+* Corrección de los nombres de las restricciones de claves foráneas que superaban el límite de longitud permitido por Oracle Database.
+* Estandarización de tablas, columnas y restricciones utilizando nomenclatura `snake_case` en minúsculas.
+* Renombramiento de las restricciones FK mediante nombres más cortos y descriptivos, siguiendo un patrón como `fk_<tabla1>_<tabla2_abrev>`.
+* Corrección de tablas intermedias o asociativas que no contaban con una clave primaria.
+* Incorporación de claves primarias compuestas en las tablas asociativas correspondientes.
+* Incorporación de restricciones `CHECK` para validar valores como precios, montos, salarios y existencias.
+* Incorporación de restricciones `UNIQUE` para evitar valores duplicados en campos como el DPI de empleados y los correos electrónicos de clientes.
+* Separación de los scripts DDL de acuerdo con su propósito para facilitar su organización y mantenimiento.
+
+Validación del grupo:
+
+El grupo deberá revisar que los cambios realizados mantengan la estructura y lógica del modelo relacional aprobado. También deberá verificar que las claves primarias, claves foráneas, restricciones y reglas de negocio correspondan con los requerimientos establecidos para la Entrega 2 antes de utilizar los scripts como versión definitiva.
+
+Estándares aplicados:
+
+S1 (Nomenclatura `snake_case` uniforme), S2 (Un script, un propósito), S4 (Integridad referencial), S7 (Validación y consistencia de datos), S8 (Validación de contenido generado o modificado con IA), R1 (Estructura y organización de scripts DDL).
+
 Responsable: Andy
 
-### 3. Bitácora de Uso de IA (`/docs/bitacora-ia/dev2_sql_ddl.md`)
+## Registro 2
 
-```markdown
-# Bitácora de Desarrollo e Implementación IA: Entrega 2 (Scripts DDL)
+Fecha: 30/08/2026
+Herramienta:chatgpt
+Objetivo: Validación de la sintaxis y estructura de los scripts DDL desarrollados para la base de datos del proyecto.
 
-- **Fecha**: 30 de Agosto de 2026
-- **Rol**: Ingeniero de Base de Datos Senior
-- **Módulo**: Refactorización e Implementación de Scripts DDL SQL
+Prompt utilizado:
 
----
+> "Revisar la sintaxis de los scripts DDL y verificar que las claves primarias, claves foráneas y demás restricciones estén correctamente definidas y no generen conflictos."
 
-## 1. Prompt Utilizado
-Se utilizó una indicación técnica solicitando la conversión directa del Modelo Relacional / DDL exportado por Oracle Data Modeler hacia scripts normalizados que cumplieran con las normas de calidad:
-- Transformación completa a `snake_case`.
-- Corrección de errores de longitud de restricciones FK (> 30 caracteres) detectados en el log del generador.
-- Separación modular de scripts DDL.
-- Incorporación de reglas de negocio en la capa de datos (`CHECK` constraints).
+Resultado obtenido:
 
----
+Se realizó una revisión de la sintaxis SQL utilizada en los scripts DDL, verificando principalmente la definición de tablas, claves primarias, claves foráneas y restricciones de integridad.
 
-## 2. Ajustes y Decisiones de Diseño Tomadas
+La revisión se enfocó en la compatibilidad con Oracle SQL DDL y en la correcta referencia entre las diferentes tablas del modelo.
 
-1. **Corrección del Error de Longitud de Nombres FK**:
-   - *Problema*: El modelo original contenía un total de 12 errores por nombres de FK que superaban el límite máximo de 30 caracteres en Oracle Database[cite: 2] (ej. `MATERIAprima_PRODUCCION_MATERIA_PRIMA_FK`[cite: 2]).
-   - *Solución*: Se renombraron explícitamente todas las restricciones FK siguiendo el patrón corto `fk_<tabla1>_<tabla2_abrev>` (ej. `fk_matprod_mat`).
+Validación del grupo:
 
-2. **Estandarización de Nomenclatura (`snake_case`)**:
-   - *Problema*: Convenciones mixtas como `MATERIAprima_PRODUCCION`[cite: 1, 2], `FECHA_COMPRA`[cite: 1, 2], y `ID_Produccion`[cite: 1, 2].
-   - *Solución*: Se convirtieron todas las entidades, columnas y restricciones a minúsculas en formato `snake_case` pura (ej. `materia_prima_produccion`, `fecha_compra`, `id_produccion`).
+El grupo deberá ejecutar los scripts directamente en el SGBD correspondiente y comprobar que las tablas, relaciones y restricciones se creen correctamente. Cualquier error encontrado durante la ejecución deberá ser corregido y validado antes de realizar el commit definitivo.
 
-3. **Corrección de Tablas Pivote / Asociativas Sin Clave Primaria**:
-   - *Problema*: Tablas intermedia como `detalle_compra`, `producto_venta`, entre otras, no contaban con clave primaria asignada[cite: 2].
-   - *Solución*: Se definieron explícitamente Claves Primarias Compuestas integradas por las claves foráneas correspondientes.
+Estándares aplicados:
 
-4. **Incorporación de Reglas de Negocio en Capa de Datos**:
-   - Se agregaron restricciones de validación `CHECK` para garantizar que montos, precios, salarios y stock no permitan valores negativos ni montos cero inconsistentes[cite: 2].
-   - Se aplicó restricción `UNIQUE` en el DPI de empleados y correos de clientes.
+S4 (Integridad referencial), S8 (Validación de SQL generado o revisado con IA), D4 (Trazabilidad entre diseño e implementación).
 
----
-
-## 3. Validación de Sintaxis
-
-- **Sintaxis Evaluada**: Oracle SQL DDL Standard (11g/18c/19c/21c).
-- **Herramientas de Validación**: Parseo SQL y verificación estática de integridad de referencias.
-- **Resultado**: 100% ejecutable, sin advertencias ni conflictos de restricciones.
+Responsable: Andy
