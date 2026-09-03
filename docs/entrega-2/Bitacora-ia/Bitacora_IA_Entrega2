@@ -321,3 +321,63 @@ Se ha entregado un **sistema web profesional y escalable** que:
  S4 (Integridad referencial), S8 (Validación de contenido generado o modificado con IA).
 Responsable: Ari Ben 
 
+
+
+#Registro 2
+Fecha: 02/09/2026
+Herramienta: ChatGPT
+Objetivo: desarrollo backend de la pagina web, conectar con base de datos
+### Módulo 1: Configuración y Variables de Entorno
+
+**Archivo:** `.env.example`
+
+**Decisión:** Usar dotenv para cargar variables en tiempo de ejecución
+- ✅ Permite múltiples entornos sin cambiar código
+- ✅ Credenciales NO en repositorio
+- ✅ Facilita despliegue en red
+
+**Variables incluidas:**
+```
+PORT=3000                    # Configurable
+DB_HOST=localhost            # Dirección del servidor BD
+DB_PORT=1521                 # Puerto BD
+DB_NAME=BDTradicion          # Nombre BD
+DB_USER=SYSTEM               # Usuario
+DB_PASSWORD=admin123         # Contraseña
+SESSION_SECRET=...           # Clave de sesión
+```
+
+---
+
+### Módulo 2: Capa de Configuración
+
+**Archivo:** `web/config/envConfig.js`
+
+**Responsabilidad:** Centralizar lectura de variables de entorno
+
+**Implementación:**
+```javascript
+// Lectura y validación de config
+const config = {
+  port: process.env.PORT || 3000,
+  database: {
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD
+  },
+  validate: function() { /* ... */ }
+};
+```
+
+**Ventajas:**
+- Punto único de configuración
+- Validación centralizada
+- Fácil de extender
+
+---.
+Validación del grupo:
+Validado por todos los integrantes.
+Responsable: Ari Ben 
+
