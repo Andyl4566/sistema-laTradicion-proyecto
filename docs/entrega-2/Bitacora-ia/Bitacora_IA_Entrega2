@@ -250,10 +250,7 @@ Fecha: 02/09/2026
 Herramienta: ChatGPT
 Objetivo: desarrollo backend de la pagina web
 Prompt utilizado:
-  "Así lo había hecho. ¿Me pasas el documento en Word así como el que te mandé solo con las modificaciones, por favor?"
-Resultado obtenido:
 Actúa como un Desarrollador Backend Senior especialista en arquitectura web cliente-servidor. Necesito que configures la estructura base de nuestra aplicación web para la "Entrega 2" del proyecto de la Empresa de Tortillas, Nachos y Harina.
-
 # CONTEXTO DEL PROYECTO
 - Aplicación web con arquitectura por capas (A1) conectada a la base de datos relacional.
 - IMPORTANTE: La conexión DEBE ser configurable mediante variables de entorno (.env) para soportar entornos Cliente-Servidor reales (red local o servidor remoto), NO SOLO localhost.
@@ -308,6 +305,8 @@ nombre-proyecto/
 Validación del grupo:
 Validado por todos los integrantes.
 Estándares aplicados:
+ S4 (Integridad referencial), S8 (Validación de contenido generado o modificado con IA).
+Resultado obtenido:
 Se ha entregado un **sistema web profesional y escalable** que:
 
 ✅ Cumple todos los requerimientos especificados  
@@ -316,9 +315,7 @@ Se ha entregado un **sistema web profesional y escalable** que:
 ✅ Es seguro y bien documentado  
 ✅ Es fácil de mantener y extender  
 ✅ Preparado para integración de módulos CRUD  
-
 **La aplicación está completamente funcional y lista para ser utilizada.**
- S4 (Integridad referencial), S8 (Validación de contenido generado o modificado con IA).
 Responsable: Ari Ben 
 
 
@@ -380,4 +377,46 @@ const config = {
 Validación del grupo:
 Validado por todos los integrantes.
 Responsable: Ari Ben 
+
+
+#Registro 3
+Fecha: 02/09/2026
+Herramienta: ChatGPT
+Objetivo: desarrollo backend de la pagina web, control y seguridad
+Prompt utilizado: "Mejora la validacion de datos al ser ingresados en los espacios correspondientes"
+### Módulo 5: Controlador de Autenticación
+
+**Archivo:** `web/controllers/authController.js`
+
+**Flujo de Login:**
+
+```
+Usuario ingresa credenciales
+        ↓
+[Validación] ¿Campos completos?
+        ↓ NO → Mostrar error
+        ↓ SÍ
+[Consulta] Buscar usuario (parametrizada)
+        ↓
+[Verificar] ¿Usuario existe?
+        ↓ NO → Error genérico (A2)
+        ↓ SÍ
+[Comparar] bcrypt.compare(input, hash)
+        ↓
+[Sesión] Crear req.session.usuario
+        ↓
+[Redirect] → /home
+```
+Estándares aplicados:
+ S4 (Integridad referencial), S8 (Validación de contenido generado o modificado con IA).
+Resultado obtenido:
+**Seguridad Implementada:**
+1. Validación de entrada
+2. Consultas parametrizadas
+3. Comparación de hashes (bcrypt)
+4. Mensajes de error genéricos
+5. Sesiones HTTP-only
+Validación del grupo:
+Validado por todos los integrantes.
+Responsable: Ari Ben
 
