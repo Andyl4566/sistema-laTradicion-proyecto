@@ -1,1 +1,35 @@
+# Certificación de Calidad Entrega 3
 
+# Proyecto
+
+Sistema de Gestión "La Tradición"
+
+# Entrega
+
+Los integrantes del grupo certificaron que han revisado
+los aspectos que corresponden a la Entrega 3 de acuerdo con lo requerido.
+
+- BD: DML, vistas, triggers, procedimientos almacenados y seguridad.
+- Pruebas: ejecución y validación de los 8 casos de prueba.
+- Web 70%: módulos principales implementados y funcionales.
+- Control de acceso por roles: Administrador, Ventas y Producción.
+- Validación de permisos y protección de rutas.
+- Documentación correspondiente a la Entrega 3 actualizada.
+
+# Integrantes
+
+Nombre: Ian Paolo Navarijo Morfin
+Carnet: 2690-24-8137
+Firma: Verificado
+
+Nombre: Andy Mynor Pérez López
+Carnet: 2690-24-23562
+Firma: 
+
+Nombre: Ari Ben David García Claros
+Carnet: 2690-24-25277
+Firma: 
+
+Nombre: Angelo Gabriel Machá Mota
+Carnet: 2690-24-22602
+Firma: 
