@@ -1,1 +1,247 @@
+Bitacora IA entrega 3
+Registro 1
+
+Fecha: 15/09/2026
+Herramienta: ChatGPT
+Objetivo: Analizar las responsabilidades correspondientes al Desarrollador 1 para la Entrega 3 y determinar el orden de implementación de la lógica avanzada de base de datos.
+
+Prompt utilizado:
+
+"Esto es lo que tengo, soy el desarrollador 1. Dime qué es lo que me corresponde justo ahora con respecto a los lineamientos del proyecto o algo que haya que hacer antes de empezar mi labor como desarrollador 1 de la Entrega 3."
+
+Resultado obtenido:
+Se identificaron como responsabilidades principales del Desarrollador 1 la creación de vistas SQL, mínimo 2 triggers, mínimo 2 procedimientos almacenados y la revisión de calidad de los scripts SQL. Se estableció un orden de trabajo para revisar primero la estructura existente de la base de datos y posteriormente implementar la lógica avanzada.
+
+Validación del grupo:
+Se verificó que las actividades identificadas correspondieran con la distribución de responsabilidades establecida para la Entrega 3 y que no se duplicaran las tareas asignadas a los demás desarrolladores.
+
+Estándares aplicados:
+Lineamientos de la Entrega 3 relacionados con lógica avanzada de BD y revisión de calidad SQL conforme a los estándares S1-S8 establecidos por el proyecto.
+
+Responsable: Ian
+
+Registro 2
+
+Fecha: 15/09/2026
+Herramienta: ChatGPT
+Objetivo: Revisar y preparar la estructura de las tablas necesarias para implementar la lógica de ventas y producción.
+
+Prompt utilizado:
+
+"Ya hice el paso 1 y 2 y son correctos, ahora vamos al paso 3. Dame los códigos solo para copiar y pegar."
+
+Resultado obtenido:
+Se revisó la estructura existente de la base bd_tradicion y se identificó la necesidad de incorporar atributos adicionales para soportar correctamente las operaciones transaccionales. Se agregaron cantidad y precio_unitario a producto_venta, así como cantidad_producida a detalle_fabricacion, incluyendo restricciones para impedir cantidades inválidas.
+
+Validación del grupo:
+Los cambios fueron ejecutados en MySQL Workbench y posteriormente comprobados mediante DESCRIBE y SHOW CREATE TABLE, verificando que las nuevas columnas y restricciones se encontraran correctamente creadas.
+
+Estándares aplicados:
+Integridad de datos mediante restricciones CHECK, utilización de nomenclatura snake_case y adecuación del modelo para soportar la lógica de ventas y producción.
+
+Responsable: Ian
+
+Registro 3
+
+Fecha: 15/09/2026
+Herramienta: ChatGPT
+Objetivo: Diseñar e implementar vistas SQL para facilitar la consulta de ventas e inventario sin almacenar información calculable de forma redundante.
+
+Prompt utilizado:
+
+"Vamos con las vistas."
+
+Resultado obtenido:
+Se diseñaron e implementaron las vistas vw_ventas_detalladas y vw_inventario_productos. La primera integra información de venta, cliente, empleado, producto, cantidad, precio, subtotal y total. La segunda presenta el inventario actual de productos y un estado calculado del stock.
+
+Validación del grupo:
+Se verificó la existencia de ambas vistas mediante SHOW FULL TABLES WHERE TABLE_TYPE = 'VIEW' y posteriormente mediante consultas SELECT. Una vez insertados datos de prueba, vw_ventas_detalladas mostró correctamente la venta realizada y vw_inventario_productos reflejó correctamente las existencias. La documentación también registra ambas vistas y sus reglas de negocio.
+
+Estándares aplicados:
+Uso de prefijo vw_, nomenclatura snake_case, consultas mediante JOIN y cálculo de información derivada sin almacenamiento redundante.
+
+Responsable: Ian
+
+Registro 4
+
+Fecha: 15/09/2026
+Herramienta: ChatGPT
+Objetivo: Implementar triggers para validar automáticamente la disponibilidad de productos y actualizar el inventario durante una venta.
+
+Prompt utilizado:
+
+"Ahora vamos con los triggers."
+
+Resultado obtenido:
+Se desarrollaron dos triggers sobre la tabla producto_venta: trg_validar_stock_venta, encargado de impedir ventas cuya cantidad solicitada sea superior al inventario disponible, y trg_descontar_stock_venta, encargado de disminuir automáticamente las existencias después de registrar correctamente el detalle de una venta.
+
+Validación del grupo:
+La existencia de ambos triggers fue comprobada mediante SHOW TRIGGERS FROM bd_tradicion. La documentación de la Entrega 3 describe las reglas implementadas por ambos triggers.
+
+Estándares aplicados:
+Prefijo trg_, nomenclatura snake_case, validación de reglas de negocio a nivel de BD y automatización del control de inventario.
+
+Responsable: Ian
+
+Registro 5
+
+Fecha: 15/09/2026
+Herramienta: ChatGPT
+Objetivo: Diseñar y ejecutar pruebas funcionales para comprobar el comportamiento de los triggers de control de inventario.
+
+Prompt utilizado:
+
+"Me adelanté e hice estos inserts."
+
+Resultado obtenido:
+Se utilizaron datos controlados de cliente, empleado, producto y venta para probar los triggers. Con un stock inicial de 20 unidades se registró una venta de 5 unidades, obteniendo correctamente un stock final de 15. Posteriormente se intentó registrar una venta de 16 unidades cuando únicamente existían 15, provocando el error esperado de stock insuficiente.
+
+Validación del grupo:
+Se verificó que la primera operación fuera registrada correctamente en vw_ventas_detalladas. En la prueba de stock insuficiente se comprobó que el inventario permaneciera en 15 unidades y que el registro rechazado no fuera insertado en producto_venta. Estas evidencias quedaron documentadas en el informe.
+
+Estándares aplicados:
+Validación de reglas de negocio, integridad de inventario, manejo de excepciones mediante SIGNAL SQLSTATE y generación de evidencia de pruebas.
+
+Responsable: Ian
+
+Registro 6
+
+Fecha: 15/09/2026
+Herramienta: ChatGPT
+Objetivo: Diseñar e implementar el procedimiento almacenado encargado de registrar una venta e integrarlo con los triggers existentes.
+
+Prompt utilizado:
+
+"Ahora sí podemos hacer los procedimientos. Quiero que funcione con la estructura real de mis tablas."
+
+Resultado obtenido:
+Se desarrolló sp_registrar_venta, procedimiento que valida cliente, empleado y cantidad, calcula el total de la venta, registra la información en venta y posteriormente inserta el detalle en producto_venta. Se incorporó una transacción y un manejador de excepciones con ROLLBACK para evitar operaciones incompletas.
+
+Validación del grupo:
+El procedimiento fue comprobado mediante SHOW PROCEDURE STATUS y ejecutado mediante CALL sp_registrar_venta(...). La prueba registró correctamente una venta de 3 unidades a Q15.00, totalizando Q45.00. Posteriormente se verificó la venta mediante vw_ventas_detalladas y se confirmó que el inventario disminuyó de 15 a 12 unidades.
+
+Estándares aplicados:
+Prefijo sp_, nomenclatura snake_case, transacciones, COMMIT, ROLLBACK, validación de parámetros e integración entre procedimientos y triggers.
+
+Responsable: Ian
+
+Registro 7
+
+Fecha: 15/09/2026
+Herramienta: ChatGPT
+Objetivo: Analizar las tablas relacionadas con producción y preparar los datos necesarios para implementar el segundo procedimiento almacenado.
+
+Prompt utilizado:
+
+"Tengo una duda, ahorita son datos ficticios pero una vez ya tenga la información necesaria sobre esto, ¿no afecta negativamente?"
+
+Resultado obtenido:
+Se determinó que los datos ficticios podían utilizarse como datos controlados de prueba sin afectar la estructura ni la lógica definitiva del sistema. Se recomendó mantener las cantidades de las recetas en materia_prima_producto y evitar incorporar cantidades específicas directamente en el código del procedimiento. Se utilizaron Harina de maíz, Aceite y Sal como materias primas de prueba asociadas al producto Nachos barbacoa.
+
+Validación del grupo:
+Se verificaron los registros mediante consultas a materia_prima y materia_prima_producto, comprobando que las materias primas y las cantidades requeridas por producto se encontraran correctamente relacionadas.
+
+Estándares aplicados:
+Separación entre datos y lógica de negocio, reutilización de procedimientos, relaciones mediante claves y utilización de datos controlados para pruebas.
+
+Responsable: Ian
+
+Registro 8
+
+Fecha: 15/09/2026
+Herramienta: ChatGPT
+Objetivo: Diseñar e implementar el procedimiento almacenado para registrar procesos de producción y actualizar automáticamente materia prima e inventario de producto terminado.
+
+Prompt utilizado:
+
+"Ok, hagamos ahorita lo que corresponde y ya luego me preguntas si hacemos lo extra."
+
+Resultado obtenido:
+Se desarrolló sp_registrar_produccion, encargado de validar el producto, comprobar que exista una receta de materias primas, verificar disponibilidad suficiente, registrar la producción, registrar su detalle, descontar las materias primas consumidas y aumentar las existencias del producto terminado. Se incorporó manejo transaccional mediante START TRANSACTION, COMMIT, ROLLBACK y un manejador de excepciones.
+
+Validación del grupo:
+El procedimiento fue creado correctamente y apareció junto a sp_registrar_venta mediante SHOW PROCEDURE STATUS. La documentación registra la estructura y finalidad de sp_registrar_produccion.
+
+Estándares aplicados:
+Prefijo sp_, nomenclatura snake_case, transacciones, validación de reglas de negocio, integridad de inventario y reutilización de las relaciones existentes entre producto y materia prima.
+
+Responsable: Ian
+
+Registro 9
+
+Fecha: 15/09/2026
+Herramienta: ChatGPT
+Objetivo: Diagnosticar y solucionar el error 1175 producido por Safe Update Mode durante la ejecución de sp_registrar_produccion.
+
+Prompt utilizado:
+
+"CALL sp_registrar_produccion(...) Error Code: 1175. You are using safe update mode and you tried to update a table without a WHERE that uses a KEY column."
+
+Resultado obtenido:
+Se identificó que el error era provocado por SQL_SAFE_UPDATES de MySQL Workbench y no por una falla en la lógica general del procedimiento. Se comprobó primero que el ROLLBACK había revertido correctamente la operación fallida y posteriormente se deshabilitó temporalmente Safe Updates en la sesión mediante SET SQL_SAFE_UPDATES = 0 para realizar la prueba.
+
+Validación del grupo:
+Antes de repetir la operación se comprobó que produccion y detalle_fabricacion continuaban vacías y que las cantidades de materia prima permanecían en 100.00, 50.00 y 25.00, demostrando que el ROLLBACK funcionó correctamente. Después de modificar la configuración de la sesión, el procedimiento pudo ejecutarse exitosamente.
+
+Estándares aplicados:
+Manejo seguro de errores, atomicidad mediante transacciones, ROLLBACK ante fallos y verificación de integridad antes de repetir operaciones.
+
+Responsable: Ian
+
+Registro 10
+
+Fecha: 15/09/2026
+Herramienta: ChatGPT
+Objetivo: Ejecutar y validar integralmente el procedimiento sp_registrar_produccion.
+
+Prompt utilizado:
+
+"Ya ejecuté nuevamente el procedimiento y estas son las comprobaciones."
+
+Resultado obtenido:
+La producción de 10 unidades de Nachos barbacoa fue registrada correctamente. El procedimiento creó el registro correspondiente en produccion, insertó 10 unidades en detalle_fabricacion, descontó las materias primas necesarias y aumentó el inventario del producto terminado.
+
+Validación del grupo:
+Los resultados finales fueron: Harina de maíz de 100.00 a 95.00, Aceite de 50.00 a 49.00, Sal de 25.00 a 24.50 y stock de Nachos barbacoa de 12 a 22 unidades. Las evidencias finales del procedimiento se encuentran documentadas.
+
+Estándares aplicados:
+Integridad transaccional, actualización automática de inventario, validación de reglas de producción y comprobación mediante consultas posteriores a la operación.
+
+Responsable: Ian
+
+Registro 11
+
+Fecha: 17/09/2026
+Herramienta: ChatGPT
+Objetivo: Revisar la documentación realizada por el Desarrollador 1 y determinar la ubicación correspondiente de los entregables dentro de la estructura del repositorio.
+
+Prompt utilizado:
+
+"Esto es lo que llevo en documentación, lo que me hace falta es ubicarlo en el repositorio, ¿cierto?"
+
+Resultado obtenido:
+Se revisó la documentación del Desarrollador 1 y se confirmó que las vistas, triggers, procedimientos y pruebas se encontraban documentados. Se determinó que, además del documento de evidencia, los scripts debían almacenarse individualmente como archivos .sql en las carpetas correspondientes del repositorio.
+
+Validación del grupo:
+Se estableció la siguiente organización:
+
+sql/
+├── views/
+│   ├── vw_ventas_detalladas.sql
+│   └── vw_inventario_productos.sql
+│
+├── triggers/
+│   ├── trg_validar_stock_venta.sql
+│   └── trg_descontar_stock_venta.sql
+│
+└── procedures/
+    ├── sp_registrar_venta.sql
+    └── sp_registrar_produccion.sql
+
+La documentación y las evidencias correspondientes se conservarán dentro de docs/entrega-3/.
+
+Estándares aplicados:
+Estructura de repositorio definida por el proyecto, separación de scripts según su propósito, nomenclatura snake_case y trazabilidad entre implementación y documentación.
+
+Responsable: Ian
 
