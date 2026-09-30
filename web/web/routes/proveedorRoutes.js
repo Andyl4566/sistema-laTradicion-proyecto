@@ -1,80 +1,46 @@
 const express = require('express');
-
 const router = express.Router();
 
 const proveedorController =
   require('../controllers/proveedorController');
 
+const { permitirRoles } =
+  require('../middleware/authMiddleware');
 
-/**
- * Middleware de autenticación
- */
-function requiereAutenticacion(
-  req,
-  res,
-  next
-) {
-
-  if (
-    !req.session ||
-    !req.session.usuario
-  ) {
-
-    return res.redirect('/login');
-
-  }
-
-  next();
-
-}
-
-
-// Listar proveedores
 router.get(
   '/proveedores',
-  requiereAutenticacion,
+  permitirRoles('administrador'),
   proveedorController.listarProveedores
 );
 
-
-// Mostrar formulario nuevo
 router.get(
   '/proveedores/nuevo',
-  requiereAutenticacion,
+  permitirRoles('administrador'),
   proveedorController.mostrarCrear
 );
 
-
-// Crear proveedor
 router.post(
   '/proveedores/nuevo',
-  requiereAutenticacion,
+  permitirRoles('administrador'),
   proveedorController.crearProveedor
 );
 
-
-// Mostrar formulario editar
 router.get(
   '/proveedores/editar/:id',
-  requiereAutenticacion,
+  permitirRoles('administrador'),
   proveedorController.mostrarEditar
 );
 
-
-// Actualizar proveedor
 router.post(
   '/proveedores/editar/:id',
-  requiereAutenticacion,
+  permitirRoles('administrador'),
   proveedorController.actualizarProveedor
 );
 
-
-// Eliminar proveedor
 router.post(
   '/proveedores/eliminar/:id',
-  requiereAutenticacion,
+  permitirRoles('administrador'),
   proveedorController.eliminarProveedor
 );
-
 
 module.exports = router;

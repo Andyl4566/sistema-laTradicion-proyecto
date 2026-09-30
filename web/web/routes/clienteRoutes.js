@@ -4,56 +4,43 @@ const router = express.Router();
 const clienteController =
   require('../controllers/clienteController');
 
-/**
- * Middleware para proteger las rutas de clientes.
- */
-function requiereAutenticacion(req, res, next) {
-  if (!req.session || !req.session.usuario) {
-    return res.redirect('/login');
-  }
+const { permitirRoles } =
+  require('../middleware/authMiddleware');
 
-  next();
-}
-
-// Listar clientes
 router.get(
   '/clientes',
-  requiereAutenticacion,
+  permitirRoles('administrador', 'ventas'),
   clienteController.listarClientes
 );
 
-// Formulario nuevo cliente
 router.get(
   '/clientes/nuevo',
-  requiereAutenticacion,
+  permitirRoles('administrador', 'ventas'),
   clienteController.mostrarCrear
 );
 
-// Guardar nuevo cliente
 router.post(
   '/clientes/nuevo',
-  requiereAutenticacion,
+  permitirRoles('administrador', 'ventas'),
   clienteController.crearCliente
 );
 
-// Formulario editar
 router.get(
   '/clientes/editar/:id',
-  requiereAutenticacion,
+  permitirRoles('administrador', 'ventas'),
   clienteController.mostrarEditar
 );
 
-// Guardar edición
 router.post(
   '/clientes/editar/:id',
-  requiereAutenticacion,
+  permitirRoles('administrador', 'ventas'),
   clienteController.actualizarCliente
 );
 
-// Eliminar
+// Eliminar: solo administrador
 router.post(
   '/clientes/eliminar/:id',
-  requiereAutenticacion,
+  permitirRoles('administrador'),
   clienteController.eliminarCliente
 );
 
