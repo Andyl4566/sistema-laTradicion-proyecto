@@ -9,6 +9,7 @@ async function obtenerPorNombreUsuario(nombreUsuario) {
       email AS EMAIL,
       password_hash AS PASSWORD_HASH,
       nombre_completo AS NOMBRE_COMPLETO,
+      rol AS ROL,
       activo AS ACTIVO,
       fecha_creacion AS FECHA_CREACION
     FROM usuarios
@@ -24,6 +25,7 @@ async function obtenerPorEmail(email) {
       email AS EMAIL,
       password_hash AS PASSWORD_HASH,
       nombre_completo AS NOMBRE_COMPLETO,
+      rol AS ROL,
       activo AS ACTIVO
     FROM usuarios
     WHERE email = ? AND activo = 1
@@ -37,6 +39,7 @@ async function obtenerPorId(idUsuario) {
       nombre_usuario AS NOMBRE_USUARIO,
       email AS EMAIL,
       nombre_completo AS NOMBRE_COMPLETO,
+      rol AS ROL,
       activo AS ACTIVO,
       fecha_creacion AS FECHA_CREACION
     FROM usuarios
@@ -67,6 +70,7 @@ async function obtenerTodos() {
       nombre_usuario AS NOMBRE_USUARIO,
       email AS EMAIL,
       nombre_completo AS NOMBRE_COMPLETO,
+      rol AS ROL,
       activo AS ACTIVO,
       fecha_creacion AS FECHA_CREACION
     FROM usuarios
@@ -75,4 +79,10 @@ async function obtenerTodos() {
   `);
 }
 
-module.exports = { obtenerPorNombreUsuario, obtenerPorEmail, obtenerPorId, crear, obtenerTodos };
+module.exports = {
+  obtenerPorNombreUsuario,
+  obtenerPorEmail,
+  obtenerPorId,
+  crear,
+  obtenerTodos
+};
