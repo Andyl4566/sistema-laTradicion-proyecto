@@ -1,0 +1,429 @@
+<div class="dashboard-container">
+
+    <div class="section-heading">
+
+        <div>
+
+            <p class="section-eyebrow">
+                Gestión Comercial
+            </p>
+
+            <h1 class="section-title">
+                Nueva Venta
+            </h1>
+
+            <p class="section-description">
+                Registra una nueva venta.
+                El inventario se actualizará automáticamente.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <% if (error) { %>
+
+        <div class="alert alert-error">
+
+            <i class="fas fa-triangle-exclamation"></i>
+
+            <%= error %>
+
+        </div>
+
+    <% } %>
+
+
+    <div class="form-card">
+
+        <form
+            action="/ventas/nueva"
+            method="POST"
+            class="crud-form"
+        >
+
+
+            <!-- ASUNTO -->
+
+            <div class="form-group">
+
+                <label for="asunto">
+                    Asunto *
+                </label>
+
+                <input
+                    type="text"
+                    id="asunto"
+                    name="asunto"
+                    required
+                    maxlength="200"
+                    value="<%= datos
+                        ? datos.asunto || ''
+                        : ''
+                    %>"
+                    placeholder="Ej. Venta mostrador"
+                >
+
+            </div>
+
+
+            <!-- FECHA -->
+
+            <div class="form-group">
+
+                <label for="fecha_venta">
+                    Fecha *
+                </label>
+
+                <input
+                    type="date"
+                    id="fecha_venta"
+                    name="fecha_venta"
+                    required
+                    value="<%= datos
+                        ? datos.fecha_venta || ''
+                        : ''
+                    %>"
+                >
+
+            </div>
+
+
+            <!-- CLIENTE -->
+
+            <div class="form-group">
+
+                <label for="id_cliente">
+                    Cliente *
+                </label>
+
+                <select
+                    id="id_cliente"
+                    name="id_cliente"
+                    required
+                >
+
+                    <option value="">
+                        Seleccione un cliente
+                    </option>
+
+                    <% clientes.forEach(cliente => { %>
+
+                        <option
+                            value="<%= cliente.ID_CLIENTE %>"
+                            <%= datos &&
+                                String(datos.id_cliente) ===
+                                String(cliente.ID_CLIENTE)
+                                ? 'selected'
+                                : ''
+                            %>
+                        >
+
+                            <%= cliente.NOMBRE %>
+
+                        </option>
+
+                    <% }); %>
+
+                </select>
+
+            </div>
+
+
+            <!-- EMPLEADO -->
+
+            <div class="form-group">
+
+                <label for="id_empleado">
+                    Empleado *
+                </label>
+
+                <select
+                    id="id_empleado"
+                    name="id_empleado"
+                    required
+                >
+
+                    <option value="">
+                        Seleccione un empleado
+                    </option>
+
+                    <% empleados.forEach(empleado => { %>
+
+                        <option
+                            value="<%= empleado.ID_EMPLEADO %>"
+                            <%= datos &&
+                                String(datos.id_empleado) ===
+                                String(empleado.ID_EMPLEADO)
+                                ? 'selected'
+                                : ''
+                            %>
+                        >
+
+                            <%= empleado.NOMBRE %>
+
+                        </option>
+
+                    <% }); %>
+
+                </select>
+
+            </div>
+
+
+            <!-- PRODUCTO -->
+
+            <div class="form-group">
+
+                <label for="id_producto">
+                    Producto *
+                </label>
+
+                <select
+                    id="id_producto"
+                    name="id_producto"
+                    required
+                >
+
+                    <option value="">
+                        Seleccione un producto
+                    </option>
+
+
+                    <% productos.forEach(producto => { %>
+
+                        <option
+                            value="<%= producto.ID_PRODUCTO %>"
+
+                            data-precio="<%= producto.PRECIO_UNITARIO %>"
+
+                            data-stock="<%= producto.UNIDADES %>"
+
+                            <%= datos &&
+                                String(datos.id_producto) ===
+                                String(producto.ID_PRODUCTO)
+                                ? 'selected'
+                                : ''
+                            %>
+                        >
+
+                            <%= producto.NOMBRE %>
+                            — Stock:
+                            <%= producto.UNIDADES %>
+
+                        </option>
+
+                    <% }); %>
+
+                </select>
+
+            </div>
+
+
+            <!-- STOCK -->
+
+            <div class="form-group">
+
+                <label>
+                    Stock disponible
+                </label>
+
+                <input
+                    type="text"
+                    id="stock_disponible"
+                    value="-"
+                    readonly
+                >
+
+            </div>
+
+
+            <!-- CANTIDAD -->
+
+            <div class="form-group">
+
+                <label for="cantidad">
+                    Cantidad *
+                </label>
+
+                <input
+                    type="number"
+                    id="cantidad"
+                    name="cantidad"
+                    min="1"
+                    step="1"
+                    required
+                    value="<%= datos
+                        ? datos.cantidad || 1
+                        : 1
+                    %>"
+                >
+
+            </div>
+
+
+            <!-- PRECIO -->
+
+            <div class="form-group">
+
+                <label for="precio_unitario">
+                    Precio unitario (Q) *
+                </label>
+
+                <input
+                    type="number"
+                    id="precio_unitario"
+                    name="precio_unitario"
+                    min="0.01"
+                    step="0.01"
+                    required
+                    value="<%= datos
+                        ? datos.precio_unitario || ''
+                        : ''
+                    %>"
+                >
+
+            </div>
+
+
+            <!-- TOTAL -->
+
+            <div class="form-group">
+
+                <label>
+                    Total estimado
+                </label>
+
+                <input
+                    type="text"
+                    id="total_estimado"
+                    value="Q 0.00"
+                    readonly
+                >
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <a
+                    href="/ventas"
+                    class="btn-action btn-delete"
+                >
+                    <i class="fas fa-xmark"></i>
+                    Cancelar
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-module"
+                >
+                    <i class="fas fa-cash-register"></i>
+                    Registrar Venta
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const productoSelect =
+    document.getElementById('id_producto');
+
+const precioInput =
+    document.getElementById('precio_unitario');
+
+const cantidadInput =
+    document.getElementById('cantidad');
+
+const stockInput =
+    document.getElementById('stock_disponible');
+
+const totalInput =
+    document.getElementById('total_estimado');
+
+
+function actualizarProducto() {
+
+    const opcion =
+        productoSelect.options[
+            productoSelect.selectedIndex
+        ];
+
+    if (!opcion || !opcion.value) {
+
+        precioInput.value = '';
+
+        stockInput.value = '-';
+
+        actualizarTotal();
+
+        return;
+    }
+
+
+    const precio =
+        opcion.dataset.precio;
+
+    const stock =
+        opcion.dataset.stock;
+
+
+    precioInput.value =
+        Number(precio).toFixed(2);
+
+    stockInput.value =
+        stock;
+
+
+    actualizarTotal();
+}
+
+
+function actualizarTotal() {
+
+    const cantidad =
+        Number(cantidadInput.value) || 0;
+
+    const precio =
+        Number(precioInput.value) || 0;
+
+
+    const total =
+        cantidad * precio;
+
+
+    totalInput.value =
+        'Q ' + total.toFixed(2);
+}
+
+
+productoSelect.addEventListener(
+    'change',
+    actualizarProducto
+);
+
+cantidadInput.addEventListener(
+    'input',
+    actualizarTotal
+);
+
+precioInput.addEventListener(
+    'input',
+    actualizarTotal
+);
+
+
+/* Si el formulario vuelve por un error,
+   recalculamos los valores. */
+actualizarProducto();
+
+</script>

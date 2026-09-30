@@ -1,0 +1,182 @@
+<div class="dashboard-container">
+
+    <div class="section-heading">
+
+        <div>
+
+            <p class="section-eyebrow">
+                Gestión Comercial
+            </p>
+
+            <h1 class="section-title">
+                Ventas
+            </h1>
+
+            <p class="section-description">
+                Consulta las ventas registradas
+                y registra nuevas operaciones.
+            </p>
+
+        </div>
+
+
+        <a
+            href="/ventas/nueva"
+            class="btn btn-module"
+        >
+            <i class="fas fa-plus"></i>
+            Nueva Venta
+        </a>
+
+    </div>
+
+
+    <% if (mensaje) { %>
+
+        <div class="alert alert-success">
+
+            <i class="fas fa-circle-check"></i>
+
+            <%= mensaje %>
+
+        </div>
+
+    <% } %>
+
+
+    <% if (error) { %>
+
+        <div class="alert alert-error">
+
+            <i class="fas fa-triangle-exclamation"></i>
+
+            <%= error %>
+
+        </div>
+
+    <% } %>
+
+
+    <div class="table-container">
+
+        <table class="data-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Asunto</th>
+                    <th>Cliente</th>
+                    <th>Empleado</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Total</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <% if (!ventas || ventas.length === 0) { %>
+
+                    <tr>
+
+                        <td
+                            colspan="9"
+                            class="empty-table"
+                        >
+                            No hay ventas registradas.
+                        </td>
+
+                    </tr>
+
+                <% } else { %>
+
+
+                    <% ventas.forEach(venta => { %>
+
+                        <tr>
+
+                            <td>
+                                <%= venta.ID_VENTA %>
+                            </td>
+
+
+                            <td>
+
+                                <%= new Date(
+                                    venta.FECHA_VENTA
+                                ).toLocaleDateString(
+                                    'es-GT'
+                                ) %>
+
+                            </td>
+
+
+                            <td>
+                                <%= venta.ASUNTO %>
+                            </td>
+
+
+                            <td>
+                                <%= venta.CLIENTE %>
+                            </td>
+
+
+                            <td>
+                                <%= venta.EMPLEADO %>
+                            </td>
+
+
+                            <td>
+                                <strong>
+                                    <%= venta.PRODUCTO %>
+                                </strong>
+                            </td>
+
+
+                            <td>
+                                <%= venta.CANTIDAD %>
+                            </td>
+
+
+                            <td>
+
+                                Q <%= Number(
+                                    venta.PRECIO_UNITARIO
+                                ).toFixed(2) %>
+
+                            </td>
+
+
+                            <td>
+
+                                <strong>
+
+                                    Q <%= Number(
+                                        venta.MONTO
+                                    ).toFixed(2) %>
+
+                                </strong>
+
+                            </td>
+
+                        </tr>
+
+                    <% }); %>
+
+
+                <% } %>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
