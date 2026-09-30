@@ -1,0 +1,32 @@
+/*
+============================================================
+Archivo: vw_inventario_productos.sql
+Entrega: Entrega 3
+Descripción:
+Vista destinada a consultar el inventario actual de productos
+y determinar automáticamente su estado de disponibilidad.
+Regla de negocio:
+- 0 unidades: SIN STOCK
+- Entre 1 y 10 unidades: STOCK BAJO
+- Más de 10 unidades: DISPONIBLE
+El estado del stock no se almacena físicamente, sino que se
+calcula mediante la vista para evitar información redundante.
+Dependencias:
+- producto
+============================================================
+*/
+USE bd_tradicion;
+DROP VIEW IF EXISTS vw_inventario_productos;
+CREATE VIEW vw_inventario_productos AS
+SELECT
+id_producto,
+nombre AS producto,
+descripcion,
+unidades AS stock_actual,
+precio_unitario,
+CASE
+WHEN unidades = 0 THEN 'SIN STOCK'
+WHEN unidades <= 10 THEN 'STOCK BAJO'
+ELSE 'DISPONIBLE'
+END AS estado_stock
+FROM producto;
