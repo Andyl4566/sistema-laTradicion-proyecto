@@ -73,7 +73,7 @@
                 </li>
 
 
-                <!-- PRODUCTOS -->
+                <!-- PRODUCTOS - TODOS LOS ROLES -->
                 <li class="sidebar-menu-item">
 
                     <a
@@ -90,163 +90,226 @@
                 </li>
 
 
-                <!-- MATERIA PRIMA -->
-                <li class="sidebar-menu-item">
+                <!-- MATERIA PRIMA - ADMIN Y PRODUCCION -->
+                <% if (
+                    usuario &&
+                    ['administrador', 'produccion'].includes(usuario.rol)
+                ) { %>
 
-                    <a
-                        href="/materia-prima"
-                        class="sidebar-menu-link"
-                    >
+                    <li class="sidebar-menu-item">
 
-                        <i class="fas fa-wheat-awn"></i>
+                        <a
+                            href="/materia-prima"
+                            class="sidebar-menu-link"
+                        >
 
-                        Materia Prima
+                            <i class="fas fa-wheat-awn"></i>
 
-                    </a>
+                            Materia Prima
 
-                </li>
+                        </a>
 
+                    </li>
 
-                <!-- PROVEEDORES -->
-                <li class="sidebar-menu-item">
-
-                    <a
-                        href="/proveedores"
-                        class="sidebar-menu-link"
-                    >
-
-                        <i class="fas fa-truck"></i>
-
-                        Proveedores
-
-                    </a>
-
-                </li>
+                <% } %>
 
 
-                <!-- COMPRAS -->
-                <li class="sidebar-menu-item">
+                <!-- PROVEEDORES - SOLO ADMIN -->
+                <% if (
+                    usuario &&
+                    usuario.rol === 'administrador'
+                ) { %>
 
-                    <a
-                        href="/compras"
-                        class="sidebar-menu-link"
-                    >
+                    <li class="sidebar-menu-item">
 
-                        <i class="fas fa-cart-shopping"></i>
+                        <a
+                            href="/proveedores"
+                            class="sidebar-menu-link"
+                        >
 
-                        Compras
+                            <i class="fas fa-truck"></i>
 
-                    </a>
+                            Proveedores
 
-                </li>
+                        </a>
 
+                    </li>
 
-                <!-- VENTAS -->
-                <li class="sidebar-menu-item">
-
-                    <a
-                        href="/ventas"
-                        class="sidebar-menu-link"
-                    >
-
-                        <i class="fas fa-cash-register"></i>
-
-                        Ventas
-
-                    </a>
-
-                </li>
+                <% } %>
 
 
-                <!-- CLIENTES -->
-                <li class="sidebar-menu-item">
+                <!-- COMPRAS - SOLO ADMIN -->
+                <% if (
+                    usuario &&
+                    usuario.rol === 'administrador'
+                ) { %>
 
-                    <a
-                        href="/clientes"
-                        class="sidebar-menu-link"
-                    >
+                    <li class="sidebar-menu-item">
 
-                        <i class="fas fa-users"></i>
+                        <a
+                            href="/compras"
+                            class="sidebar-menu-link"
+                        >
 
-                        Clientes
+                            <i class="fas fa-cart-shopping"></i>
 
-                    </a>
+                            Compras
 
-                </li>
+                        </a>
 
+                    </li>
 
-                <!-- EMPLEADOS -->
-                <li class="sidebar-menu-item">
-
-                    <a
-                        href="/empleados"
-                        class="sidebar-menu-link"
-                    >
-
-                        <i class="fas fa-user-tie"></i>
-
-                        Empleados
-
-                    </a>
-
-                </li>
+                <% } %>
 
 
-                <!-- PRODUCCIÓN -->
-                <li class="sidebar-menu-item">
+                <!-- VENTAS - ADMIN Y VENTAS -->
+                <% if (
+                    usuario &&
+                    ['administrador', 'ventas'].includes(usuario.rol)
+                ) { %>
 
-                    <a
-                        href="/produccion"
-                        class="sidebar-menu-link"
-                    >
+                    <li class="sidebar-menu-item">
 
-                        <i class="fas fa-industry"></i>
+                        <a
+                            href="/ventas"
+                            class="sidebar-menu-link"
+                        >
 
-                        Producción
+                            <i class="fas fa-cash-register"></i>
 
-                    </a>
+                            Ventas
 
-                </li>
+                        </a>
 
+                    </li>
 
-                <!-- GASTOS OPERATIVOS -->
-                <li class="sidebar-menu-item">
-
-                    <a
-                        href="/gastos-operativos"
-                        class="sidebar-menu-link"
-                    >
-
-                        <i class="fas fa-file-invoice-dollar"></i>
-
-                        Gastos Operativos
-
-                    </a>
-
-                </li>
+                <% } %>
 
 
-                <!-- USUARIOS -->
-                <li class="sidebar-menu-item">
+                <!-- CLIENTES - ADMIN Y VENTAS -->
+                <% if (
+                    usuario &&
+                    ['administrador', 'ventas'].includes(usuario.rol)
+                ) { %>
 
-                    <a
-                        href="/usuarios"
-                        class="sidebar-menu-link"
-                    >
+                    <li class="sidebar-menu-item">
 
-                        <i class="fas fa-user-shield"></i>
+                        <a
+                            href="/clientes"
+                            class="sidebar-menu-link"
+                        >
 
-                        Usuarios
+                            <i class="fas fa-users"></i>
 
-                    </a>
+                            Clientes
 
-                </li>
+                        </a>
+
+                    </li>
+
+                <% } %>
+
+
+                <!-- EMPLEADOS - SOLO ADMIN -->
+                <% if (
+                    usuario &&
+                    usuario.rol === 'administrador'
+                ) { %>
+
+                    <li class="sidebar-menu-item">
+
+                        <a
+                            href="/empleados"
+                            class="sidebar-menu-link"
+                        >
+
+                            <i class="fas fa-user-tie"></i>
+
+                            Empleados
+
+                        </a>
+
+                    </li>
+
+                <% } %>
+
+
+                <!-- PRODUCCION - ADMIN Y PRODUCCION -->
+                <% if (
+                    usuario &&
+                    ['administrador', 'produccion'].includes(usuario.rol)
+                ) { %>
+
+                    <li class="sidebar-menu-item">
+
+                        <a
+                            href="/produccion"
+                            class="sidebar-menu-link"
+                        >
+
+                            <i class="fas fa-industry"></i>
+
+                            Producción
+
+                        </a>
+
+                    </li>
+
+                <% } %>
+
+
+                <!-- GASTOS OPERATIVOS - SOLO ADMIN -->
+                <% if (
+                    usuario &&
+                    usuario.rol === 'administrador'
+                ) { %>
+
+                    <li class="sidebar-menu-item">
+
+                        <a
+                            href="/gastos-operativos"
+                            class="sidebar-menu-link"
+                        >
+
+                            <i class="fas fa-file-invoice-dollar"></i>
+
+                            Gastos Operativos
+
+                        </a>
+
+                    </li>
+
+                <% } %>
+
+
+                <!-- USUARIOS - SOLO ADMIN -->
+                <% if (
+                    usuario &&
+                    usuario.rol === 'administrador'
+                ) { %>
+
+                    <li class="sidebar-menu-item">
+
+                        <a
+                            href="/usuarios"
+                            class="sidebar-menu-link"
+                        >
+
+                            <i class="fas fa-user-shield"></i>
+
+                            Usuarios
+
+                        </a>
+
+                    </li>
+
+                <% } %>
 
 
                 <li class="sidebar-menu-divider"></li>
 
 
-                <!-- CERRAR SESIÓN -->
+                <!-- CERRAR SESION -->
                 <li class="sidebar-menu-item">
 
                     <a
@@ -295,7 +358,10 @@
                 </div>
 
 
-                <% if (typeof usuario !== 'undefined' && usuario) { %>
+                <% if (
+                    typeof usuario !== 'undefined' &&
+                    usuario
+                ) { %>
 
                     <div class="topbar-user-section">
 
@@ -313,7 +379,9 @@
                             </span>
 
                             <span class="user-name-role">
-                                Usuario del sistema
+                                Rol:
+                                <%= usuario.rol.charAt(0).toUpperCase()
+                                    + usuario.rol.slice(1) %>
                             </span>
 
                         </div>

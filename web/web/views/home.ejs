@@ -35,7 +35,7 @@
     </section>
 
 
-    <!-- ESTADÍSTICAS -->
+    <!-- ESTADISTICAS -->
     <section class="quick-stats">
 
         <div class="stat-card">
@@ -140,7 +140,7 @@
     </section>
 
 
-    <!-- MÓDULOS -->
+    <!-- MODULOS -->
     <section class="modules-section">
 
         <div class="section-heading">
@@ -172,9 +172,11 @@
                 <article class="module-card">
 
                     <div class="module-icon">
+
                         <span>
                             <%= modulo.icono %>
                         </span>
+
                     </div>
 
                     <h3 class="module-name">
@@ -224,7 +226,7 @@
     </section>
 
 
-    <!-- INFORMACIÓN -->
+    <!-- INFORMACION -->
     <section class="info-section">
 
         <article class="info-card">
@@ -242,30 +244,52 @@
                 <ul class="info-list">
 
                     <li>
+
                         <strong>Usuario:</strong>
 
                         <span>
                             <%= usuario.nombreUsuario %>
                         </span>
+
                     </li>
 
+
                     <li>
+
+                        <strong>Rol:</strong>
+
+                        <span>
+                            <%= usuario.rol.charAt(0).toUpperCase()
+                                + usuario.rol.slice(1) %>
+                        </span>
+
+                    </li>
+
+
+                    <li>
+
                         <strong>Email:</strong>
 
                         <span>
                             <%= usuario.email %>
                         </span>
+
                     </li>
 
+
                     <li>
+
                         <strong>Versión:</strong>
 
                         <span>
-                            1.0 - Entrega 2
+                            1.0 - Entrega 3
                         </span>
+
                     </li>
 
+
                     <li>
+
                         <strong>Estado:</strong>
 
                         <span class="system-online">
@@ -275,6 +299,7 @@
                             Activo
 
                         </span>
+
                     </li>
 
                 </ul>
