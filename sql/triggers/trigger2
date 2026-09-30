@@ -1,0 +1,29 @@
+/*
+============================================================
+Archivo: trg_descontar_stock_venta.sql
+Entrega: Entrega 3
+Descripción:
+Actualiza automáticamente el inventario de productos después
+de registrar un producto dentro de una venta.
+Regla de negocio:
+Cada producto vendido debe descontarse del inventario según
+la cantidad registrada en producto_venta.
+Este trigger trabaja junto con trg_validar_stock_venta, que
+comprueba previamente que exista suficiente inventario.
+Dependencias:
+- producto
+- producto_venta
+============================================================
+*/
+USE bd_tradicion;
+DELIMITER $$
+DROP TRIGGER IF EXISTS trg_descontar_stock_venta$$
+CREATE TRIGGER trg_descontar_stock_venta
+AFTER INSERT ON producto_venta
+FOR EACH ROW
+BEGIN
+UPDATE producto
+SET unidades = unidades - NEW.cantidad
+WHERE id_producto = NEW.id_producto;
+END$$
+DELIMITER ;
