@@ -85,11 +85,28 @@ const clienteRoutes =
 const proveedorRoutes =
   require('./routes/proveedorRoutes');
 
+const productoRoutes =
+  require('./routes/productoRoutes');
+
+const materiaPrimaRoutes =
+  require('./routes/materiaPrimaRoutes');
+
+const ventaRoutes =
+  require('./routes/ventaRoutes');
+
+const produccionRoutes =
+  require('./routes/produccionRoutes');
+
+
 // Registrar rutas
 app.use('/', authRoutes);
 app.use('/', homeRoutes);
 app.use('/', clienteRoutes);
 app.use('/', proveedorRoutes);
+app.use('/', productoRoutes);
+app.use('/', materiaPrimaRoutes);
+app.use('/', ventaRoutes);
+app.use('/', produccionRoutes);
 
 // ========== RUTA DE PRUEBA ==========
 app.get('/health', (req, res) => {
