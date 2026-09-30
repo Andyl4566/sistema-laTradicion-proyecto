@@ -1,0 +1,122 @@
+USE bd_tradicion;
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS sp_registrar_produccion$$
+
+CREATE PROCEDURE sp_registrar_produccion(
+    IN p_nombre VARCHAR(200),
+    IN p_descripcion VARCHAR(200),
+    IN p_fecha_produccion DATE,
+    IN p_id_producto INT,
+    IN p_cantidad_producida INT
+)
+BEGIN
+    DECLARE v_id_produccion INT;
+    DECLARE v_materias_receta INT DEFAULT 0;
+    DECLARE v_materias_insuficientes INT DEFAULT 0;
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+
+    START TRANSACTION;
+
+    IF p_cantidad_producida <= 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'La cantidad producida debe ser mayor que cero';
+    END IF;
+
+    IF NOT EXISTS (
+        SELECT 1
+        FROM producto
+        WHERE id_producto = p_id_producto
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'El producto indicado no existe';
+    END IF;
+
+    SELECT COUNT(*)
+    INTO v_materias_receta
+    FROM materia_prima_producto
+    WHERE id_producto = p_id_producto;
+
+    IF v_materias_receta = 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'El producto no tiene materias primas registradas';
+    END IF;
+
+    SELECT COUNT(*)
+    INTO v_materias_insuficientes
+    FROM materia_prima_producto AS mpp
+    INNER JOIN materia_prima AS mp
+        ON mp.id_materia_prima = mpp.id_materia_prima
+    WHERE mpp.id_producto = p_id_producto
+      AND mp.cantidad < (mpp.cantidad * p_cantidad_producida);
+
+    IF v_materias_insuficientes > 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT =
+            'Materia prima insuficiente para realizar la produccion';
+    END IF;
+
+    SELECT COALESCE(MAX(id_produccion), 0) + 1
+    INTO v_id_produccion
+    FROM produccion;
+
+    INSERT INTO produccion (
+        id_produccion,
+        nombre,
+        descripcion,
+        fecha_produccion
+    )
+    VALUES (
+        v_id_produccion,
+        p_nombre,
+        p_descripcion,
+        p_fecha_produccion
+    );
+
+    INSERT INTO detalle_fabricacion (
+        id_produccion,
+        id_producto,
+        cantidad_producida
+    )
+    VALUES (
+        v_id_produccion,
+        p_id_producto,
+        p_cantidad_producida
+    );
+
+    /* Descontar materia prima */
+    UPDATE materia_prima AS mp
+    SET mp.cantidad = mp.cantidad - (
+        SELECT mpp.cantidad * p_cantidad_producida
+        FROM materia_prima_producto AS mpp
+        WHERE mpp.id_materia_prima = mp.id_materia_prima
+          AND mpp.id_producto = p_id_producto
+    )
+    WHERE mp.id_materia_prima IN (
+        SELECT mpp2.id_materia_prima
+        FROM materia_prima_producto AS mpp2
+        WHERE mpp2.id_producto = p_id_producto
+    );
+
+    /* Aumentar inventario del producto terminado */
+    UPDATE producto
+    SET unidades = unidades + p_cantidad_producida
+    WHERE id_producto = p_id_producto;
+
+    COMMIT;
+
+    SELECT
+        v_id_produccion AS id_produccion,
+        p_id_producto AS id_producto,
+        p_cantidad_producida AS cantidad_producida,
+        'Produccion registrada correctamente' AS mensaje;
+
+END$$
+
+DELIMITER ;
