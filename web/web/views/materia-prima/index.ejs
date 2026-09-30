@@ -1,0 +1,156 @@
+<div class="dashboard-container">
+
+    <div class="section-heading">
+
+        <div>
+            <p class="section-eyebrow">
+                Inventario
+            </p>
+
+            <h1 class="section-title">
+                Materia Prima
+            </h1>
+
+            <p class="section-description">
+                Administra los insumos utilizados para
+                elaborar los productos.
+            </p>
+        </div>
+
+        <a
+            href="/materia-prima/nueva"
+            class="btn btn-module"
+        >
+            <i class="fas fa-plus"></i>
+            Nueva Materia Prima
+        </a>
+
+    </div>
+
+    <% if (mensaje) { %>
+        <div class="alert alert-success">
+            <i class="fas fa-circle-check"></i>
+            <%= mensaje %>
+        </div>
+    <% } %>
+
+    <% if (error) { %>
+        <div class="alert alert-error">
+            <i class="fas fa-triangle-exclamation"></i>
+            <%= error %>
+        </div>
+    <% } %>
+
+    <div class="table-container">
+
+        <table class="data-table">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Costo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <% if (
+                    !materiasPrimas ||
+                    materiasPrimas.length === 0
+                ) { %>
+
+                    <tr>
+                        <td
+                            colspan="6"
+                            class="empty-table"
+                        >
+                            No hay materias primas registradas.
+                        </td>
+                    </tr>
+
+                <% } else { %>
+
+                    <% materiasPrimas.forEach(mp => { %>
+
+                        <tr>
+
+                            <td>
+                                <%= mp.ID_MATERIA_PRIMA %>
+                            </td>
+
+                            <td>
+                                <strong>
+                                    <%= mp.NOMBRE %>
+                                </strong>
+                            </td>
+
+                            <td>
+                                <%= mp.DESCRIPCION || '-' %>
+                            </td>
+
+                            <td>
+                                <%= mp.CANTIDAD %>
+                            </td>
+
+                            <td>
+                                <% if (
+                                    mp.COSTO !== null &&
+                                    mp.COSTO !== undefined
+                                ) { %>
+
+                                    Q <%= Number(mp.COSTO).toFixed(2) %>
+
+                                <% } else { %>
+
+                                    -
+
+                                <% } %>
+                            </td>
+
+                            <td>
+
+                                <div class="table-actions">
+
+                                    <a
+                                        href="/materia-prima/editar/<%= mp.ID_MATERIA_PRIMA %>"
+                                        class="btn-action btn-edit"
+                                    >
+                                        <i class="fas fa-pen"></i>
+                                        Editar
+                                    </a>
+
+                                    <form
+                                        action="/materia-prima/eliminar/<%= mp.ID_MATERIA_PRIMA %>"
+                                        method="POST"
+                                        onsubmit="return confirm('¿Seguro que deseas eliminar esta materia prima?');"
+                                    >
+                                        <button
+                                            type="submit"
+                                            class="btn-action btn-delete"
+                                        >
+                                            <i class="fas fa-trash"></i>
+                                            Eliminar
+                                        </button>
+                                    </form>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    <% }); %>
+
+                <% } %>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
