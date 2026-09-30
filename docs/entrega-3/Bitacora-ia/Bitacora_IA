@@ -370,3 +370,170 @@ A1 (Separación entre configuración de BD e interfaz), A2 (Manejo amigable de e
 
 Responsable: David
 
+
+Registro 1
+
+Fecha: 20/09/2026
+
+Herramienta: ChatGPT
+
+Objetivo: Analizar las responsabilidades correspondientes al Desarrollador 2 para la Entrega 3 y establecer el orden de trabajo para seguridad, datos de prueba y control de calidad.
+
+Prompt utilizado:
+
+"Vamos a continuar con lo que corresponde al Desarrollador 2 de la Entrega 3. Dime qué debemos realizar y en qué orden."
+
+Resultado obtenido:
+
+Se identificaron como responsabilidades principales del Desarrollador 2 la implementación de seguridad en la base de datos mediante usuarios con privilegios diferenciados, el poblado de datos de prueba, la ejecución y documentación de un mínimo de 8 casos de prueba y la elaboración de la matriz de trazabilidad.
+
+Se estableció un orden de trabajo para completar primero la seguridad de la base de datos, posteriormente verificar los datos necesarios para las pruebas y finalmente ejecutar y documentar los casos de prueba.
+
+Validación del grupo:
+
+Se verificó que las actividades identificadas correspondieran con las responsabilidades asignadas al Desarrollador 2 y que las tareas relacionadas con triggers, procedimientos almacenados y vistas permanecieran dentro de las responsabilidades del Desarrollador 1.
+
+Estándares aplicados:
+
+Lineamientos de la Entrega 3 relacionados con seguridad de base de datos, poblado de datos, casos de prueba y trazabilidad.
+
+Responsable: Andy
+
+Registro 2
+
+Fecha: 20/09/2026
+
+Herramienta: ChatGPT
+
+Objetivo: Implementar y comprobar la seguridad de la base de datos mediante usuarios con privilegios diferenciados.
+
+Prompt utilizado:
+
+"Vamos con la parte de seguridad del Desarrollador 2. Necesitamos crear mínimo 3 roles de usuario con sus respectivos privilegios diferenciados."
+
+Resultado obtenido:
+
+Se trabajó con tres usuarios de base de datos:
+
+rol_administrador
+rol_ventas
+rol_produccion
+
+Se asignaron privilegios de acuerdo con las responsabilidades de cada usuario. El administrador recibió privilegios generales sobre bd_tradicion, mientras que los usuarios de ventas y producción recibieron únicamente permisos sobre las tablas necesarias para sus operaciones.
+
+Posteriormente se crearon conexiones independientes en MySQL Workbench y se realizaron pruebas para comprobar los permisos. Se verificó, por ejemplo, que el usuario de ventas pudiera consultar productos y trabajar con ventas, pero no acceder a información de materia prima ni eliminar ventas. De igual manera, el usuario de producción pudo acceder a las tablas relacionadas con producción y materia prima, pero no a información correspondiente a clientes.
+
+Validación del grupo:
+
+Se verificó mediante SHOW GRANTS, conexiones independientes y consultas autorizadas/no autorizadas que los privilegios fueran aplicados correctamente y que los usuarios no pudieran realizar operaciones fuera de sus responsabilidades.
+
+Estándares aplicados:
+
+Principio de mínimo privilegio, separación de responsabilidades y lineamientos de seguridad establecidos para la Entrega 3.
+
+Responsable: Andy
+
+Registro 3
+
+Fecha: 20/09/2026
+
+Herramienta: ChatGPT
+
+Objetivo: Revisar y completar los datos de prueba necesarios para validar las operaciones principales de la base de datos.
+
+Prompt utilizado:
+
+"Continuemos con el poblado de datos. Necesitamos verificar que las tablas principales tengan suficientes registros para realizar las pruebas de la Entrega 3."
+
+Resultado obtenido:
+
+Se revisaron los registros existentes en las principales tablas del sistema y se verificó que existieran suficientes datos para ejecutar pruebas sobre ventas, productos, clientes, empleados, producción, proveedores, compras y materia prima.
+
+Se utilizaron los datos generados previamente para disponer de al menos 50 registros en las tablas principales que requerían volumen de información. También se verificaron relaciones entre ventas, productos, clientes y empleados, así como los registros de producción y sus relaciones con productos y materias primas.
+
+Los datos permitieron realizar posteriormente las pruebas funcionales y de integridad de la base de datos.
+
+Validación del grupo:
+
+Se realizaron consultas SELECT y conteos sobre las tablas principales para comprobar la existencia y consistencia de los registros antes de iniciar los casos de prueba.
+
+Estándares aplicados:
+
+Lineamientos de poblado de datos de la Entrega 3 y mantenimiento de la integridad referencial entre las entidades relacionadas.
+
+Responsable: Andy
+
+Registro 4
+
+Fecha: 20/09/2026
+
+Herramienta: ChatGPT
+
+Objetivo: Diseñar, ejecutar y documentar los 8 casos de prueba requeridos para validar las principales reglas de negocio e integridad de la base de datos.
+
+Prompt utilizado:
+
+"Vamos a realizar los casos de prueba correspondientes al Desarrollador 2. Quiero probar las operaciones importantes de la base de datos y documentar el resultado de cada una."
+
+Resultado obtenido:
+
+Se diseñaron y ejecutaron 8 casos de prueba:
+
+CP-01: Registro y consulta de ventas.
+CP-02: Control de stock insuficiente.
+CP-03: Validación de integridad referencial en ventas.
+CP-04: Registro de producción y actualización de inventario.
+CP-05: Registro de compra y actualización de inventario de materia prima.
+CP-06: Validación de integridad referencial en compras.
+CP-07: Producción con materia prima insuficiente.
+CP-08: Protección de eliminación de productos con historial.
+
+Las pruebas permitieron comprobar el funcionamiento de procedimientos almacenados, triggers, transacciones, llaves foráneas y restricciones ON DELETE RESTRICT.
+
+También se comprobó que las operaciones inválidas fueran rechazadas sin dejar registros incompletos ni modificar incorrectamente los inventarios.
+
+Los ocho casos de prueba obtuvieron estado APROBADO.
+
+Validación del grupo:
+
+Cada caso fue comprobado directamente en MySQL Workbench mediante consultas antes y después de las operaciones. Se conservaron capturas de los resultados y de los errores esperados como evidencia de las pruebas.
+
+Estándares aplicados:
+
+Lineamientos de QA de la Entrega 3, integridad referencial, validación de reglas de negocio, uso de transacciones y documentación de evidencias.
+
+Responsable: Andy
+
+Registro 5
+
+Fecha: 20/09/2026
+
+Herramienta: ChatGPT
+
+Objetivo: Elaborar la matriz de trazabilidad relacionando los requerimientos iniciales del sistema con la implementación actual y los casos de prueba ejecutados.
+
+Prompt utilizado:
+
+"Estos eran los requerimientos de la Entrega 1. Probablemente han habido cambios y modificaciones con respecto al proyecto, pero esta era la primera parte y conforme hemos avanzado han surgido cambios."
+
+Resultado obtenido:
+
+Se revisaron los requerimientos planteados inicialmente en la Entrega 1 y se compararon con la implementación actual de la base de datos.
+
+Se elaboró una matriz de trazabilidad utilizando identificadores RF-01 a RF-24, relacionando los requerimientos con tablas, procedimientos almacenados, triggers, restricciones de integridad, roles de seguridad y casos de prueba.
+
+También se documentaron las ampliaciones surgidas durante el desarrollo, entre ellas el control automático de inventarios, validación de stock, control de materia prima, transacciones, restricciones de eliminación y usuarios con privilegios diferenciados.
+
+Finalmente, los casos CP-01 a CP-08 fueron relacionados con los requerimientos que validan.
+
+Validación del grupo:
+
+Se comparó la matriz con los requerimientos iniciales y con las funcionalidades actualmente implementadas para evitar documentar características que no correspondieran con el estado actual del sistema.
+
+Estándares aplicados:
+
+Estándar D4 de trazabilidad de requerimientos y lineamientos de documentación de la Entrega 3.
+
+Responsable: Andy
+
+
