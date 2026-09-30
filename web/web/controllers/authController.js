@@ -120,11 +120,12 @@ async function procesarLogin(req, res) {
       id: usuario.ID_USUARIO,
       nombreUsuario: usuario.NOMBRE_USUARIO,
       email: usuario.EMAIL,
-      nombreCompleto: usuario.NOMBRE_COMPLETO
+      nombreCompleto: usuario.NOMBRE_COMPLETO,
+      rol: usuario.ROL
     };
 
     console.log(
-      `✓ Login exitoso para usuario: ${nombreUsuario}`
+      '✓ Sesión creada:', req.session.usuario
     );
 
     // Guardar sesión antes de redirigir

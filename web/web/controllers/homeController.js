@@ -2,7 +2,8 @@
  * Controlador: Home/Dashboard (homeController)
  *
  * Gestiona la página de inicio después del login.
- * Requiere autenticación (sesión activa).
+ * Muestra únicamente los módulos permitidos según
+ * el rol del usuario autenticado.
  */
 
 /**
@@ -17,6 +18,165 @@ function mostrarHome(req, res) {
     }
 
     const usuario = req.session.usuario;
+
+
+    // ==========================================
+    // TODOS LOS MÓDULOS DEL SISTEMA
+    // ==========================================
+    const todosLosModulos = [
+
+      {
+        id: 'productos',
+        nombre: 'Productos',
+        descripcion:
+          'Administrar los productos terminados de la empresa.',
+        icono: '🌮',
+        ruta: '/productos',
+        estado: 'activo'
+      },
+
+      {
+        id: 'materia-prima',
+        nombre: 'Materia Prima',
+        descripcion:
+          'Administrar los insumos utilizados para elaborar los productos.',
+        icono: '🌽',
+        ruta: '/materia-prima',
+        estado: 'activo'
+      },
+
+      {
+        id: 'proveedores',
+        nombre: 'Proveedores',
+        descripcion:
+          'Registrar y administrar los proveedores de materia prima.',
+        icono: '🚚',
+        ruta: '/proveedores',
+        estado: 'activo'
+      },
+
+      {
+        id: 'compras',
+        nombre: 'Compras',
+        descripcion:
+          'Registrar las compras realizadas a los proveedores.',
+        icono: '🛒',
+        ruta: '/compras',
+        estado: 'en-desarrollo'
+      },
+
+      {
+        id: 'ventas',
+        nombre: 'Ventas',
+        descripcion:
+          'Registrar y consultar las ventas realizadas.',
+        icono: '💰',
+        ruta: '/ventas',
+        estado: 'activo'
+      },
+
+      {
+        id: 'clientes',
+        nombre: 'Clientes',
+        descripcion:
+          'Administrar la información de los clientes.',
+        icono: '👥',
+        ruta: '/clientes',
+        estado: 'activo'
+      },
+
+      {
+        id: 'empleados',
+        nombre: 'Empleados',
+        descripcion:
+          'Administrar los empleados de la empresa.',
+        icono: '👨‍💼',
+        ruta: '/empleados',
+        estado: 'en-desarrollo'
+      },
+
+      {
+        id: 'produccion',
+        nombre: 'Producción',
+        descripcion:
+          'Registrar y controlar los procesos de producción.',
+        icono: '🏭',
+        ruta: '/produccion',
+        estado: 'activo'
+      },
+
+      {
+        id: 'gastos-operativos',
+        nombre: 'Gastos Operativos',
+        descripcion:
+          'Registrar gastos como limpieza, fumigación y otros servicios.',
+        icono: '🧾',
+        ruta: '/gastos-operativos',
+        estado: 'en-desarrollo'
+      },
+
+      {
+        id: 'usuarios',
+        nombre: 'Usuarios',
+        descripcion:
+          'Administrar los usuarios con acceso al sistema.',
+        icono: '🔐',
+        ruta: '/usuarios',
+        estado: 'en-desarrollo'
+      }
+
+    ];
+
+
+    // ==========================================
+    // MÓDULOS PERMITIDOS SEGÚN EL ROL
+    // ==========================================
+
+    const modulosPorRol = {
+
+      administrador: [
+        'productos',
+        'materia-prima',
+        'proveedores',
+        'compras',
+        'ventas',
+        'clientes',
+        'empleados',
+        'produccion',
+        'gastos-operativos',
+        'usuarios'
+      ],
+
+      ventas: [
+        'productos',
+        'ventas',
+        'clientes'
+      ],
+
+      produccion: [
+        'productos',
+        'materia-prima',
+        'produccion'
+      ]
+
+    };
+
+
+    // Obtener módulos permitidos para el usuario
+    const modulosPermitidos =
+      modulosPorRol[usuario.rol] || [];
+
+
+    // Filtrar las tarjetas del Dashboard
+    const modulos = todosLosModulos.filter(
+      modulo =>
+        modulosPermitidos.includes(modulo.id)
+    );
+
+
+    // ==========================================
+    // RENDERIZAR DASHBOARD
+    // ==========================================
 
     return res.render('home', {
 
@@ -35,109 +195,7 @@ function mostrarHome(req, res) {
           }
         ),
 
-      modulos: [
-
-        {
-          id: 'productos',
-          nombre: 'Productos',
-          descripcion:
-            'Administrar los productos terminados de la empresa.',
-          icono: '🌮',
-          ruta: '/productos',
-          estado: 'en-desarrollo'
-        },
-
-        {
-          id: 'materia-prima',
-          nombre: 'Materia Prima',
-          descripcion:
-            'Administrar los insumos utilizados para elaborar los productos.',
-          icono: '🌽',
-          ruta: '/materia-prima',
-          estado: 'en-desarrollo'
-        },
-
-        {
-          id: 'proveedores',
-          nombre: 'Proveedores',
-          descripcion:
-            'Registrar y administrar los proveedores de materia prima.',
-          icono: '🚚',
-          ruta: '/proveedores',
-          estado: 'activo'
-        },
-
-        {
-          id: 'compras',
-          nombre: 'Compras',
-          descripcion:
-            'Registrar las compras realizadas a los proveedores.',
-          icono: '🛒',
-          ruta: '/compras',
-          estado: 'en-desarrollo'
-        },
-
-        {
-          id: 'ventas',
-          nombre: 'Ventas',
-          descripcion:
-            'Registrar y consultar las ventas realizadas.',
-          icono: '💰',
-          ruta: '/ventas',
-          estado: 'en-desarrollo'
-        },
-
-        {
-          id: 'clientes',
-          nombre: 'Clientes',
-          descripcion:
-            'Administrar la información de los clientes.',
-          icono: '👥',
-          ruta: '/clientes',
-          estado: 'activo'
-        },
-
-        {
-          id: 'empleados',
-          nombre: 'Empleados',
-          descripcion:
-            'Administrar los empleados de la empresa.',
-          icono: '👨‍💼',
-          ruta: '/empleados',
-          estado: 'en-desarrollo'
-        },
-
-        {
-          id: 'produccion',
-          nombre: 'Producción',
-          descripcion:
-            'Registrar y controlar los procesos de producción.',
-          icono: '🏭',
-          ruta: '/produccion',
-          estado: 'en-desarrollo'
-        },
-
-        {
-          id: 'gastos-operativos',
-          nombre: 'Gastos Operativos',
-          descripcion:
-            'Registrar gastos como limpieza, fumigación y otros servicios.',
-          icono: '🧾',
-          ruta: '/gastos-operativos',
-          estado: 'en-desarrollo'
-        },
-
-        {
-          id: 'usuarios',
-          nombre: 'Usuarios',
-          descripcion:
-            'Administrar los usuarios con acceso al sistema.',
-          icono: '🔐',
-          ruta: '/usuarios',
-          estado: 'en-desarrollo'
-        }
-
-      ]
+      modulos: modulos
 
     });
 
