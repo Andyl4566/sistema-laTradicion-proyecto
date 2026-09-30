@@ -1,0 +1,147 @@
+<div class="dashboard-container">
+
+    <div class="section-heading">
+
+        <div>
+
+            <p class="section-eyebrow">
+                Gestión de Producción
+            </p>
+
+            <h1 class="section-title">
+                Producción
+            </h1>
+
+            <p class="section-description">
+                Consulta el historial y registra
+                nuevas producciones.
+            </p>
+
+        </div>
+
+
+        <a
+            href="/produccion/nueva"
+            class="btn btn-module"
+        >
+            <i class="fas fa-plus"></i>
+            Nueva Producción
+        </a>
+
+    </div>
+
+
+    <% if (mensaje) { %>
+
+        <div class="alert alert-success">
+            <i class="fas fa-circle-check"></i>
+            <%= mensaje %>
+        </div>
+
+    <% } %>
+
+
+    <% if (error) { %>
+
+        <div class="alert alert-error">
+            <i class="fas fa-triangle-exclamation"></i>
+            <%= error %>
+        </div>
+
+    <% } %>
+
+
+    <div class="table-container">
+
+        <table class="data-table">
+
+            <thead>
+
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Producto</th>
+                    <th>Cantidad producida</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <% if (
+                    !producciones ||
+                    producciones.length === 0
+                ) { %>
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            class="empty-table"
+                        >
+                            No hay producciones registradas.
+                        </td>
+
+                    </tr>
+
+                <% } else { %>
+
+
+                    <% producciones.forEach(produccion => { %>
+
+                        <tr>
+
+                            <td>
+                                <%= produccion.ID_PRODUCCION %>
+                            </td>
+
+
+                            <td>
+
+                                <%= new Date(
+                                    produccion.FECHA_PRODUCCION
+                                ).toLocaleDateString('es-GT') %>
+
+                            </td>
+
+
+                            <td>
+
+                                <strong>
+                                    <%= produccion.NOMBRE %>
+                                </strong>
+
+                            </td>
+
+
+                            <td>
+                                <%= produccion.DESCRIPCION || '-' %>
+                            </td>
+
+
+                            <td>
+                                <%= produccion.PRODUCTO %>
+                            </td>
+
+
+                            <td>
+                                <%= produccion.CANTIDAD_PRODUCIDA %>
+                            </td>
+
+                        </tr>
+
+                    <% }); %>
+
+
+                <% } %>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

@@ -1,0 +1,299 @@
+<div class="dashboard-container">
+
+    <div class="section-heading">
+
+        <div>
+
+            <p class="section-eyebrow">
+                Gestión de Producción
+            </p>
+
+            <h1 class="section-title">
+                Nueva Producción
+            </h1>
+
+            <p class="section-description">
+                Registra la fabricación de productos terminados.
+                El inventario se actualizará automáticamente.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <% if (error) { %>
+
+        <div class="alert alert-error">
+
+            <i class="fas fa-triangle-exclamation"></i>
+
+            <%= error %>
+
+        </div>
+
+    <% } %>
+
+
+    <div class="form-card">
+
+        <form
+            action="/produccion/nueva"
+            method="POST"
+            class="crud-form"
+        >
+
+
+            <div class="form-group">
+
+                <label for="nombre">
+                    Nombre de la producción *
+                </label>
+
+                <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    maxlength="200"
+                    required
+                    value="<%= datos
+                        ? datos.nombre || ''
+                        : ''
+                    %>"
+                    placeholder="Ej. Producción diaria de nachos"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="descripcion">
+                    Descripción
+                </label>
+
+                <input
+                    type="text"
+                    id="descripcion"
+                    name="descripcion"
+                    maxlength="200"
+                    value="<%= datos
+                        ? datos.descripcion || ''
+                        : ''
+                    %>"
+                    placeholder="Descripción de la producción"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="fecha_produccion">
+                    Fecha *
+                </label>
+
+                <input
+                    type="date"
+                    id="fecha_produccion"
+                    name="fecha_produccion"
+                    required
+                    value="<%= datos
+                        ? datos.fecha_produccion || ''
+                        : ''
+                    %>"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="id_producto">
+                    Producto a fabricar *
+                </label>
+
+                <select
+                    id="id_producto"
+                    name="id_producto"
+                    required
+                >
+
+                    <option value="">
+                        Seleccione un producto
+                    </option>
+
+
+                    <% productos.forEach(producto => { %>
+
+                        <option
+                            value="<%= producto.ID_PRODUCTO %>"
+
+                            data-stock="<%= producto.UNIDADES %>"
+
+                            <%= datos &&
+                                String(datos.id_producto) ===
+                                String(producto.ID_PRODUCTO)
+                                ? 'selected'
+                                : ''
+                            %>
+                        >
+
+                            <%= producto.NOMBRE %>
+                            — Stock actual:
+                            <%= producto.UNIDADES %>
+
+                        </option>
+
+                    <% }); %>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Stock actual del producto
+                </label>
+
+                <input
+                    type="text"
+                    id="stock_producto"
+                    value="-"
+                    readonly
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="cantidad_producida">
+                    Cantidad a producir *
+                </label>
+
+                <input
+                    type="number"
+                    id="cantidad_producida"
+                    name="cantidad_producida"
+                    min="1"
+                    step="1"
+                    required
+                    value="<%= datos
+                        ? datos.cantidad_producida || 1
+                        : 1
+                    %>"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Stock estimado después de producir
+                </label>
+
+                <input
+                    type="text"
+                    id="stock_estimado"
+                    value="-"
+                    readonly
+                >
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <a
+                    href="/produccion"
+                    class="btn-action btn-delete"
+                >
+                    <i class="fas fa-xmark"></i>
+                    Cancelar
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-module"
+                >
+                    <i class="fas fa-industry"></i>
+                    Registrar Producción
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const productoSelect =
+    document.getElementById('id_producto');
+
+const cantidadInput =
+    document.getElementById('cantidad_producida');
+
+const stockProducto =
+    document.getElementById('stock_producto');
+
+const stockEstimado =
+    document.getElementById('stock_estimado');
+
+
+function actualizarInventario() {
+
+    const opcion =
+        productoSelect.options[
+            productoSelect.selectedIndex
+        ];
+
+
+    if (!opcion || !opcion.value) {
+
+        stockProducto.value = '-';
+        stockEstimado.value = '-';
+
+        return;
+    }
+
+
+    const stock =
+        Number(opcion.dataset.stock) || 0;
+
+    const cantidad =
+        Number(cantidadInput.value) || 0;
+
+
+    stockProducto.value =
+        stock;
+
+
+    stockEstimado.value =
+        stock + cantidad;
+}
+
+
+productoSelect.addEventListener(
+    'change',
+    actualizarInventario
+);
+
+
+cantidadInput.addEventListener(
+    'input',
+    actualizarInventario
+);
+
+
+actualizarInventario();
+
+</script>
