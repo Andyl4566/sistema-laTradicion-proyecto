@@ -245,3 +245,128 @@ Estructura de repositorio definida por el proyecto, separación de scripts segú
 
 Responsable: Ian
 
+## Registro 1
+
+Fecha: 23/09/2026
+Herramienta: ChatGPT
+Objetivo: Planificación de las actividades correspondientes al Desarrollador 3 para completar el avance de la aplicación web requerido en la Entrega 3.
+
+Prompt utilizado:
+"Revisa las tareas del Desarrollador 3 y ayúdame a continuar con el desarrollo de la aplicación web para alcanzar el avance solicitado en la Entrega 3."
+
+Resultado obtenido:
+Se revisó el estado actual de la aplicación web y se estableció un orden de trabajo para continuar con los módulos principales. Se determinó continuar con Productos, Materia Prima, Ventas y Producción, manteniendo la estructura existente basada en modelos, controladores, rutas y vistas.
+
+Validación del grupo:
+El grupo verificó que la planificación mantuviera la estructura existente del proyecto y que los nuevos módulos pudieran integrarse sin afectar los CRUD de Clientes y Proveedores previamente desarrollados.
+
+Estándares aplicados:
+A1 (Separación entre configuración de base de datos e interfaz), A5 (Código legible y responsabilidades separadas).
+
+Responsable: David
+
+
+## Registro 2
+
+Fecha: 23/09/2026
+Herramienta: ChatGPT
+Objetivo: Implementación y prueba del módulo CRUD de Productos en la aplicación web.
+
+Prompt utilizado:
+"Ayúdame a implementar el módulo de Productos siguiendo la misma estructura que utilizan Clientes y Proveedores, con modelo, controlador, rutas y vistas."
+
+Resultado obtenido:
+Se implementó el módulo de Productos con las operaciones de consultar, registrar, modificar y eliminar. Se utilizaron consultas parametrizadas y se integró el módulo al dashboard. Durante las pruebas se detectó que id_producto no utiliza AUTO_INCREMENT, por lo que se adaptó el registro para generar el siguiente identificador mediante MAX(id_producto) + 1. También se verificó el manejo de restricciones al intentar eliminar productos relacionados con otros registros.
+
+Validación del grupo:
+Se realizaron pruebas desde la aplicación web para listar productos, registrar un producto de prueba, modificar su cantidad y eliminarlo. Se comprobó que las operaciones se reflejaran correctamente en MySQL.
+
+Estándares aplicados:
+A2 (Manejo amigable de errores), A3 (Validación de entradas), A4 (Consultas parametrizadas), A5 (Código legible y responsabilidades separadas), A6 (Comentarios en funciones de acceso a datos).
+
+Responsable: David
+
+
+## Registro 3
+
+Fecha: 23/09/2026
+Herramienta: ChatGPT
+Objetivo: Implementación y prueba del módulo CRUD de Materia Prima.
+
+Prompt utilizado:
+"Continúa con el módulo de Materia Prima utilizando la misma arquitectura que usamos para Productos."
+
+Resultado obtenido:
+Se desarrolló el módulo de Materia Prima utilizando modelo, controlador, rutas y vistas. Se implementaron las operaciones para consultar, registrar, modificar y eliminar materias primas. El formulario permite ingresar nombre, descripción, cantidad y costo. También se aplicaron validaciones para evitar cantidades o costos inválidos y se utilizaron consultas parametrizadas para las operaciones con la base de datos.
+
+Validación del grupo:
+El módulo fue probado desde la aplicación web verificando el listado de materias primas y las operaciones de creación, modificación y eliminación de registros de prueba.
+
+Estándares aplicados:
+A2 (Manejo amigable de errores), A3 (Validación de entradas), A4 (Consultas parametrizadas), A5 (Código legible y responsabilidades separadas), A6 (Comentarios en funciones de acceso a datos).
+
+Responsable: David
+
+
+## Registro 4
+
+Fecha: 23/09/2026
+Herramienta: ChatGPT
+Objetivo: Implementación del módulo de Ventas e integración de la aplicación web con el procedimiento almacenado sp_registrar_venta y los triggers de inventario.
+
+Prompt utilizado:
+"Ayúdame a crear el módulo de Ventas utilizando el procedimiento sp_registrar_venta para registrar las ventas desde la aplicación web."
+
+Resultado obtenido:
+Se desarrolló el módulo de Ventas para consultar y registrar operaciones. El formulario permite seleccionar cliente, empleado y producto, además de ingresar cantidad y precio unitario. La aplicación ejecuta el procedimiento almacenado sp_registrar_venta mediante parámetros. La lógica de base de datos registra la venta y su detalle, mientras los triggers asociados validan la existencia de stock y realizan el descuento correspondiente del inventario.
+
+Validación del grupo:
+Se registró una venta de prueba desde la aplicación web. Se verificó que la venta fuera almacenada correctamente y que el inventario del producto vendido disminuyera según la cantidad registrada. La prueba confirmó la comunicación entre la aplicación web, el procedimiento almacenado y los triggers.
+
+Estándares aplicados:
+A1 (Separación entre configuración de BD e interfaz), A2 (Manejo amigable de errores), A3 (Validación de entradas), A4 (Consultas parametrizadas), A5 (Código legible y responsabilidades separadas), A6 (Comentarios en funciones de acceso a datos).
+
+Responsable: David
+
+
+## Registro 5
+
+Fecha: 23/09/2026
+Herramienta: ChatGPT
+Objetivo: Implementación del módulo de Producción e integración con el procedimiento almacenado sp_registrar_produccion.
+
+Prompt utilizado:
+"Ayúdame a crear el módulo de Producción utilizando sp_registrar_produccion para registrar la fabricación desde la aplicación web."
+
+Resultado obtenido:
+Se implementó el módulo de Producción para consultar el historial y registrar nuevos procesos de fabricación. El formulario permite indicar nombre, descripción, fecha, producto y cantidad producida. La aplicación ejecuta sp_registrar_produccion, el cual valida la existencia del producto y su receta, verifica la disponibilidad de materias primas, registra la producción y el detalle de fabricación, descuenta las materias primas utilizadas y aumenta el inventario del producto terminado.
+
+Validación del grupo:
+Se realizó una producción de prueba desde la aplicación web. Posteriormente se verificó en la base de datos la creación del registro en produccion y detalle_fabricacion. También se comprobó la disminución de las materias primas utilizadas y el aumento de las unidades disponibles del producto terminado.
+
+Estándares aplicados:
+A1 (Separación entre configuración de BD e interfaz), A2 (Manejo amigable de errores), A3 (Validación de entradas), A4 (Consultas parametrizadas), A5 (Código legible y responsabilidades separadas), A6 (Comentarios en funciones de acceso a datos).
+
+Responsable: David
+
+
+## Registro 6
+
+Fecha: 25/09/2026
+Herramienta: ChatGPT
+Objetivo: Revisión del avance final de la aplicación web correspondiente a las actividades del Desarrollador 3.
+
+Prompt utilizado:
+"Revisa el proyecto web actualizado y dime si las tareas del Desarrollador 3 están terminadas para la Entrega 3."
+
+Resultado obtenido:
+Se revisó el estado de la aplicación y se confirmó el funcionamiento de los módulos de Clientes, Proveedores, Productos, Materia Prima, Ventas y Producción. Se verificó la organización mediante modelos, controladores, rutas y vistas, el uso de consultas parametrizadas y la integración de los procedimientos almacenados utilizados por Ventas y Producción. También se identificó la necesidad de documentar el avance realizado en AVANCE_WEB.md antes de cerrar formalmente las actividades de la Entrega 3.
+
+Validación del grupo:
+El grupo verificó visual y funcionalmente los módulos habilitados desde el dashboard y confirmó que los módulos desarrollados pueden ser accedidos desde la aplicación.
+
+Estándares aplicados:
+A1 (Separación entre configuración de BD e interfaz), A2 (Manejo amigable de errores), A3 (Validación de entradas), A4 (Consultas parametrizadas), A5 (Código legible y responsabilidades separadas), A6 (Comentarios en funciones de acceso a datos).
+
+Responsable: David
+
