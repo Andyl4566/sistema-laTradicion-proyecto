@@ -1,0 +1,46 @@
+/*
+============================================================
+Archivo: vw_ventas_detalladas.sql
+Entrega: Entrega 3
+Descripción:
+Crea una vista que permite consultar el detalle de las ventas,
+incluyendo información del cliente, empleado y productos vendidos.
+Regla de negocio:
+Una venta pertenece a un cliente y a un empleado y puede contener
+uno o varios productos.
+El subtotal se calcula mediante:
+cantidad * precio_unitario
+Dependencias:
+- venta
+- cliente
+- empleado
+- producto
+- producto_venta
+============================================================
+*/
+USE bd_tradicion;
+DROP VIEW IF EXISTS vw_ventas_detalladas;
+CREATE VIEW vw_ventas_detalladas AS
+SELECT
+v.id_venta,
+v.fecha_venta,
+v.asunto,
+c.id_cliente,
+c.nombre AS cliente,
+e.id_empleado,
+e.nombre AS empleado,
+p.id_producto,
+p.nombre AS producto,
+pv.cantidad,
+pv.precio_unitario,
+(pv.cantidad * pv.precio_unitario) AS subtotal,
+v.monto AS total_venta
+FROM venta AS v
+INNER JOIN cliente AS c
+ON v.id_cliente = c.id_cliente
+INNER JOIN empleado AS e
+ON v.id_empleado = e.id_empleado
+INNER JOIN producto_venta AS pv
+ON v.id_venta = pv.id_venta
+INNER JOIN producto AS p
+ON pv.id_producto = p.id_producto;
