@@ -535,5 +535,180 @@ Estándares aplicados:
 Estándar D4 de trazabilidad de requerimientos y lineamientos de documentación de la Entrega 3.
 
 Responsable: Andy
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Registro 1
+Fecha: 27/09/2026
+Herramienta: ChatGPT
+Objetivo:
+Definir el procedimiento para implementar el control de acceso por roles
+dentro de la aplicación web.
+Prompt utilizado:
+"Vamos con las actividades del desarrollador 4. Necesito implementar
+el control de acceso por roles para Administrador, Ventas y Producción."
+Resultado obtenido:
+Se definió el procedimiento para incorporar los roles en la tabla de
+usuarios y controlar posteriormente los permisos dentro de la aplicación.
+Se establecieron tres roles: administrador, ventas y producción.
 
+Validación del grupo:
+Se verificó la estructura de la tabla usuarios y se agregó correctamente
+el campo rol mediante un ENUM.
+
+Estándares aplicados: Control de acceso, separación de responsabilidades y seguridad.
+
+Responsable: Angelo
+
+
+## Registro 2
+
+Fecha: 27/09/2026
+
+Herramienta: ChatGPT
+
+Objetivo:
+Crear usuarios de prueba para validar los diferentes roles del sistema.
+
+Prompt utilizado:
+"Necesito crear usuarios para probar los roles de Ventas y Producción."
+
+Resultado obtenido:
+Se crearon usuarios de prueba para los roles ventas y producción.
+También se verificaron las contraseñas cifradas con bcrypt y la
+existencia de los usuarios en la tabla usuarios.
+
+Validación del grupo:
+Se comprobó que los usuarios Ventas y Producción podían iniciar sesión
+correctamente en la aplicación.
+
+Estándares aplicados:
+Seguridad de credenciales y autenticación de usuarios.
+
+Responsable: Angelo
+
+
+## Registro 3
+
+Fecha: 27/09/2026
+
+Herramienta: ChatGPT
+
+Objetivo:
+Guardar el rol del usuario autenticado dentro de la sesión de la
+aplicación.
+
+Prompt utilizado:
+"Necesito que el sistema reconozca el rol del usuario después de
+iniciar sesión."
+
+Resultado obtenido:
+Se modificó userModel.js para recuperar el rol almacenado en la base
+de datos y authController.js para guardar dicho rol dentro de
+req.session.usuario.
+
+Validación del grupo:
+Se verificó mediante pruebas de inicio de sesión que la sesión
+almacenaba correctamente los roles ventas y producción.
+
+Estándares aplicados:
+Autenticación, sesiones y control de acceso.
+
+Responsable: Angelo
+
+
+## Registro 4
+
+Fecha: 27/09/2026
+
+Herramienta: ChatGPT
+
+Objetivo:
+Implementar un middleware centralizado para controlar el acceso a las
+rutas según el rol del usuario.
+
+Prompt utilizado:
+"Necesito proteger las rutas de la aplicación según los roles
+Administrador, Ventas y Producción."
+
+Resultado obtenido:
+Se creó authMiddleware.js con las funciones requiereAutenticacion y
+permitirRoles. Posteriormente se aplicó el middleware a las rutas de
+Ventas, Producción, Productos, Materia Prima, Clientes y Proveedores.
+
+Validación del grupo:
+Se realizaron pruebas ingresando directamente las URL de los módulos.
+Cuando un usuario intentó acceder a una ruta no permitida, el sistema
+respondió con el mensaje "Acceso denegado".
+
+Estándares aplicados:
+Control de acceso, autorización por roles, seguridad y separación de
+responsabilidades.
+
+Responsable: Angelo
+
+
+## Registro 5
+
+Fecha: 27/09/2026
+
+Herramienta: ChatGPT
+
+Objetivo:
+Adaptar la interfaz de la aplicación según el rol del usuario.
+
+Prompt utilizado:
+"Necesito que el menú y el dashboard muestren únicamente los módulos
+permitidos para cada rol."
+
+Resultado obtenido:
+Se modificaron layout.ejs, home.ejs y homeController.js para mostrar
+las opciones correspondientes al usuario autenticado.
+
+El perfil Ventas muestra Productos, Ventas y Clientes.
+El perfil Producción muestra Productos, Materia Prima y Producción.
+El perfil Administrador mantiene acceso a los módulos correspondientes
+del sistema.
+
+También se agregó la visualización del rol del usuario en la interfaz.
+
+Validación del grupo:
+Se inició sesión con los diferentes usuarios y se comprobó que el menú
+y las tarjetas del dashboard se adaptaban correctamente al rol.
+
+Estándares aplicados:
+Control de acceso, interfaz por roles y usabilidad.
+
+Responsable: Angelo
+
+
+## Registro 6
+
+Fecha: 27/09/2026
+
+Herramienta: ChatGPT
+
+Objetivo:
+Realizar las pruebas finales de permisos y documentar la certificación
+de calidad correspondiente a la Entrega 3.
+
+Prompt utilizado:
+"Necesito comprobar que los permisos funcionan correctamente y
+documentar las pruebas para la Entrega 3."
+
+Resultado obtenido:
+Se elaboró una matriz de pruebas para los roles Administrador, Ventas
+y Producción. Se verificaron accesos permitidos y accesos denegados,
+incluyendo intentos de acceso mediante URL directa.
+
+También se preparó la estructura de la certificación de calidad de la
+Entrega 3 siguiendo el formato utilizado en entregas anteriores.
+
+Validación del grupo:
+Las pruebas realizadas obtuvieron los resultados esperados y se
+documentaron mediante tablas y capturas de evidencia.
+
+Estándares aplicados:
+Pruebas funcionales, control de permisos, documentación y certificación
+de calidad.
+
+Responsable: Angelo
 
