@@ -1,0 +1,97 @@
+Registro 1 — Elaboración del Manual Técnico
+Fecha: 1/10/26
+Herramienta: ChatGPT
+Objetivo: Apoyar la elaboración del Manual Técnico del sistema La Tradición, correspondiente a las tareas 1 a 8 del Desarrollador 2.
+Prompt utilizado (resumen):
+"Necesito desarrollar el Manual Técnico de la Entrega 4 del proyecto La Tradición, organizando la información técnica del sistema, sus componentes, la base de datos y los procedimientos necesarios para su funcionamiento."
+Resultado obtenido:
+Se trabajó en la elaboración y organización del Manual Técnico, documentando los aspectos técnicos del proyecto y preparando el material para su revisión.
+Validación del grupo:
+El contenido debe contrastarse con la implementación real del sistema y revisarse antes de la entrega definitiva.
+Estándares aplicados:
+A5 (Código legible), A6 (Documentación).
+Responsable: Andy Lopez
+________________________________________
+Registro 2 — Elaboración del Informe Final
+Fecha: 10/10/26
+Herramienta: ChatGPT
+Objetivo: Apoyar la preparación del Informe Final correspondiente a las tareas 9 a 13.
+Prompt utilizado (resumen):
+"Ayúdame a organizar y redactar el Informe Final de la Entrega 4 de La Tradición, manteniendo una estructura clara y coherente con el desarrollo del proyecto."
+Resultado obtenido:
+Se trabajó en la estructura y redacción del Informe Final, organizando la información del proyecto para presentar sus resultados y documentación.
+Validación del grupo:
+El informe requiere revisión del equipo para comprobar que las afirmaciones, resultados y evidencias correspondan al trabajo realizado.
+Estándares aplicados:
+A6 (Documentación).
+Responsable: Andy López
+________________________________________
+Registro 3 — Documentación README.md
+Fecha: 15/10/26
+Herramienta: ChatGPT
+Objetivo: Elaborar el archivo README.md correspondiente a la tarea 14.
+Prompt utilizado (resumen):
+"Necesito preparar el archivo README.md del proyecto La Tradición para explicar su propósito, organización y la documentación disponible."
+Resultado obtenido:
+Se preparó la documentación principal de presentación del proyecto para facilitar su comprensión y navegación.
+Validación del grupo:
+Comprobar que las rutas, nombres de archivos y descripciones correspondan a la estructura final del repositorio.
+Estándares aplicados:
+A6 (Documentación).
+Responsable: Andy López
+________________________________________
+Registro 4 — Documentación INSTALL.md
+Fecha: 17/10/26
+Herramienta: ChatGPT
+Objetivo: Preparar las instrucciones de instalación del sistema, correspondientes a la tarea 15.
+Prompt utilizado (resumen):
+"Ayúdame a elaborar el archivo INSTALL.md de La Tradición, explicando los requisitos y los pasos necesarios para instalar y ejecutar el proyecto."
+Resultado obtenido:
+Se preparó el archivo INSTALL.md con instrucciones para orientar la instalación del sistema.
+Validación del grupo:
+Las instrucciones deben comprobarse mediante una instalación desde cero para confirmar que sean reproducibles.
+Estándares aplicados:
+A6 (Documentación).
+Responsable: Andy López
+________________________________________
+Registro 5 — Validación de instalación
+Fecha: 19/10/2026
+Herramienta: ChatGPT
+Objetivo: Elaborar la documentación de validación de instalación correspondiente a la tarea 16.
+Prompt utilizado (resumen):
+"Necesito documentar la validación de instalación del sistema La Tradición, incluyendo las comprobaciones necesarias y las evidencias que deben registrarse."
+Resultado obtenido:
+Se preparó VALIDACION_INSTALACION.md, incluyendo una lista de comprobaciones y espacios para registrar los resultados y las evidencias.
+Validación del grupo:
+Al elaborar el documento, la instalación limpia completa continuaba pendiente de ejecución y confirmación. La preparación del documento no equivale a certificar que todas las pruebas se realizaron.
+Estándares aplicados:
+A6 (Documentación).
+Responsable: Andy López
+________________________________________
+Registro 6 — Revisión de formato y organización
+Fecha: 22/10/2026
+Herramienta: ChatGPT
+Objetivo: Revisar la organización y presentación de la documentación correspondiente a la tarea 17.
+Prompt utilizado (resumen):
+"Continuemos con la tarea 17 del Desarrollador 2 para la Entrega 4 de La Tradición."
+Resultado obtenido:
+Se elaboró una lista de verificación para revisar los documentos, su formato, organización, ubicación y consistencia. También se propuso una estructura de carpetas de referencia.
+Validación del grupo:
+La revisión de la estructura real del repositorio y la comprobación final de los archivos deben completarse con las evidencias correspondientes.
+Estándares aplicados:
+A6 (Documentación).
+Responsable: Andy López
+________________________________________
+Registro 7 — Elaboración de la bitácora de IA
+Fecha: 22/10/2026
+Herramienta: ChatGPT
+Objetivo: Documentar el uso de inteligencia artificial durante las 18 actividades asignadas al Desarrollador 2 en la Entrega 4.
+Prompt utilizado:
+"Quiero que la bitácora tenga solo las actividades del D2 de la entrega 4."
+Resultado obtenido:
+Se elaboró una bitácora organizada por actividades, incluyendo objetivos, solicitudes realizadas, resultados, validaciones y estándares aplicados.
+Validación del grupo:
+Revisar las fechas pendientes, verificar la correspondencia de los registros con las actividades realizadas y confirmar la versión final antes de incorporarla a la entrega.
+Estándares aplicados:
+A6 (Documentación).
+Responsable: Andy López
