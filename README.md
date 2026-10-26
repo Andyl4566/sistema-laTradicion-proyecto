@@ -1,6 +1,13 @@
 # Sistema-laTradicion-proyecto
 Proyecto de base de datos y aplicación web
 
+
+# SGBD
+MySQL Data Base
+# Herramienta CASE
+MySQL Workbench
+
+
 Proyecto académico de base de datos y aplicación web para una empresa dedicada a la elaboración y comercialización de tortillas, nachos y otros productos derivados de harina.
 
 **Estado:** aplicación probada localmente; también se reportaron pruebas de operación remota privada con un servidor Debian y MariaDB. La instalación desde cero y la publicación abierta en internet siguen pendientes de certificación.
@@ -127,9 +134,3 @@ carnet: 2690-24-23562
 
 -Angelo Gabriel Machá Mota 
 carnet: 2690-24-22602
-
-
-# SGBD
-MySQL Data Base
-# Herramienta CASE
-MySQL Workbench
