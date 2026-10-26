@@ -133,7 +133,3 @@ carnet: 2690-24-22602
 MySQL Data Base
 # Herramienta CASE
 MySQL Workbench
-
-
-
-# La Tradición — Sistema de gestión
