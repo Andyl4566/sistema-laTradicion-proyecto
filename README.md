@@ -1,29 +1,6 @@
 # Sistema-laTradicion-proyecto
 Proyecto de base de datos y aplicación web
 
-# Integrantes
--Ian Paolo Navarijo Morfin 
-carnet: 2690-24-8137
-
--Ari Ben David García Claros 
-carnet: 2690-24-25277
-
--Andy Mynor Pérez López 
-carnet: 2690-24-23562
-
--Angelo Gabriel Machá Mota 
-carnet: 2690-24-22602
-
-
-# SGBD
-MySQL Data Base
-# Herramienta CASE
-MySQL Workbench
-
-
-
-# La Tradición — Sistema de gestión
-
 Proyecto académico de base de datos y aplicación web para una empresa dedicada a la elaboración y comercialización de tortillas, nachos y otros productos derivados de harina.
 
 **Estado:** aplicación probada localmente; también se reportaron pruebas de operación remota privada con un servidor Debian y MariaDB. La instalación desde cero y la publicación abierta en internet siguen pendientes de certificación.
@@ -136,3 +113,27 @@ El código original revisado escuchaba en `127.0.0.1`; el servidor Debian ya per
 ## Integridad académica
 
 Las contribuciones del equipo y el uso de herramientas de inteligencia artificial deben quedar documentados en las bitácoras y certificaciones correspondientes. El informe final debe distinguir entre requisitos comprobados y pendientes.
+
+
+# Integrantes
+-Ian Paolo Navarijo Morfin 
+carnet: 2690-24-8137
+
+-Ari Ben David García Claros 
+carnet: 2690-24-25277
+
+-Andy Mynor Pérez López 
+carnet: 2690-24-23562
+
+-Angelo Gabriel Machá Mota 
+carnet: 2690-24-22602
+
+
+# SGBD
+MySQL Data Base
+# Herramienta CASE
+MySQL Workbench
+
+
+
+# La Tradición — Sistema de gestión
