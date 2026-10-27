@@ -1,193 +1,38 @@
-/**
- * Scripts Globales - main.js
- * Empresa de Tortillas, Nachos y Harina
- * 
- * Funciones JavaScript del cliente para:
- * - Validación de formularios
- * - Interacciones dinámicas
- * - Mensajes de usuario
- */
-
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('✓ Aplicación cargada');
-  
-  // Inicializar componentes
-  initializeFormValidation();
-  initializeAlerts();
-  initializeSmoothScroll();
-});
-
-/**
- * Valida formularios en el cliente antes de enviar
- */
-function initializeFormValidation() {
-  const forms = document.querySelectorAll('form');
-  
-  forms.forEach(form => {
-    form.addEventListener('submit', function(e) {
-      // Validar campos requeridos
-      const requiredFields = this.querySelectorAll('[required]');
-      let isValid = true;
-
-      requiredFields.forEach(field => {
-        if (!field.value.trim()) {
-          isValid = false;
-          field.style.borderColor = '#FF6B6B';
-          field.addEventListener('input', function() {
-            this.style.borderColor = '';
-          });
-        }
+(function () {
+  'use strict';
+  document.querySelectorAll('[data-filtro-listado]').forEach(function (panel) {
+    var input = panel.querySelector('[data-filtro-texto]');
+    var clear = panel.querySelector('[data-filtro-limpiar]');
+    var count = panel.querySelector('[data-filtro-conteo]');
+    var table = panel.nextElementSibling && panel.nextElementSibling.querySelector('table');
+    if (!table || !input) return;
+    var rows = Array.from(table.querySelectorAll('tbody tr')).filter(function (tr) {
+      return tr.querySelectorAll('td').length > 1 && !tr.querySelector('.empty-table');
+    });
+    var empty = document.createElement('tr');
+    var td = document.createElement('td');
+    td.colSpan = table.querySelectorAll('thead th').length || 1;
+    td.className = 'empty-table';
+    td.textContent = 'No se encontraron registros con esa búsqueda.';
+    empty.appendChild(td);
+    empty.hidden = true;
+    table.querySelector('tbody').appendChild(empty);
+    function normalize(s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim(); }
+    function filter() {
+      var q = normalize(input.value);
+      var visible = 0;
+      rows.forEach(function (tr) {
+        var match = normalize(tr.textContent).includes(q);
+        tr.hidden = !match;
+        tr.style.display = match ? '' : 'none';
+        if (match) visible++;
       });
-
-      if (!isValid) {
-        e.preventDefault();
-        showAlert('Por favor completa todos los campos requeridos', 'error');
-      }
-    });
-  });
-}
-
-/**
- * Muestra alertas al usuario
- * @param {string} message - Mensaje a mostrar
- * @param {string} type - Tipo de alerta: 'success', 'error', 'warning', 'info'
- */
-function showAlert(message, type = 'info') {
-  const alertDiv = document.createElement('div');
-  alertDiv.className = `alert alert-${type}`;
-  alertDiv.innerHTML = `
-    <i class="fas fa-${getIconClass(type)}"></i>
-    <span>${message}</span>
-  `;
-  
-  // Insertar al principio del contenedor principal
-  const container = document.querySelector('.container') || document.body;
-  container.insertBefore(alertDiv, container.firstChild);
-  
-  // Remover después de 5 segundos
-  setTimeout(() => {
-    alertDiv.remove();
-  }, 5000);
-}
-
-/**
- * Obtiene el icono correspondiente al tipo de alerta
- */
-function getIconClass(type) {
-  const icons = {
-    'success': 'check-circle',
-    'error': 'exclamation-circle',
-    'warning': 'exclamation-triangle',
-    'info': 'info-circle'
-  };
-  return icons[type] || 'info-circle';
-}
-
-/**
- * Inicializa alertas existentes en la página
- */
-function initializeAlerts() {
-  const alerts = document.querySelectorAll('.alert');
-  
-  alerts.forEach(alert => {
-    // Remover alertas después de 5 segundos
-    setTimeout(() => {
-      alert.style.opacity = '0';
-      alert.style.transition = 'opacity 0.3s ease';
-      setTimeout(() => alert.remove(), 300);
-    }, 5000);
-  });
-}
-
-/**
- * Smooth scroll para enlaces internos
- */
-function initializeSmoothScroll() {
-  const links = document.querySelectorAll('a[href^="#"]');
-  
-  links.forEach(link => {
-    link.addEventListener('click', function(e) {
-      const href = this.getAttribute('href');
-      if (href === '#') return;
-      
-      const target = document.querySelector(href);
-      if (!target) return;
-      
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth' });
-    });
-  });
-}
-
-/**
- * Función auxiliar para hacer requests AJAX
- * @param {string} url - URL del endpoint
- * @param {object} options - Opciones (method, data, headers)
- */
-async function fetchAPI(url, options = {}) {
-  try {
-    const response = await fetch(url, {
-      method: options.method || 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-      },
-      body: options.data ? JSON.stringify(options.data) : undefined
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      empty.hidden = visible !== 0 || rows.length === 0;
+      empty.style.display = empty.hidden ? 'none' : '';
+      count.textContent = 'Registros encontrados: ' + visible;
     }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Error en fetchAPI:', error);
-    showAlert('Error en la solicitud. Intenta de nuevo.', 'error');
-    throw error;
-  }
-}
-
-/**
- * Muestra un modal de confirmación
- * @param {string} title - Título del modal
- * @param {string} message - Mensaje
- * @param {function} onConfirm - Callback si confirma
- */
-function showConfirmModal(title, message, onConfirm) {
-  const confirmed = confirm(`${title}\n\n${message}`);
-  if (confirmed) {
-    onConfirm();
-  }
-}
-
-/**
- * Formatea una fecha al formato local
- * @param {string|Date} date - Fecha a formatear
- */
-function formatDate(date) {
-  return new Date(date).toLocaleDateString('es-ES', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
+    input.addEventListener('input', filter);
+    clear.addEventListener('click', function () { input.value = ''; filter(); input.focus(); });
+    filter();
   });
-}
-
-/**
- * Formatea moneda
- * @param {number} amount - Monto a formatear
- */
-function formatCurrency(amount) {
-  return new Intl.NumberFormat('es-ES', {
-    style: 'currency',
-    currency: 'MXN'
-  }).format(amount);
-}
-
-// Exportar funciones globales
-window.appUtils = {
-  showAlert,
-  fetchAPI,
-  showConfirmModal,
-  formatDate,
-  formatCurrency
-};
+})();
