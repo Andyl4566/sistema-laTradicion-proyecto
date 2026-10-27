@@ -1,6 +1,10 @@
 /** Modelo CRUD de cliente para MySQL. */
 const db = require('../config/database');
 
+/**
+ * Consulta datos relacionados con «obtenerTodos» en la base de datos.
+ * @returns {Promise<*>} Resultado de la consulta u operación de base de datos.
+ */
 async function obtenerTodos() {
   return db.getAll(`
     SELECT
@@ -14,6 +18,10 @@ async function obtenerTodos() {
   `);
 }
 
+/**
+ * Consulta datos relacionados con «obtenerPorId» en la base de datos.
+ * @returns {Promise<*>} Resultado de la consulta u operación de base de datos.
+ */
 async function obtenerPorId(idCliente) {
   return db.getOne(`
     SELECT
@@ -27,6 +35,10 @@ async function obtenerPorId(idCliente) {
   `, [Number(idCliente)]);
 }
 
+/**
+ * Registra información mediante la operación «crear».
+ * @returns {Promise<*>} Resultado de la consulta u operación de base de datos.
+ */
 async function crear(datos) {
   return db.executeQuery(`
     INSERT INTO cliente (nombre, telefono, correo, direccion)
@@ -39,6 +51,10 @@ async function crear(datos) {
   ]);
 }
 
+/**
+ * Actualiza información mediante la operación «actualizar».
+ * @returns {Promise<*>} Resultado de la consulta u operación de base de datos.
+ */
 async function actualizar(idCliente, datos) {
   return db.executeQuery(`
     UPDATE cliente
@@ -53,6 +69,10 @@ async function actualizar(idCliente, datos) {
   ]);
 }
 
+/**
+ * Ejecuta la operación «eliminar» sobre un registro.
+ * @returns {Promise<*>} Resultado de la consulta u operación de base de datos.
+ */
 async function eliminar(idCliente) {
   return db.executeQuery(
     'DELETE FROM cliente WHERE id_cliente = ?',
