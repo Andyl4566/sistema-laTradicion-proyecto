@@ -166,7 +166,33 @@ Estándares aplicados:
 Trazabilidad de pruebas, organización documental y evidencias verificables.
 Responsable: Ari
 
+Registro 6
+Fecha: 23/10/2026
+Herramienta: ChatGPT
+Objetivo: Preparar un escenario de instalación limpia del sistema.
+Prompt utilizado:
+"Quiero que hagas la instalación desde cero como un escenario realista, suponiendo que se realiza en otra computadora."
+Resultado obtenido:
+Se elaboró un escenario simulado de instalación en Windows 11, incluyendo instalación de dependencias, configuración de base de datos, variables de entorno y comprobaciones esperadas del sistema.
+Validación del responsable:
+Se revisó el procedimiento como referencia documental. La instalación no fue ejecutada en un entorno independiente, por lo que no se considera una prueba real aprobada.
+Estándares aplicados:
+Documentación de despliegue, separación de resultados simulados y reales, y seguimiento de requisitos pendientes.
+Responsable: Ari
 
+Registro 7
+Fecha: 23/10/2026
+Herramienta: ChatGPT
+Objetivo: Organizar los documentos del Desarrollador 3 para la Entrega 4.
+Prompt utilizado:
+"Organiza los documentos del D3 dentro de la carpeta docs/entrega-4 y prepara una lista final de verificación."
+Resultado obtenido:
+Se organizó un paquete de entrega con el Manual de Usuario, las pruebas funcionales, el escenario de instalación limpia y una lista de verificación.
+Validación del responsable:
+Se preparó la estructura documental para integrarla al repositorio del proyecto.
+Estándares aplicados:
+Organización de archivos, documentación por entrega y control de actividades.
+Responsable: Ari
 
 
 
