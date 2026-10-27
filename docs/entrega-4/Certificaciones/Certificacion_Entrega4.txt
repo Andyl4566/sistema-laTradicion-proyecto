@@ -22,7 +22,7 @@ Carnet: 2690-24-8137
 Firma:
 Nombre: Andy Mynor Pérez López
 Carnet: 2690-24-23562
-Firma:
+Firma: Verificado
 Nombre: Ari Ben David García Claros
 Carnet: 2690-24-25277
 Firma: Verificado
