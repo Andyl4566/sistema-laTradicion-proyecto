@@ -29,4 +29,7 @@ router.post(
 );
 
 
+router.get('/produccion/:id', permitirRoles('administrador', 'produccion'), produccionController.verDetalle);
+router.post('/produccion/:id/anular', permitirRoles('administrador', 'produccion'), produccionController.anularProduccion);
+
 module.exports = router;
