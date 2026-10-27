@@ -7,6 +7,20 @@
 const proveedorModel =
   require('../models/proveedorModel');
 
+/** Valida los campos del proveedor también en el servidor (A3). */
+function validarProveedor({ nombre, telefono, correo }) {
+  const n = typeof nombre === 'string' ? nombre.trim() : '';
+  const t = typeof telefono === 'string' ? telefono.trim() : '';
+  const c = typeof correo === 'string' ? correo.trim() : '';
+  if (!n) return 'El nombre del proveedor es obligatorio.';
+  if (n.length > 200) return 'El nombre no puede superar 200 caracteres.';
+  if (t.length > 50) return 'El teléfono no puede superar 50 caracteres.';
+  if (t && !/^[0-9+()\s.-]+$/.test(t)) return 'El teléfono contiene caracteres no permitidos.';
+  if (c.length > 200) return 'El correo no puede superar 200 caracteres.';
+  if (c && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c)) return 'Ingresa un correo electrónico válido.';
+  return null;
+}
+
 
 /**
  * Listar proveedores
@@ -84,32 +98,17 @@ async function crearProveedor(req, res) {
     } = req.body;
 
 
-    if (!nombre || !nombre.trim()) {
-
-      return res.status(400).render(
-        'proveedores/formulario',
-        {
-          titulo: 'Nuevo Proveedor',
-          usuario: req.session.usuario,
-
-          proveedor: {
-            NOMBRE: nombre,
-            TELEFONO: telefono,
-            CORREO: correo
-          },
-
-          accion: '/proveedores/nuevo',
-
-          textoBoton:
-            'Registrar Proveedor',
-
-          error:
-            'El nombre del proveedor es obligatorio.'
-        }
-      );
-
+    const errorValidacion = validarProveedor({ nombre, telefono, correo });
+    if (errorValidacion) {
+      return res.status(400).render('proveedores/formulario', {
+        titulo: 'Nuevo Proveedor',
+        usuario: req.session.usuario,
+        proveedor: { NOMBRE: nombre, TELEFONO: telefono, CORREO: correo },
+        accion: '/proveedores/nuevo',
+        textoBoton: 'Registrar Proveedor',
+        error: errorValidacion
+      });
     }
-
 
     await proveedorModel.crear({
       nombre: nombre.trim(),
@@ -229,14 +228,12 @@ async function actualizarProveedor(req, res) {
     } = req.body;
 
 
-    if (!nombre || !nombre.trim()) {
-
+    const errorValidacion = validarProveedor({ nombre, telefono, correo });
+    if (errorValidacion) {
       return res.redirect(
-        `/proveedores/editar/${req.params.id}?error=El nombre es obligatorio`
+        `/proveedores/editar/${req.params.id}?error=${encodeURIComponent(errorValidacion)}`
       );
-
     }
-
 
     await proveedorModel.actualizar(
       req.params.id,
