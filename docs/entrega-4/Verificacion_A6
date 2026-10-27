@@ -1,0 +1,25 @@
+# Corrección documental A6 — Entrega 4
+
+**Base:** `base_prueba_MYSQL020.zip`. **Alcance:** comentarios JSDoc añadidos a funciones sin bloque de documentación inmediatamente anterior.
+
+Se agregaron **37 comentarios** en **8 modelos**. No se modificaron instrucciones JavaScript, consultas SQL ni procedimientos.
+
+## Archivos incluidos
+
+- `web/models/clienteModel.js`: 5 comentarios.
+- `web/models/compraModel.js`: 6 comentarios.
+- `web/models/empleadoModel.js`: 5 comentarios.
+- `web/models/gastoOperativoModel.js`: 5 comentarios.
+- `web/models/produccionModel.js`: 4 comentarios.
+- `web/models/proveedorModel.js`: 5 comentarios.
+- `web/models/userModel.js`: 5 comentarios.
+- `web/models/ventaModel.js`: 2 comentarios.
+
+## Aplicación
+1. Hacer respaldo de `MYSQL020`.
+2. Extraer este ZIP en la carpeta que contiene `web`, permitiendo reemplazar únicamente los modelos indicados.
+3. Ejecutar `node --check web/models/*.js` (o verificar los archivos individualmente en Windows).
+4. Ejecutar una prueba breve de listado y registro en Compras, Ventas y Producción.
+
+## Limitaciones
+La revisión es estática; no prueba las funciones contra MySQL. Los comentarios describen el propósito inferido del nombre de la función; revisarlos y precisarlos si es necesario. A6 podría requerir documentación adicional en funciones de acceso a BD fuera de `web/models`.
