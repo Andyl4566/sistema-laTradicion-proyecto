@@ -1,0 +1,41 @@
+
+<style>
+/* Mejoras visuales E4: aisladas al módulo Compras */
+.compra-panel{background:#fff;border:1px solid #e7eee8;border-radius:14px;padding:20px;margin:16px 0;box-shadow:0 5px 16px rgba(18,67,31,.055)}
+.compra-panel-title{font-size:15px;font-weight:750;color:#165c28;margin:0 0 15px}
+.compra-metricas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
+.compra-metrica{background:#edf6ef;border-radius:9px;padding:12px 14px;min-width:0}
+.compra-metrica span{display:block;font-size:12px;color:#3c6546;margin-bottom:6px}
+.compra-metrica strong{display:block;font-size:18px;color:#125526;overflow-wrap:anywhere}
+.compra-metrica--danger{background:#fff0ef}.compra-metrica--danger strong{color:#b91c1c}
+.compra-badge{display:inline-flex;align-items:center;border-radius:6px;padding:5px 9px;font-size:12px;font-weight:700}
+.compra-badge--activa{background:#e6f6e9;color:#12632b}.compra-badge--anulada{background:#fee9e7;color:#af2020}
+.compra-panel .data-table th{background:#155a27;color:#fff}.compra-panel .data-table td{vertical-align:middle}
+.compra-panel .data-table tr:hover td{background:#f8fbf8}
+.compra-filtros{margin:0;gap:12px}.compra-filtros>div{flex:1 1 140px}.compra-filtros input,.compra-filtros select{box-sizing:border-box;width:100%;max-width:none;min-height:38px}
+.compra-acciones .btn-action{background:#edf5ee;color:#165c28;border-radius:6px;padding:8px 10px;text-decoration:none;font-weight:650}
+.compra-acciones .btn-action:hover{background:#dcefe0}
+.compra-anular{font-weight:650;min-height:34px}
+.compra-modal{width:min(100%,480px);border:1px solid #e6eae7;padding:26px}.compra-modal h3{color:#165c28;margin-top:0}.compra-modal p{line-height:1.5;color:#526157}.compra-modal textarea{margin-top:8px;border-color:#d3ddd5}
+.compra-fila{border:1px solid #e0eae2;border-radius:10px;background:#fbfdfb;padding:15px;margin:12px 0}
+.compra-fila-grid{grid-template-columns:minmax(165px,2fr) minmax(80px,1fr) minmax(105px,1fr) minmax(105px,1fr) auto;gap:10px}
+.compra-fila .form-group{min-width:0}.compra-fila .form-group input{width:100%;box-sizing:border-box}.compra-fila .btn-delete{min-height:38px}
+.compra-form-head{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.compra-total-box{background:#edf6ef;border-radius:10px;padding:15px;margin-top:16px}
+.compra-total-box label{color:#165c28;font-weight:700}.compra-total-box input{background:transparent!important;border:0!important;color:#155b28;font-size:22px;font-weight:750;padding-left:0!important}
+.compra-detalle-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.compra-detalle-campo{background:#f2f7f3;border-radius:9px;padding:12px;min-width:0}.compra-detalle-campo small{display:block;color:#587360;margin-bottom:6px}.compra-detalle-campo strong{overflow-wrap:anywhere}
+.compra-detalle-total{background:#eaf6ec;border-radius:9px;padding:14px;color:#155b28;font-weight:750;font-size:20px;margin-top:14px}
+@media(max-width:850px){.compra-metricas{grid-template-columns:repeat(2,minmax(0,1fr))}.compra-fila-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.compra-fila-grid>.compra-form-group:first-child{grid-column:1/-1}.compra-detalle-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){.compra-panel{padding:13px}.compra-form-head,.compra-detalle-grid{grid-template-columns:1fr}.compra-metricas{gap:7px}.compra-metrica{padding:10px}.compra-metrica strong{font-size:15px}.compra-fila-grid{grid-template-columns:1fr 1fr}}
+</style>
+<div class="dashboard-container">
+<div class="section-heading"><div><p class="section-eyebrow">Gestión comercial</p><h1 class="section-title">Compra #<%= compra.ID %></h1><p class="section-description">Consulta las materias primas y el estado de esta compra.</p></div><a href="/compras" class="btn btn-module">← Volver a compras</a></div>
+<div class="compra-panel"><h2 class="compra-panel-title">Información general</h2><div class="compra-detalle-grid">
+<div class="compra-detalle-campo"><small>Proveedor</small><strong><%= compra.PROVEEDOR %></strong></div>
+<div class="compra-detalle-campo"><small>Fecha de compra</small><strong><%= new Date(compra.FECHA).toLocaleDateString('es-GT',{timeZone:'UTC'}) %></strong></div>
+<div class="compra-detalle-campo"><small>Estado</small><span class="compra-badge <%= compra.ESTADO==='ANULADA'?'compra-badge--anulada':'compra-badge--activa' %>"><%= compra.ESTADO==='ANULADA'?'Anulada':'Activa' %></span></div>
+<% if(compra.ESTADO==='ANULADA'){ %><div class="compra-detalle-campo"><small>Motivo de anulación</small><strong><%= compra.MOTIVO_ANULACION || '—' %></strong></div><div class="compra-detalle-campo"><small>Fecha de anulación</small><strong><%= compra.FECHA_ANULACION ? new Date(compra.FECHA_ANULACION).toLocaleString('es-GT') : '—' %></strong></div><% } %>
+</div></div>
+<div class="compra-panel"><h2 class="compra-panel-title">Detalle de materias primas</h2><div class="table-container"><table class="data-table" style="width:100%"><thead><tr><th>Materia prima</th><th>Cantidad</th><th>Unidad</th><th>Precio unitario</th><th>Subtotal</th></tr></thead><tbody><% lineas.forEach(l=>{ %><tr><td><%= l.NOMBRE %></td><td><%= Number(l.CANTIDAD).toFixed(2) %></td><td><%= l.UNIDAD || '—' %></td><td>Q <%= Number(l.PRECIO).toFixed(2) %></td><td>Q <%= Number(l.SUBTOTAL).toFixed(2) %></td></tr><% }) %></tbody></table></div><div class="compra-detalle-total">Total de la compra: Q <%= Number(compra.MONTO).toFixed(2) %></div></div>
+</div>
