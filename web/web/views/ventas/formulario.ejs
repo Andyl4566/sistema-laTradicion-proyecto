@@ -1,429 +1,220 @@
-<div class="dashboard-container">
-
-    <div class="section-heading">
-
-        <div>
-
-            <p class="section-eyebrow">
-                Gestión Comercial
-            </p>
-
-            <h1 class="section-title">
-                Nueva Venta
-            </h1>
-
-            <p class="section-description">
-                Registra una nueva venta.
-                El inventario se actualizará automáticamente.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <% if (error) { %>
-
-        <div class="alert alert-error">
-
-            <i class="fas fa-triangle-exclamation"></i>
-
-            <%= error %>
-
-        </div>
-
-    <% } %>
-
-
-    <div class="form-card">
-
-        <form
-            action="/ventas/nueva"
-            method="POST"
-            class="crud-form"
-        >
-
-
-            <!-- ASUNTO -->
-
-            <div class="form-group">
-
-                <label for="asunto">
-                    Asunto *
-                </label>
-
-                <input
-                    type="text"
-                    id="asunto"
-                    name="asunto"
-                    required
-                    maxlength="200"
-                    value="<%= datos
-                        ? datos.asunto || ''
-                        : ''
-                    %>"
-                    placeholder="Ej. Venta mostrador"
-                >
-
-            </div>
-
-
-            <!-- FECHA -->
-
-            <div class="form-group">
-
-                <label for="fecha_venta">
-                    Fecha *
-                </label>
-
-                <input
-                    type="date"
-                    id="fecha_venta"
-                    name="fecha_venta"
-                    required
-                    value="<%= datos
-                        ? datos.fecha_venta || ''
-                        : ''
-                    %>"
-                >
-
-            </div>
-
-
-            <!-- CLIENTE -->
-
-            <div class="form-group">
-
-                <label for="id_cliente">
-                    Cliente *
-                </label>
-
-                <select
-                    id="id_cliente"
-                    name="id_cliente"
-                    required
-                >
-
-                    <option value="">
-                        Seleccione un cliente
-                    </option>
-
-                    <% clientes.forEach(cliente => { %>
-
-                        <option
-                            value="<%= cliente.ID_CLIENTE %>"
-                            <%= datos &&
-                                String(datos.id_cliente) ===
-                                String(cliente.ID_CLIENTE)
-                                ? 'selected'
-                                : ''
-                            %>
-                        >
-
-                            <%= cliente.NOMBRE %>
-
-                        </option>
-
-                    <% }); %>
-
-                </select>
-
-            </div>
-
-
-            <!-- EMPLEADO -->
-
-            <div class="form-group">
-
-                <label for="id_empleado">
-                    Empleado *
-                </label>
-
-                <select
-                    id="id_empleado"
-                    name="id_empleado"
-                    required
-                >
-
-                    <option value="">
-                        Seleccione un empleado
-                    </option>
-
-                    <% empleados.forEach(empleado => { %>
-
-                        <option
-                            value="<%= empleado.ID_EMPLEADO %>"
-                            <%= datos &&
-                                String(datos.id_empleado) ===
-                                String(empleado.ID_EMPLEADO)
-                                ? 'selected'
-                                : ''
-                            %>
-                        >
-
-                            <%= empleado.NOMBRE %>
-
-                        </option>
-
-                    <% }); %>
-
-                </select>
-
-            </div>
-
-
-            <!-- PRODUCTO -->
-
-            <div class="form-group">
-
-                <label for="id_producto">
-                    Producto *
-                </label>
-
-                <select
-                    id="id_producto"
-                    name="id_producto"
-                    required
-                >
-
-                    <option value="">
-                        Seleccione un producto
-                    </option>
-
-
-                    <% productos.forEach(producto => { %>
-
-                        <option
-                            value="<%= producto.ID_PRODUCTO %>"
-
-                            data-precio="<%= producto.PRECIO_UNITARIO %>"
-
-                            data-stock="<%= producto.UNIDADES %>"
-
-                            <%= datos &&
-                                String(datos.id_producto) ===
-                                String(producto.ID_PRODUCTO)
-                                ? 'selected'
-                                : ''
-                            %>
-                        >
-
-                            <%= producto.NOMBRE %>
-                            — Stock:
-                            <%= producto.UNIDADES %>
-
-                        </option>
-
-                    <% }); %>
-
-                </select>
-
-            </div>
-
-
-            <!-- STOCK -->
-
-            <div class="form-group">
-
-                <label>
-                    Stock disponible
-                </label>
-
-                <input
-                    type="text"
-                    id="stock_disponible"
-                    value="-"
-                    readonly
-                >
-
-            </div>
-
-
-            <!-- CANTIDAD -->
-
-            <div class="form-group">
-
-                <label for="cantidad">
-                    Cantidad *
-                </label>
-
-                <input
-                    type="number"
-                    id="cantidad"
-                    name="cantidad"
-                    min="1"
-                    step="1"
-                    required
-                    value="<%= datos
-                        ? datos.cantidad || 1
-                        : 1
-                    %>"
-                >
-
-            </div>
-
-
-            <!-- PRECIO -->
-
-            <div class="form-group">
-
-                <label for="precio_unitario">
-                    Precio unitario (Q) *
-                </label>
-
-                <input
-                    type="number"
-                    id="precio_unitario"
-                    name="precio_unitario"
-                    min="0.01"
-                    step="0.01"
-                    required
-                    value="<%= datos
-                        ? datos.precio_unitario || ''
-                        : ''
-                    %>"
-                >
-
-            </div>
-
-
-            <!-- TOTAL -->
-
-            <div class="form-group">
-
-                <label>
-                    Total estimado
-                </label>
-
-                <input
-                    type="text"
-                    id="total_estimado"
-                    value="Q 0.00"
-                    readonly
-                >
-
-            </div>
-
-
-            <div class="form-actions">
-
-                <a
-                    href="/ventas"
-                    class="btn-action btn-delete"
-                >
-                    <i class="fas fa-xmark"></i>
-                    Cancelar
-                </a>
-
-
-                <button
-                    type="submit"
-                    class="btn btn-module"
-                >
-                    <i class="fas fa-cash-register"></i>
-                    Registrar Venta
-                </button>
-
-            </div>
-
-        </form>
-
-    </div>
-
+<style>
+.venta-combo {position:relative;width:100%;}
+.venta-combo-input {width:100%;box-sizing:border-box;}
+.venta-select-interno {position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;left:0;bottom:0;}
+.venta-combo-list {position:absolute;z-index:1000;top:calc(100% + 3px);left:0;right:0;max-height:220px;overflow:auto;background:#fff;border:1px solid #cbd5e1;border-radius:8px;box-shadow:0 8px 22px rgba(0,0,0,.12);}
+.venta-combo-list[hidden]{display:none;}
+.venta-combo-opcion{display:block;width:100%;border:0;background:#fff;text-align:left;padding:10px 12px;cursor:pointer;color:#222;font:inherit;}
+.venta-combo-opcion:hover,.venta-combo-opcion.activo{background:#e8f3e8;}
+.venta-combo-vacio{padding:12px;color:#64748b;}
+</style>
+
+<style>
+.ventas-formulario-wrap{max-width:1120px;width:100%;}
+.ventas-formulario-wrap .form-card{max-width:none!important;width:100%;box-sizing:border-box;padding:26px!important;}
+.ventas-formulario-wrap .venta-datos-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 22px;margin-bottom:22px;}
+.ventas-formulario-wrap .venta-datos-grid .form-group{margin:0;min-width:0;}
+.ventas-formulario-wrap .venta-datos-grid input,.ventas-formulario-wrap .venta-datos-grid select{width:100%;box-sizing:border-box;}
+.venta-subtitulo{color:#175e2d;font-weight:750;margin:16px 0 12px;}
+.ventas-formulario-wrap .venta-linea{background:#f9fbf9;border:1px solid #dce7de;border-radius:10px;padding:14px;margin:0 0 12px;}
+.venta-linea-cabecera{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;}
+.venta-linea-grid{display:grid;grid-template-columns:minmax(210px,2.3fr) minmax(80px,.7fr) minmax(90px,.8fr) minmax(95px,.8fr) minmax(100px,1fr);gap:12px;align-items:end;}
+.venta-linea-grid .form-group{margin:0;min-width:0;}
+.venta-linea-grid label{font-size:12px;display:block;margin-bottom:6px;}
+.venta-linea-grid input,.venta-linea-grid select{box-sizing:border-box;width:100%;min-width:0;}
+.venta-linea-grid .subtotal-linea{font-weight:700;color:#175e2d;background:#eef7ef;}
+.venta-total-tarjeta{margin:16px 0;padding:16px 20px;background:#eaf5ed;border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.venta-total-tarjeta label{color:#155d2b;font-weight:700;}
+.venta-total-tarjeta input{font-size:21px;font-weight:800;color:#155d2b;border:0!important;background:transparent!important;text-align:right;max-width:240px;}
+.ventas-formulario-wrap #agregar-producto{width:100%;}
+@media(max-width:850px){.venta-linea-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.venta-linea-grid .form-group:first-child{grid-column:1/-1;}}
+@media(max-width:600px){.ventas-formulario-wrap .venta-datos-grid{grid-template-columns:1fr;}.ventas-formulario-wrap .form-card{padding:16px!important;}.venta-total-tarjeta{align-items:stretch;flex-direction:column;}.venta-total-tarjeta input{text-align:left;}.venta-linea-grid{gap:10px;}}
+</style>
+<div class="dashboard-container ventas-formulario-wrap">
+  <div class="section-heading"><div><p class="section-eyebrow">Gestión Comercial</p>
+    <h1 class="section-title">Nueva Venta</h1>
+    <p class="section-description">Agrega todos los productos de una venta. El inventario se actualiza al registrar.</p>
+  </div></div>
+  <% if (error) { %><div class="alert alert-error"><i class="fas fa-triangle-exclamation"></i> <%= error %></div><% } %>
+  <div class="form-card">
+    <form id="form-venta" action="/ventas/nueva" method="POST" class="crud-form">
+      <div class="venta-datos-grid">
+      <div class="form-group"><label for="asunto">Asunto *</label>
+        <input id="asunto" name="asunto" type="text" maxlength="200" required placeholder="Ej. Venta mostrador" value="<%= datos ? datos.asunto || '' : '' %>"></div>
+      <div class="form-group"><label for="fecha_venta">Fecha *</label>
+        <input id="fecha_venta" name="fecha_venta" type="date" required value="<%= datos ? datos.fecha_venta || '' : '' %>"></div>
+      <div class="form-group"><label for="id_cliente">Cliente *</label><select id="id_cliente" name="id_cliente" required>
+        <option value="">Seleccione un cliente</option>
+        <% clientes.forEach(c => { %><option value="<%= c.ID_CLIENTE %>" <%= datos && String(datos.id_cliente) === String(c.ID_CLIENTE) ? 'selected' : '' %>><%= c.NOMBRE %></option><% }); %>
+      </select></div>
+      <div class="form-group"><label for="id_empleado">Empleado *</label><select id="id_empleado" name="id_empleado" required>
+        <option value="">Seleccione un empleado</option>
+        <% empleados.forEach(e => { %><option value="<%= e.ID_EMPLEADO %>" <%= datos && String(datos.id_empleado) === String(e.ID_EMPLEADO) ? 'selected' : '' %>><%= e.NOMBRE %></option><% }); %>
+      </select></div>
+      </div>
+      <h3 class="venta-subtitulo">Productos de la venta</h3>
+      <div id="lineas-productos"></div>
+      <button type="button" id="agregar-producto" class="btn btn-module" style="margin:12px 0;"><i class="fas fa-plus"></i> Agregar producto</button>
+      <input type="hidden" name="productos_json" id="productos_json">
+      <div class="venta-total-tarjeta"><label for="total_estimado">Total estimado</label><input id="total_estimado" readonly value="Q 0.00"></div>
+      <p id="error-detalle" class="alert alert-error" style="display:none" role="alert"></p>
+      <div class="form-actions"><a href="/ventas" class="btn-action btn-delete"><i class="fas fa-xmark"></i> Cancelar</a>
+        <button type="submit" class="btn btn-module"><i class="fas fa-cash-register"></i> Registrar Venta</button></div>
+    </form>
+  </div>
 </div>
-
-
+<template id="opciones-producto"><option value="">Seleccione un producto</option>
+  <% productos.forEach(p => { %><option value="<%= p.ID_PRODUCTO %>" data-precio="<%= p.PRECIO_UNITARIO %>" data-stock="<%= p.UNIDADES %>"><%= p.NOMBRE %> — Stock: <%= p.UNIDADES %></option><% }); %>
+</template>
 <script>
-
-const productoSelect =
-    document.getElementById('id_producto');
-
-const precioInput =
-    document.getElementById('precio_unitario');
-
-const cantidadInput =
-    document.getElementById('cantidad');
-
-const stockInput =
-    document.getElementById('stock_disponible');
-
-const totalInput =
-    document.getElementById('total_estimado');
-
-
-function actualizarProducto() {
-
-    const opcion =
-        productoSelect.options[
-            productoSelect.selectedIndex
-        ];
-
-    if (!opcion || !opcion.value) {
-
-        precioInput.value = '';
-
-        stockInput.value = '-';
-
-        actualizarTotal();
-
-        return;
+(() => {
+  const contenedor = document.getElementById('lineas-productos');
+  const plantilla = document.getElementById('opciones-producto');
+  const total = document.getElementById('total_estimado');
+  const oculto = document.getElementById('productos_json');
+  const error = document.getElementById('error-detalle');
+  const form = document.getElementById('form-venta');
+  let contador = 0;
+  // Desplegable con búsqueda integrada. Conserva el select original y sus valores.
+  function activarBusqueda(select, placeholder) {
+    const opciones = Array.from(select.options).map(op => ({
+      value: op.value, text: op.textContent.trim()
+    }));
+    const cont = document.createElement('div');
+    cont.className = 'venta-combo';
+    const campo = document.createElement('input');
+    campo.type = 'text';
+    campo.className = 'venta-combo-input';
+    campo.placeholder = placeholder;
+    campo.autocomplete = 'off';
+    campo.setAttribute('role','combobox');
+    campo.setAttribute('aria-autocomplete','list');
+    campo.setAttribute('aria-expanded','false');
+    const lista = document.createElement('div');
+    lista.className = 'venta-combo-list';
+    lista.setAttribute('role','listbox');
+    lista.hidden = true;
+    select.parentNode.insertBefore(cont, select);
+    cont.append(campo, lista, select);
+    select.classList.add('venta-select-interno');
+    select.tabIndex = -1;
+    const normalizar = t => t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    let activo = -1;
+    function sincronizar() {
+      const op = select.selectedOptions[0];
+      campo.value = select.value && op ? op.textContent.trim() : '';
     }
-
-
-    const precio =
-        opcion.dataset.precio;
-
-    const stock =
-        opcion.dataset.stock;
-
-
-    precioInput.value =
-        Number(precio).toFixed(2);
-
-    stockInput.value =
-        stock;
-
-
-    actualizarTotal();
-}
-
-
-function actualizarTotal() {
-
-    const cantidad =
-        Number(cantidadInput.value) || 0;
-
-    const precio =
-        Number(precioInput.value) || 0;
-
-
-    const total =
-        cantidad * precio;
-
-
-    totalInput.value =
-        'Q ' + total.toFixed(2);
-}
-
-
-productoSelect.addEventListener(
-    'change',
-    actualizarProducto
-);
-
-cantidadInput.addEventListener(
-    'input',
-    actualizarTotal
-);
-
-precioInput.addEventListener(
-    'input',
-    actualizarTotal
-);
-
-
-/* Si el formulario vuelve por un error,
-   recalculamos los valores. */
-actualizarProducto();
-
+    function cerrar() { lista.hidden = true; campo.setAttribute('aria-expanded','false'); activo = -1; }
+    function elegir(op) {
+      select.value = op.value;
+      select.dispatchEvent(new Event('change', {bubbles:true}));
+      sincronizar(); cerrar();
+    }
+    function pintar() {
+      const termino = normalizar(campo.value.trim());
+      const coinciden = opciones.filter(op => op.value && normalizar(op.text).includes(termino)).slice(0,100);
+      lista.replaceChildren(); activo = -1;
+      if (!coinciden.length) {
+        const vacio = document.createElement('div'); vacio.className='venta-combo-vacio';
+        vacio.textContent='Sin coincidencias'; lista.append(vacio);
+      }
+      for (const op of coinciden) {
+        const boton=document.createElement('button'); boton.type='button';
+        boton.className='venta-combo-opcion'; boton.setAttribute('role','option');
+        boton.textContent=op.text;
+        boton.addEventListener('mousedown',e=>e.preventDefault());
+        boton.addEventListener('click',()=>elegir(op)); lista.append(boton);
+      }
+      lista.hidden=false; campo.setAttribute('aria-expanded','true');
+    }
+    campo.addEventListener('focus',()=>{campo.select(); pintar();});
+    campo.addEventListener('input',()=>{
+      // Una búsqueda escrita no equivale a seleccionar una opción.
+      select.value=''; select.dispatchEvent(new Event('change',{bubbles:true})); pintar();
+    });
+    campo.addEventListener('keydown',e=>{
+      const botones=Array.from(lista.querySelectorAll('.venta-combo-opcion'));
+      if(e.key==='Escape'){cerrar();sincronizar();return;}
+      if(e.key==='ArrowDown'||e.key==='ArrowUp'){
+        e.preventDefault(); if(lista.hidden)pintar();
+        activo=(activo+(e.key==='ArrowDown'?1:-1)+botones.length)%Math.max(botones.length,1);
+        botones.forEach((b,i)=>b.classList.toggle('activo',i===activo));
+        botones[activo]?.scrollIntoView({block:'nearest'});
+      }
+      if(e.key==='Enter'&&!lista.hidden&&botones.length){e.preventDefault();elegir(opciones.find(o=>o.text===botones[Math.max(activo,0)].textContent));}
+    });
+    document.addEventListener('click',e=>{if(!cont.contains(e.target)){cerrar();sincronizar();}});
+    select.addEventListener('change',()=>{if(lista.hidden)sincronizar();});
+    sincronizar();
+  }
+  activarBusqueda(document.getElementById('id_cliente'),'Buscar o seleccionar cliente...');
+  activarBusqueda(document.getElementById('id_empleado'),'Buscar o seleccionar empleado...');
+  function crearLinea(id = '', cantidad = 1) {
+    const n = ++contador;
+    const fila = document.createElement('div');
+    fila.className = 'venta-linea';
+    fila.innerHTML = `<div class="venta-linea-cabecera"><strong>Producto ${n}</strong><button type="button" class="btn-action btn-delete quitar-producto">Quitar</button></div>
+      <div class="venta-linea-grid">
+        <div class="form-group"><label>Producto *</label><select class="producto-linea" required></select></div>
+        <div class="form-group"><label>Cantidad *</label><input type="number" class="cantidad-linea" min="1" step="1" required></div>
+        <div class="form-group"><label>Disponible</label><input class="stock-linea" readonly value="-"></div>
+        <div class="form-group"><label>Precio (Q)</label><input class="precio-linea" readonly></div>
+        <div class="form-group"><label>Subtotal</label><input class="subtotal-linea" readonly value="Q 0.00"></div>
+      </div>`;
+    const select = fila.querySelector('.producto-linea');
+    select.innerHTML = plantilla.innerHTML;
+    select.value = String(id);
+    activarBusqueda(select, 'Buscar o seleccionar producto...');
+    fila.querySelector('.cantidad-linea').value = cantidad;
+    fila.querySelector('.quitar-producto').addEventListener('click', () => { fila.remove(); actualizar(); });
+    select.addEventListener('change', actualizar);
+    fila.querySelector('.cantidad-linea').addEventListener('input', actualizar);
+    contenedor.appendChild(fila);
+    actualizar();
+  }
+  function actualizar() {
+    let suma = 0;
+    const detalles = [];
+    const acumulado = new Map();
+    let mensaje = '';
+    for (const fila of contenedor.children) {
+      const select = fila.querySelector('.producto-linea');
+      const opcion = select.selectedOptions[0];
+      const id = Number(select.value);
+      const cantidad = Number(fila.querySelector('.cantidad-linea').value);
+      const stock = Number(opcion?.dataset.stock || 0);
+      const precio = Number(opcion?.dataset.precio || 0);
+      fila.querySelector('.stock-linea').value = id ? stock : '-';
+      fila.querySelector('.precio-linea').value = id ? precio.toFixed(2) : '';
+      const subtotal = id && Number.isInteger(cantidad) && cantidad > 0 ? cantidad * precio : 0;
+      fila.querySelector('.subtotal-linea').value = 'Q ' + subtotal.toFixed(2);
+      suma += subtotal;
+      if (id && Number.isInteger(cantidad) && cantidad > 0) {
+        detalles.push({id_producto:id,cantidad});
+        acumulado.set(id, (acumulado.get(id) || 0) + cantidad);
+      }
+    }
+    for (const [id, cantidad] of acumulado) {
+      const opcion = Array.from(plantilla.content.querySelectorAll('option')).find(o => Number(o.value) === id);
+      if (opcion && cantidad > Number(opcion.dataset.stock)) mensaje = 'La cantidad supera el stock disponible de uno de los productos.';
+    }
+    total.value = 'Q ' + suma.toFixed(2);
+    oculto.value = JSON.stringify(detalles);
+    error.textContent = mensaje;
+    error.style.display = mensaje ? 'block' : 'none';
+    return !mensaje && detalles.length === contenedor.children.length && detalles.length > 0;
+  }
+  document.getElementById('agregar-producto').addEventListener('click', () => crearLinea());
+  form.addEventListener('submit', e => {
+    if (!actualizar()) {
+      e.preventDefault();
+      error.textContent = error.textContent || 'Seleccione un producto y una cantidad válida en cada línea.';
+      error.style.display = 'block';
+    }
+  });
+  let iniciales = [];
+  try { iniciales = JSON.parse(<%- JSON.stringify(datos && datos.productos_json ? datos.productos_json : '[]').replace(/</g, '\u003c') %>); } catch (_) {}
+  if (!Array.isArray(iniciales) || !iniciales.length) iniciales = [{id_producto:'',cantidad:1}];
+  iniciales.forEach(p => crearLinea(p.id_producto, p.cantidad));
+})();
 </script>
