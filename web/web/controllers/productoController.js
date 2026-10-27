@@ -66,7 +66,7 @@ async function crearProducto(req, res) {
     const precioNumero = Number(precio_unitario);
 
     if (
-      !Number.isFinite(unidadesNumero) ||
+      !Number.isSafeInteger(unidadesNumero) ||
       unidadesNumero < 0
     ) {
       return res.status(400).render('productos/formulario', {
@@ -75,7 +75,7 @@ async function crearProducto(req, res) {
         producto: req.body,
         accion: '/productos/nuevo',
         textoBoton: 'Registrar Producto',
-        error: 'Las unidades deben ser un número mayor o igual a 0.'
+        error: 'Las unidades deben ser un número entero mayor o igual a 0.'
       });
     }
 
@@ -172,11 +172,11 @@ async function actualizarProducto(req, res) {
     }
 
     if (
-      !Number.isFinite(unidadesNumero) ||
+      !Number.isSafeInteger(unidadesNumero) ||
       unidadesNumero < 0
     ) {
       return res.redirect(
-        `/productos/editar/${req.params.id}?error=Las unidades no son válidas`
+        `/productos/editar/${req.params.id}?error=Las unidades deben ser enteras y mayores o iguales a 0`
       );
     }
 
