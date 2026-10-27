@@ -138,6 +138,36 @@ Estándares aplicados:
 Integridad de inventarios, pruebas funcionales y validación de cálculos.
 Responsable: Ari
 
+Registro 4
+Fecha: 22/10/2026
+Herramienta: ChatGPT
+Objetivo: Verificar el funcionamiento del módulo de ventas.
+Prompt utilizado:
+"Continuemos con la prueba de ventas para comprobar que el sistema registre la operación y descuente correctamente las unidades vendidas."
+Resultado obtenido:
+Se registró la venta ID 65 de 2 unidades de Nachos barbacoa por Q30.00. El inventario disminuyó de 109 a 107 unidades.
+Validación del responsable:
+Se verificó el registro en el historial de ventas y la disminución del inventario mediante capturas.
+Estándares aplicados:
+Pruebas funcionales, validación de totales y actualización de inventario.
+Responsable: Ari
+
+Registro 5
+Fecha: 22/10/2026
+Herramienta: ChatGPT
+Objetivo: Documentar los resultados de las pruebas funcionales.
+Prompt utilizado:
+"Prepara el documento de pruebas funcionales del Desarrollador 3 con los resultados y las capturas de compras, producción y ventas."
+Resultado obtenido:
+Se elaboró el documento de pruebas funcionales con tres casos de prueba aprobados, incluyendo objetivos, procedimientos, resultados esperados, resultados obtenidos y evidencias.
+Validación del responsable:
+Se revisaron los resultados de las tres pruebas y se confirmó que coincidieran con las operaciones realizadas en el sistema.
+Estándares aplicados:
+Trazabilidad de pruebas, organización documental y evidencias verificables.
+Responsable: Ari
+
+
+
 
 
 
