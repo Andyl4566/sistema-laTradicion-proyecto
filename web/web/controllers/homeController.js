@@ -62,7 +62,7 @@ function mostrarHome(req, res) {
           'Registrar las compras realizadas a los proveedores.',
         icono: '🛒',
         ruta: '/compras',
-        estado: 'en-desarrollo'
+        estado: 'activo'
       },
 
       {
@@ -92,7 +92,7 @@ function mostrarHome(req, res) {
           'Administrar los empleados de la empresa.',
         icono: '👨‍💼',
         ruta: '/empleados',
-        estado: 'en-desarrollo'
+        estado: 'activo'
       },
 
       {
@@ -112,18 +112,10 @@ function mostrarHome(req, res) {
           'Registrar gastos como limpieza, fumigación y otros servicios.',
         icono: '🧾',
         ruta: '/gastos-operativos',
-        estado: 'en-desarrollo'
+        estado: 'activo'
       },
 
-      {
-        id: 'usuarios',
-        nombre: 'Usuarios',
-        descripcion:
-          'Administrar los usuarios con acceso al sistema.',
-        icono: '🔐',
-        ruta: '/usuarios',
-        estado: 'en-desarrollo'
-      }
+      
 
     ];
 
