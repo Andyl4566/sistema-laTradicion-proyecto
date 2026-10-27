@@ -11,10 +11,20 @@ async function listarProducciones(req, res) {
     const producciones =
       await produccionModel.obtenerTodas();
 
+    const agrupadas = new Map();
+    for (const fila of producciones) {
+      if (!agrupadas.has(fila.ID_PRODUCCION)) {
+        agrupadas.set(fila.ID_PRODUCCION, { ...fila, ITEMS: [] });
+      }
+      agrupadas.get(fila.ID_PRODUCCION).ITEMS.push({
+        nombre: fila.PRODUCTO, cantidad: fila.CANTIDAD_PRODUCIDA
+      });
+    }
+
     return res.render('produccion/index', {
       titulo: 'Producción',
       usuario: req.session.usuario,
-      producciones,
+      producciones: [...agrupadas.values()],
       mensaje: req.query.mensaje || null,
       error: req.query.error || null
     });
@@ -41,13 +51,16 @@ async function listarProducciones(req, res) {
 async function mostrarCrear(req, res) {
   try {
 
-    const productos =
-      await produccionModel.obtenerProductos();
+    const [productos, recetas] = await Promise.all([
+      produccionModel.obtenerProductos(),
+      produccionModel.obtenerRecetasDisponibles()
+    ]);
 
     return res.render('produccion/formulario', {
       titulo: 'Nueva Producción',
       usuario: req.session.usuario,
       productos,
+      recetas,
       datos: null,
       error: null
     });
@@ -71,77 +84,35 @@ async function mostrarCrear(req, res) {
  */
 async function crearProduccion(req, res) {
   try {
-
-    const {
-      nombre,
-      descripcion,
-      fecha_produccion,
-      id_producto,
-      cantidad_producida
-    } = req.body;
-
-
-    if (
-      !nombre ||
-      !fecha_produccion ||
-      !id_producto ||
-      !cantidad_producida
-    ) {
-
-      return mostrarFormularioConError(
-        req,
-        res,
-        'Completa todos los campos obligatorios.'
-      );
+    const { nombre, descripcion, fecha_produccion, productos_json } = req.body;
+    let productos;
+    try { productos = JSON.parse(productos_json); } catch (_) { productos = null; }
+    if (typeof nombre !== 'string' || !nombre.trim() || nombre.trim().length > 200 ||
+        typeof fecha_produccion !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(fecha_produccion) ||
+        !Array.isArray(productos) || !productos.length || productos.length > 100) {
+      return mostrarFormularioConError(req, res, 'Completa los campos y agrega productos válidos.');
     }
-
-
-    const cantidad =
-      Number(cantidad_producida);
-
-
-    if (
-      !Number.isInteger(cantidad) ||
-      cantidad <= 0
-    ) {
-
-      return mostrarFormularioConError(
-        req,
-        res,
-        'La cantidad producida debe ser mayor que cero.'
-      );
+    const ids = new Set();
+    for (const item of productos) {
+      if (!item || !Number.isSafeInteger(item.id_producto) || item.id_producto <= 0 ||
+          !Number.isSafeInteger(item.cantidad) || item.cantidad <= 0 ||
+          item.cantidad > 2147483647 || ids.has(item.id_producto)) {
+        return mostrarFormularioConError(req, res, 'Hay cantidades o productos inválidos o repetidos.');
+      }
+      ids.add(item.id_producto);
     }
-
-
-    await produccionModel.registrar({
+    await produccionModel.registrarMultiple({
       nombre: nombre.trim(),
-      descripcion: descripcion?.trim(),
-      fecha_produccion,
-      id_producto,
-      cantidad_producida: cantidad
+      descripcion: typeof descripcion === 'string' ? descripcion.trim().slice(0, 200) : null,
+      fecha_produccion, productos
     });
-
-
-    return res.redirect(
-      '/produccion?mensaje=Producción registrada correctamente'
-    );
-
-
+    return res.redirect('/produccion?mensaje=' + encodeURIComponent('Producción múltiple registrada correctamente'));
   } catch (error) {
-
-    console.error(
-      '❌ Error registrando producción:',
-      error
-    );
-
-    return mostrarFormularioConError(
-      req,
-      res,
-      'No se pudo registrar la producción. Verifica que el producto tenga una receta y suficiente materia prima.'
-    );
+    console.error('Error registrando producción múltiple:', error);
+    return mostrarFormularioConError(req, res,
+      'No se pudo registrar. Revisa recetas, existencias de materias primas y cantidades.');
   }
 }
-
 
 /**
  * Recarga el formulario conservando
@@ -155,8 +126,10 @@ async function mostrarFormularioConError(
 
   try {
 
-    const productos =
-      await produccionModel.obtenerProductos();
+    const [productos, recetas] = await Promise.all([
+      produccionModel.obtenerProductos(),
+      produccionModel.obtenerRecetasDisponibles()
+    ]);
 
     return res.status(400).render(
       'produccion/formulario',
@@ -164,6 +137,7 @@ async function mostrarFormularioConError(
         titulo: 'Nueva Producción',
         usuario: req.session.usuario,
         productos,
+        recetas,
         datos: req.body,
         error: mensajeError
       }
@@ -183,8 +157,42 @@ async function mostrarFormularioConError(
 }
 
 
+async function verDetalle(req, res) {
+  try {
+    const id = Number(req.params.id);
+    if (!Number.isSafeInteger(id) || id <= 0) return res.redirect('/produccion?error=ID inválido');
+    const detalle = await produccionModel.obtenerDetalle(id);
+    if (!detalle) return res.redirect('/produccion?error=Producción no encontrada');
+    return res.render('produccion/detalle', {
+      titulo: 'Detalle de Producción',
+      usuario: req.session.usuario,
+      ...detalle
+    });
+  } catch (error) {
+    console.error('Error consultando producción:', error);
+    return res.redirect('/produccion?error=No se pudo consultar la producción');
+  }
+}
+
+async function anularProduccion(req, res) {
+  const id = Number(req.params.id);
+  const motivo = String(req.body.motivo || '').trim();
+  if (!Number.isSafeInteger(id) || id <= 0 || motivo.length < 5 || motivo.length > 500) {
+    return res.redirect('/produccion?error=' + encodeURIComponent('ID o motivo de anulación inválido'));
+  }
+  try {
+    await produccionModel.anular(id, motivo);
+    return res.redirect('/produccion?mensaje=' + encodeURIComponent('Producción anulada; inventario restaurado correctamente'));
+  } catch (error) {
+    console.error('Error anulando producción:', error);
+    return res.redirect('/produccion?error=' + encodeURIComponent('No se pudo anular la producción. Puede estar anulada, no tener consumos verificables o faltar inventario de producto terminado.'));
+  }
+}
+
 module.exports = {
   listarProducciones,
   mostrarCrear,
-  crearProduccion
+  crearProduccion,
+  verDetalle,
+  anularProduccion
 };
