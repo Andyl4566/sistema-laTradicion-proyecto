@@ -43,8 +43,10 @@ async function executeQuery(query, params = []) {
     const [rows] = await pool.execute(query, params);
     return rows;
   } catch (error) {
-    console.error('Error en consulta MySQL:', error.message);
-    throw new Error('Error en la operación de base de datos');
+    // Conserva el código y la causa del error para que el controlador
+    // pueda manejar casos específicos sin mostrar detalles SQL al usuario.
+    console.error('Error en consulta MySQL:', error.code || 'SIN_CODIGO', error.message);
+    throw error;
   }
 }
 
