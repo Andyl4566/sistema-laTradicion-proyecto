@@ -1,6 +1,10 @@
 /** Modelo de usuarios para MySQL. */
 const db = require('../config/database');
 
+/**
+ * Consulta datos relacionados con «obtenerPorNombreUsuario» en la base de datos.
+ * @returns {Promise<*>} Resultado de la consulta u operación de base de datos.
+ */
 async function obtenerPorNombreUsuario(nombreUsuario) {
   return db.getOne(`
     SELECT
@@ -17,6 +21,10 @@ async function obtenerPorNombreUsuario(nombreUsuario) {
   `, [nombreUsuario]);
 }
 
+/**
+ * Consulta datos relacionados con «obtenerPorEmail» en la base de datos.
+ * @returns {Promise<*>} Resultado de la consulta u operación de base de datos.
+ */
 async function obtenerPorEmail(email) {
   return db.getOne(`
     SELECT
@@ -32,6 +40,10 @@ async function obtenerPorEmail(email) {
   `, [email]);
 }
 
+/**
+ * Consulta datos relacionados con «obtenerPorId» en la base de datos.
+ * @returns {Promise<*>} Resultado de la consulta u operación de base de datos.
+ */
 async function obtenerPorId(idUsuario) {
   return db.getOne(`
     SELECT
@@ -47,6 +59,10 @@ async function obtenerPorId(idUsuario) {
   `, [Number(idUsuario)]);
 }
 
+/**
+ * Registra información mediante la operación «crear».
+ * @returns {Promise<*>} Resultado de la consulta u operación de base de datos.
+ */
 async function crear(datosUsuario) {
   const { nombre_usuario, email, password_hash, nombre_completo } = datosUsuario;
 
@@ -63,6 +79,10 @@ async function crear(datosUsuario) {
   return { success: true, insertId: result.insertId || null };
 }
 
+/**
+ * Consulta datos relacionados con «obtenerTodos» en la base de datos.
+ * @returns {Promise<*>} Resultado de la consulta u operación de base de datos.
+ */
 async function obtenerTodos() {
   return db.getAll(`
     SELECT
