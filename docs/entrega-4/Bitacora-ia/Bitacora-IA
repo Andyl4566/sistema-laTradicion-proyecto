@@ -95,3 +95,169 @@ Revisar las fechas pendientes, verificar la correspondencia de los registros con
 Estándares aplicados:
 A6 (Documentación).
 Responsable: Andy López
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Registro 1
+
+Fecha: 23/10/2026
+
+Herramienta: ChatGPT
+
+Objetivo: Elaborar la certificación de calidad correspondiente a la Entrega 4.
+
+Prompt utilizado:
+
+"Realiza la certificación de calidad de la Entrega 4 siguiendo el mismo formato utilizado en la Entrega 3, incluyendo los requisitos completados y los cuatro integrantes del grupo."
+
+Resultado obtenido:
+
+Se redactó el documento CERTIFICACION_ENTREGA_4.md, incluyendo los requisitos de base de datos, aplicación web, documentación, pruebas, seguridad y preparación de la defensa oral. También se incorporaron los datos de los cuatro integrantes.
+
+Validación del grupo:
+
+Documento preparado para revisión y confirmación de los integrantes. Las firmas individuales y los requisitos pendientes de verificación deben confirmarse antes de la entrega oficial.
+
+Estándares aplicados:
+
+R1 (Estructura del repositorio), R6 (Protección de credenciales) y requisitos de certificación de calidad.
+
+Responsable: Angelo
+
+Registro 2
+
+Fecha: 23/10/2026
+
+Herramienta: ChatGPT
+
+Objetivo: Organizar la distribución de responsabilidades para la defensa oral del proyecto.
+
+Prompt utilizado:
+
+"Continuemos con la defensa oral de la Entrega 4 de La Tradición. Organiza los temas que debe presentar cada integrante y prepara la demostración del sistema."
+
+Resultado obtenido:
+
+Se propuso una distribución de la exposición entre los cuatro integrantes, incluyendo introducción, diseño de base de datos, normalización, seguridad, aplicación web, procedimientos almacenados y conclusiones.
+
+También se organizó una demostración funcional basada en compras, producción, ventas y verificación de registros en la base de datos.
+
+Validación del grupo:
+
+Planificación preparada. La distribución de temas debe ser confirmada por los integrantes antes de la exposición.
+
+Estándares aplicados:
+
+D1 (Claridad de la documentación) y requisitos de defensa oral de la Entrega 4.
+
+Responsable: Angelo
+
+Registro 3
+
+Fecha: 23/10/2026
+
+Herramienta: ChatGPT
+
+Objetivo: Elaborar el documento de apoyo para la defensa oral.
+
+Prompt utilizado:
+
+"Pásame la defensa oral como documento, por favor."
+
+Resultado obtenido:
+
+Se preparó el documento DEFENSA_ORAL_D4.docx, con la distribución de temas, guion de exposición, demostración funcional, preguntas técnicas con respuestas y lista de verificación.
+
+El documento servirá como material de estudio y apoyo para la presentación del proyecto.
+
+Validación del grupo:
+
+Documento elaborado. Queda pendiente el ensayo de la exposición y la confirmación de la participación de cada integrante.
+
+Estándares aplicados:
+
+D1 (Redacción y claridad), D2 (Organización de documentos) y requisitos de defensa oral.
+
+Responsable: Angelo
+
+Registro 4
+
+Fecha: 23/10/2026
+
+Herramienta: ChatGPT
+
+Objetivo: Planificar la auditoría final del repositorio de GitHub.
+
+Prompt utilizado:
+
+"Este es el repositorio de GitHub de La Tradición. Todavía no hemos subido los archivos de la Entrega 4. Necesito preparar la auditoría y la documentación correspondiente al Desarrollador 4."
+
+Resultado obtenido:
+
+Se identificaron los aspectos necesarios para la auditoría: estructura de carpetas, documentación de las entregas, archivos de configuración, protección de credenciales, participación de los desarrolladores y creación del tag entrega-4.
+
+Se estableció que la auditoría definitiva debe realizarse después de incorporar los archivos pendientes de la Entrega 4.
+
+Validación del grupo:
+
+Se preparó la planificación de la revisión. La aprobación final del repositorio continúa pendiente.
+
+Estándares aplicados:
+
+R1 (Estructura de carpetas), R4 (Participación mediante commits), R5 (Etiquetas Git), R6 (Protección de credenciales) y R7 (.gitignore).
+
+Responsable: Angelo
+
+Registro 5
+
+Fecha: 23/10/2026
+
+Herramienta: ChatGPT
+
+Objetivo: Documentar la auditoría preliminar del repositorio.
+
+Prompt utilizado:
+
+"Adelante con la elaboración de la auditoría del repositorio del Desarrollador 4."
+
+Resultado obtenido:
+
+Se preparó el documento AUDITORIA_REPOSITORIO_D4.md, destinado a registrar las verificaciones de estructura, documentación, configuración, seguridad y control de versiones.
+
+Se dejó establecido que los resultados definitivos deben comprobarse cuando los demás desarrolladores hayan subido sus archivos.
+
+Validación del grupo:
+
+Informe preparado como evidencia documental. Pendiente de completar con la revisión final del repositorio.
+
+Estándares aplicados:
+
+R1, R2, R4, R5, R6 y R7 (Estándares del repositorio Git).
+
+Responsable: Desarrollador 4
+
+Registro 6
+
+Fecha: 23/10/2026
+
+Herramienta: ChatGPT
+
+Objetivo: Elaborar una lista de verificación para el cierre de la Entrega 4.
+
+Prompt utilizado:
+
+"Prepara el checklist final del Desarrollador 4 para comprobar los documentos y las actividades necesarias antes de realizar la entrega oficial."
+
+Resultado obtenido:
+
+Se elaboró CHECKLIST_FINAL_D4.md, con las actividades relacionadas con documentación, certificación, auditoría, seguridad, defensa oral y creación del tag oficial entrega-4.
+
+El documento permite identificar qué requisitos están preparados y cuáles requieren una comprobación final.
+
+Validación del grupo:
+
+Checklist preparado para su utilización cuando todos los integrantes hayan incorporado sus archivos al repositorio.
+
+Estándares aplicados:
+
+R1 (Estructura del repositorio), R5 (Etiquetas Git), R6 (Protección de credenciales) y requisitos de calidad de la Entrega 4.
+
+Responsable: Angelo
