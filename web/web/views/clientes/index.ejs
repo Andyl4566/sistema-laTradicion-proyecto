@@ -48,6 +48,12 @@
     <% } %>
 
 
+    <div data-filtro-listado style="background:#fff;border-radius:12px;padding:14px 16px;margin:14px 0;display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
+        <label for="buscar-clientes" style="font-weight:600;color:#155724;">Buscar clientes</label>
+        <input id="buscar-clientes" data-filtro-texto type="search" placeholder="Buscar por nombre, teléfono, correo o dirección..." autocomplete="off" aria-label="Buscar clientes" style="flex:1;min-width:220px;max-width:440px;padding:9px 11px;border:1px solid #ccd6cf;border-radius:7px;">
+        <button type="button" data-filtro-limpiar style="padding:9px 13px;border:0;border-radius:7px;background:#e8efea;color:#174b26;cursor:pointer;">Limpiar filtros</button>
+        <span data-filtro-conteo aria-live="polite" style="width:100%;font-size:13px;color:#365b40;">Registros encontrados: 0</span>
+    </div>
     <div class="table-container">
 
         <table class="data-table">
@@ -167,3 +173,4 @@
     </div>
 
 </div>
+<script src="/js/filtros-listados.js" defer></script>
