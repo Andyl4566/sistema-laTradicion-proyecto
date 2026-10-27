@@ -1,6 +1,6 @@
 /**
  * Punto de Entrada Principal de la Aplicación Web
- * Empresa de Tortillas, Nachos y Harina - Entrega 2
+ * Empresa de Tortillas, Nachos y Harina
  * 
  * RESPONSABILIDADES:
  * - Configurar el servidor Express
@@ -97,6 +97,10 @@ const ventaRoutes =
 const produccionRoutes =
   require('./routes/produccionRoutes');
 
+const empleadoRoutes = require('./routes/empleadoRoutes');
+const gastoOperativoRoutes = require('./routes/gastoOperativoRoutes');
+const compraRoutes = require('./routes/compraRoutes');
+
 
 // Registrar rutas
 app.use('/', authRoutes);
@@ -107,6 +111,9 @@ app.use('/', productoRoutes);
 app.use('/', materiaPrimaRoutes);
 app.use('/', ventaRoutes);
 app.use('/', produccionRoutes);
+app.use('/', empleadoRoutes);
+app.use('/', gastoOperativoRoutes);
+app.use('/', compraRoutes);
 
 // ========== RUTA DE PRUEBA ==========
 app.get('/health', (req, res) => {
