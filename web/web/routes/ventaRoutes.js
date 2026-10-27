@@ -32,4 +32,7 @@ router.post(
 );
 
 
+// Anulación: solamente administradores.
+router.post('/ventas/:id/anular', permitirRoles('administrador'), ventaController.anularVenta);
+
 module.exports = router;
