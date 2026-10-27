@@ -97,6 +97,52 @@ A6 (Documentación).
 Responsable: Andy López
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Registro 1
+Fecha: 22/10/2026
+Herramienta: ChatGPT
+Objetivo: Elaborar el Manual de Usuario del sistema La Tradición.
+Prompt utilizado:
+"Necesito elaborar el Manual de Usuario correspondiente al Desarrollador 3 de la Entrega 4, utilizando capturas reales de la aplicación y explicando los procedimientos de compras, producción y ventas."
+Resultado obtenido:
+Se elaboró un Manual de Usuario con capturas reales del sistema, explicando el inicio de sesión, navegación, registro de compras, producción de productos y consulta de ventas.
+Validación del responsable:
+Se proporcionaron capturas de la aplicación y se revisaron los procedimientos documentados.
+Estándares aplicados:
+Documentación clara, procedimientos paso a paso y uso de evidencias reales.
+Responsable: Ari
+
+Registro 2
+Fecha: 22/10/2026
+Herramienta: ChatGPT
+Objetivo: Verificar el funcionamiento del módulo de compras.
+Prompt utilizado:
+"Vamos a realizar las pruebas funcionales del D3. Quiero comprobar que al registrar una compra aumente correctamente el inventario de materia prima."
+Resultado obtenido:
+Se ejecutó una compra de 2 unidades de harina de maíz por Q10.00. La compra quedó registrada con ID 11 y el inventario aumentó de 51.05 a 53.05.
+Validación del responsable:
+Se comprobó el registro de la compra y la actualización del inventario mediante capturas del sistema.
+Estándares aplicados:
+Pruebas funcionales, comparación de resultados esperados y obtenidos, y registro de evidencias.
+Responsable: Ari
+
+Registro 3
+Fecha: 22/10/2026
+Herramienta: ChatGPT
+Objetivo: Verificar el funcionamiento del módulo de producción.
+Prompt utilizado:
+"Continuemos con la prueba de producción para comprobar que aumente el inventario de productos y disminuyan las materias primas utilizadas."
+Resultado obtenido:
+Se registró la producción ID 21 de 5 unidades de Nachos barbacoa. El inventario del producto aumentó de 104 a 109 unidades. También se verificó el descuento de harina de maíz, aceite y sal según las cantidades establecidas en la receta.
+Validación del responsable:
+Se revisaron las existencias antes y después de la producción, confirmando que las cantidades coincidieran con los resultados esperados.
+Estándares aplicados:
+Integridad de inventarios, pruebas funcionales y validación de cálculos.
+Responsable: Ari
+
+
+
+
+_______________________________________________________________________________________________________________________________________________
+Registro 1
 
 Fecha: 23/10/2026
 
