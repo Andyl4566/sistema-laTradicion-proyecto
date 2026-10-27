@@ -1,6 +1,10 @@
 /** Modelo CRUD de proveedor para MySQL. */
 const db = require('../config/database');
 
+/**
+ * Consulta datos relacionados con «obtenerTodos» en la base de datos.
+ * @returns {Promise<*>} Resultado de la consulta u operación de base de datos.
+ */
 async function obtenerTodos() {
   return db.getAll(`
     SELECT
@@ -13,6 +17,10 @@ async function obtenerTodos() {
   `);
 }
 
+/**
+ * Consulta datos relacionados con «obtenerPorId» en la base de datos.
+ * @returns {Promise<*>} Resultado de la consulta u operación de base de datos.
+ */
 async function obtenerPorId(idProveedor) {
   return db.getOne(`
     SELECT
@@ -25,6 +33,10 @@ async function obtenerPorId(idProveedor) {
   `, [Number(idProveedor)]);
 }
 
+/**
+ * Registra información mediante la operación «crear».
+ * @returns {Promise<*>} Resultado de la consulta u operación de base de datos.
+ */
 async function crear(datos) {
   return db.executeQuery(`
     INSERT INTO proveedor (nombre, telefono, correo)
@@ -36,6 +48,10 @@ async function crear(datos) {
   ]);
 }
 
+/**
+ * Actualiza información mediante la operación «actualizar».
+ * @returns {Promise<*>} Resultado de la consulta u operación de base de datos.
+ */
 async function actualizar(idProveedor, datos) {
   return db.executeQuery(`
     UPDATE proveedor
@@ -49,6 +65,10 @@ async function actualizar(idProveedor, datos) {
   ]);
 }
 
+/**
+ * Ejecuta la operación «eliminar» sobre un registro.
+ * @returns {Promise<*>} Resultado de la consulta u operación de base de datos.
+ */
 async function eliminar(idProveedor) {
   return db.executeQuery(
     'DELETE FROM proveedor WHERE id_proveedor = ?',
