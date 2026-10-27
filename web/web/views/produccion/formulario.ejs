@@ -1,299 +1,156 @@
-<div class="dashboard-container">
-
-    <div class="section-heading">
-
-        <div>
-
-            <p class="section-eyebrow">
-                Gestión de Producción
-            </p>
-
-            <h1 class="section-title">
-                Nueva Producción
-            </h1>
-
-            <p class="section-description">
-                Registra la fabricación de productos terminados.
-                El inventario se actualizará automáticamente.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <% if (error) { %>
-
-        <div class="alert alert-error">
-
-            <i class="fas fa-triangle-exclamation"></i>
-
-            <%= error %>
-
-        </div>
-
-    <% } %>
-
-
-    <div class="form-card">
-
-        <form
-            action="/produccion/nueva"
-            method="POST"
-            class="crud-form"
-        >
-
-
-            <div class="form-group">
-
-                <label for="nombre">
-                    Nombre de la producción *
-                </label>
-
-                <input
-                    type="text"
-                    id="nombre"
-                    name="nombre"
-                    maxlength="200"
-                    required
-                    value="<%= datos
-                        ? datos.nombre || ''
-                        : ''
-                    %>"
-                    placeholder="Ej. Producción diaria de nachos"
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="descripcion">
-                    Descripción
-                </label>
-
-                <input
-                    type="text"
-                    id="descripcion"
-                    name="descripcion"
-                    maxlength="200"
-                    value="<%= datos
-                        ? datos.descripcion || ''
-                        : ''
-                    %>"
-                    placeholder="Descripción de la producción"
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="fecha_produccion">
-                    Fecha *
-                </label>
-
-                <input
-                    type="date"
-                    id="fecha_produccion"
-                    name="fecha_produccion"
-                    required
-                    value="<%= datos
-                        ? datos.fecha_produccion || ''
-                        : ''
-                    %>"
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="id_producto">
-                    Producto a fabricar *
-                </label>
-
-                <select
-                    id="id_producto"
-                    name="id_producto"
-                    required
-                >
-
-                    <option value="">
-                        Seleccione un producto
-                    </option>
-
-
-                    <% productos.forEach(producto => { %>
-
-                        <option
-                            value="<%= producto.ID_PRODUCTO %>"
-
-                            data-stock="<%= producto.UNIDADES %>"
-
-                            <%= datos &&
-                                String(datos.id_producto) ===
-                                String(producto.ID_PRODUCTO)
-                                ? 'selected'
-                                : ''
-                            %>
-                        >
-
-                            <%= producto.NOMBRE %>
-                            — Stock actual:
-                            <%= producto.UNIDADES %>
-
-                        </option>
-
-                    <% }); %>
-
-                </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Stock actual del producto
-                </label>
-
-                <input
-                    type="text"
-                    id="stock_producto"
-                    value="-"
-                    readonly
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="cantidad_producida">
-                    Cantidad a producir *
-                </label>
-
-                <input
-                    type="number"
-                    id="cantidad_producida"
-                    name="cantidad_producida"
-                    min="1"
-                    step="1"
-                    required
-                    value="<%= datos
-                        ? datos.cantidad_producida || 1
-                        : 1
-                    %>"
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Stock estimado después de producir
-                </label>
-
-                <input
-                    type="text"
-                    id="stock_estimado"
-                    value="-"
-                    readonly
-                >
-
-            </div>
-
-
-            <div class="form-actions">
-
-                <a
-                    href="/produccion"
-                    class="btn-action btn-delete"
-                >
-                    <i class="fas fa-xmark"></i>
-                    Cancelar
-                </a>
-
-
-                <button
-                    type="submit"
-                    class="btn btn-module"
-                >
-                    <i class="fas fa-industry"></i>
-                    Registrar Producción
-                </button>
-
-            </div>
-
-        </form>
-
-    </div>
-
+<div class="dashboard-container prod-refresh">
+  <div class="section-heading"><div>
+    <p class="section-eyebrow">Gestión de Producción</p>
+    <h1 class="section-title">Nueva Producción Múltiple</h1>
+    <p class="section-description">Busca productos con receta, agrega cantidades y revisa el consumo total antes de registrar.</p>
+  </div></div>
+  <% if (error) { %><div class="alert alert-error"><%= error %></div><% } %>
+  <div class="form-card prod-main-card">
+    <form id="produccion-form" method="POST" action="/produccion/nueva" class="crud-form">
+      <div class="prod-basic-grid"><div class="form-group"><label for="nombre">Nombre de la producción *</label>
+        <input id="nombre" name="nombre" maxlength="200" required value="<%= datos ? datos.nombre || '' : '' %>" placeholder="Ej. Producción del día"></div><div class="form-group"><label for="fecha_produccion">Fecha *</label>
+        <input type="date" id="fecha_produccion" name="fecha_produccion" required value="<%= datos ? datos.fecha_produccion || '' : '' %>"></div><div class="prod-description"><div class="form-group"><label for="descripcion">Descripción</label>
+        <input id="descripcion" name="descripcion" maxlength="200" value="<%= datos ? datos.descripcion || '' : '' %>"></div></div></div>
+      <h2 style="margin:18px 0 8px">Productos a fabricar</h2>
+      <p style="font-size:13px;color:#496052">Solo aparecen productos que tienen receta registrada.</p>
+      <div id="items"></div>
+      <button type="button" id="agregar" class="btn btn-module" style="margin:10px 0;width:100%">+ Agregar producto</button>
+      <input type="hidden" id="productos_json" name="productos_json">
+      <h2 style="margin:20px 0 10px">Materias primas necesarias</h2>
+      <div class="table-container prod-consumption"><table class="data-table" style="width:100%">
+        <thead><tr><th>Materia prima</th><th>Disponible</th><th>Consumo total</th><th>Saldo estimado</th><th>Estado</th></tr></thead>
+        <tbody id="consumos"><tr><td colspan="5">Agrega productos para ver el consumo.</td></tr></tbody>
+      </table></div>
+      <p id="aviso" role="status" aria-live="polite" style="margin:12px 0"></p>
+      <p id="error-envio" role="alert" tabindex="-1" hidden style="margin:10px 0;padding:12px;border-radius:8px;background:#fff0f0;color:#a11919;font-weight:600"></p>
+      <div class="form-actions"><a href="/produccion" class="btn-action btn-delete">Cancelar</a>
+        <button id="guardar" type="submit" class="btn btn-module">Registrar Producción</button></div>
+    </form>
+  </div>
 </div>
+<style>
+  .prod-item{border:1px solid #dbe6dd;border-radius:10px;padding:12px;margin:10px 0;background:#f9fcfa}
+  .prod-item-grid{display:grid;grid-template-columns:minmax(230px,3fr) minmax(100px,1fr) auto;gap:12px;align-items:end}
+  .prod-item input{width:100%;box-sizing:border-box;padding:10px;border:1px solid #ccd6cf;border-radius:7px}
+  .prod-sugerencias{max-height:170px;overflow-y:auto;border:1px solid #dbe6dd;border-radius:7px;background:white;margin-top:4px}
+  .prod-sugerencias button{display:block;width:100%;text-align:left;padding:8px;border:0;background:white;cursor:pointer}
+  .prod-sugerencias button:hover{background:#e8f4eb}
+  .prod-resumen{font-size:12px;color:#47634c;margin-top:5px}
+  @media(max-width:650px){.prod-item-grid{grid-template-columns:1fr}}
 
-
+.prod-refresh .prod-main-card{max-width:1060px;width:100%;box-sizing:border-box;padding:24px;background:white;border-radius:13px}
+.prod-refresh .prod-basic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 18px}
+.prod-refresh .prod-description{grid-column:1/-1}
+.prod-refresh .prod-basic-grid input{width:100%;box-sizing:border-box}
+.prod-refresh .prod-item{padding:15px}
+.prod-refresh .prod-consumption{overflow-x:auto;border:1px solid #e0e9e2;border-radius:10px;padding:10px;background:white}
+.prod-refresh .prod-consumption table{min-width:630px}
+.prod-refresh #aviso{padding:12px;border-radius:8px;background:#edf7f0}
+.prod-refresh .prod-item-grid>div{min-width:0}
+@media(max-width:650px){.prod-refresh .prod-basic-grid{grid-template-columns:1fr}.prod-refresh .prod-description{grid-column:auto}.prod-refresh .prod-main-card{padding:15px}}
+</style>
 <script>
-
-const productoSelect =
-    document.getElementById('id_producto');
-
-const cantidadInput =
-    document.getElementById('cantidad_producida');
-
-const stockProducto =
-    document.getElementById('stock_producto');
-
-const stockEstimado =
-    document.getElementById('stock_estimado');
-
-
-function actualizarInventario() {
-
-    const opcion =
-        productoSelect.options[
-            productoSelect.selectedIndex
-        ];
-
-
-    if (!opcion || !opcion.value) {
-
-        stockProducto.value = '-';
-        stockEstimado.value = '-';
-
-        return;
+(() => {
+  const productos = <%- JSON.stringify(productos).replace(/</g, '\\u003c') %>;
+  const recetas = <%- JSON.stringify(recetas).replace(/</g, '\\u003c') %>;
+  const anteriores = <%- JSON.stringify(datos && datos.productos_json ? datos.productos_json : '').replace(/</g, '\\u003c') %>;
+  const items = document.getElementById('items');
+  const consumos = document.getElementById('consumos');
+  const aviso = document.getElementById('aviso');
+  const guardar = document.getElementById('guardar');
+  const errorEnvio = document.getElementById('error-envio');
+  let intentoEnviar = false;
+  const hidden = document.getElementById('productos_json');
+  const fmt = n => Number(n).toFixed(2);
+  let filas = [];
+  let nextId = 0;
+  const limpiar = el => { while(el.firstChild) el.removeChild(el.firstChild); };
+  function boton(texto, fn) { const b = document.createElement('button'); b.type='button'; b.textContent=texto; b.addEventListener('click',fn); return b; }
+  function agregar(idProducto = null, cantidad = 1) {
+    const fila = { key: ++nextId, idProducto, cantidad };
+    filas.push(fila);
+    const cont = document.createElement('div'); cont.className='prod-item';
+    const grid = document.createElement('div'); grid.className='prod-item-grid';
+    const grupo = document.createElement('div');
+    const label = document.createElement('label'); label.textContent='Buscar producto *'; grupo.append(label);
+    const buscar = document.createElement('input'); buscar.type='search'; buscar.autocomplete='off';
+    buscar.placeholder='Escribe el nombre del producto'; buscar.setAttribute('aria-label','Buscar producto');
+    const lista = document.createElement('div'); lista.className='prod-sugerencias'; lista.hidden=true;
+    const resumen = document.createElement('div'); resumen.className='prod-resumen';
+    const actual = productos.find(p=>Number(p.ID_PRODUCTO)===idProducto);
+    if(actual) buscar.value=actual.NOMBRE;
+    function elegir(p){fila.idProducto=Number(p.ID_PRODUCTO);buscar.value=p.NOMBRE;lista.hidden=true;resumen.textContent='Stock actual: '+p.UNIDADES+' | Estimado: '+(Number(p.UNIDADES)+Number(fila.cantidad)); actualizar();}
+    function sugerir(){
+      fila.idProducto=null; limpiar(lista);
+      const q=buscar.value.trim().toLocaleLowerCase();
+      const candidatos=productos.filter(p=>p.NOMBRE.toLocaleLowerCase().includes(q)).slice(0,30);
+      for(const p of candidatos){const b=boton(p.NOMBRE+' (stock '+p.UNIDADES+')',()=>elegir(p));lista.append(b);}
+      if(!candidatos.length){const d=document.createElement('div');d.textContent='No se encontraron productos con receta';lista.append(d);}
+      lista.hidden=false; resumen.textContent='Selecciona un producto de la lista'; actualizar();
     }
-
-
-    const stock =
-        Number(opcion.dataset.stock) || 0;
-
-    const cantidad =
-        Number(cantidadInput.value) || 0;
-
-
-    stockProducto.value =
-        stock;
-
-
-    stockEstimado.value =
-        stock + cantidad;
-}
-
-
-productoSelect.addEventListener(
-    'change',
-    actualizarInventario
-);
-
-
-cantidadInput.addEventListener(
-    'input',
-    actualizarInventario
-);
-
-
-actualizarInventario();
-
+    buscar.addEventListener('input',sugerir);
+    buscar.addEventListener('focus',()=>{if(!fila.idProducto)sugerir();});
+    grupo.append(buscar,lista,resumen);
+    const gCant=document.createElement('div'); const lc=document.createElement('label');lc.textContent='Cantidad *';
+    const cant=document.createElement('input');cant.type='number';cant.min='1';cant.step='1';cant.max='2147483647';cant.value=cantidad;
+    cant.addEventListener('input',()=>{fila.cantidad=Number(cant.value);const p=productos.find(p=>Number(p.ID_PRODUCTO)===fila.idProducto);if(p)resumen.textContent='Stock actual: '+p.UNIDADES+' | Estimado: '+(Number(p.UNIDADES)+Number(fila.cantidad));actualizar();});
+    gCant.append(lc,cant);
+    const quitar=boton('Quitar',()=>{filas=filas.filter(f=>f!==fila);cont.remove();actualizar();});
+    quitar.className='btn-action btn-delete';
+    grid.append(grupo,gCant,quitar);cont.append(grid);items.append(cont);
+    if(actual) elegir(actual); else actualizar();
+  }
+  function actualizar(){
+    const seleccion=filas.map(f=>({id_producto:f.idProducto,cantidad:f.cantidad}));
+    const ids=new Set();
+    const validos=seleccion.length>0 && seleccion.every(x=>Number.isSafeInteger(x.id_producto)&&x.id_producto>0&&Number.isSafeInteger(x.cantidad)&&x.cantidad>0&&x.cantidad<=2147483647&&!ids.has(x.id_producto)&&!!ids.add(x.id_producto));
+    hidden.value=JSON.stringify(seleccion);
+    limpiar(consumos);
+    const totales=new Map();
+    for(const item of seleccion){
+      if(!item.id_producto || !Number.isSafeInteger(item.cantidad) || item.cantidad<=0) continue;
+      for(const r of recetas.filter(r=>Number(r.ID_PRODUCTO)===item.id_producto)){
+        const id=Number(r.ID_MATERIA_PRIMA);
+        if(!totales.has(id))totales.set(id,{nombre:r.MATERIA_PRIMA,unidad:r.UNIDAD,disponible:Number(r.DISPONIBLE),total:0});
+        totales.get(id).total+=Number(r.POR_UNIDAD)*item.cantidad;
+      }
+    }
+    let suficiente=true;
+    for(const m of totales.values()){
+      const saldo=m.disponible-m.total;
+      if(saldo < -0.0000001 || m.total>99999999.99 || !Number.isFinite(m.total))suficiente=false;
+      const tr=document.createElement('tr');
+      for(const valor of [m.nombre+' ('+(m.unidad||'-')+')',fmt(m.disponible),fmt(m.total),fmt(saldo),saldo>=-0.0000001?'Suficiente':'Insuficiente']){
+        const td=document.createElement('td');td.textContent=valor;tr.append(td);
+      }
+      if(saldo < -0.0000001)tr.style.color='#b91c1c';
+      consumos.append(tr);
+    }
+    if(!totales.size){const tr=document.createElement('tr');const td=document.createElement('td');td.colSpan=5;td.textContent='Selecciona productos para calcular los consumos.';tr.append(td);consumos.append(tr);}
+    aviso.textContent=!validos?'Selecciona productos diferentes y cantidades enteras positivas.':!suficiente?'Materia prima insuficiente: reduce cantidades o registra compras.':'Consumo estimado disponible. La base de datos volverá a validar al guardar.';
+    aviso.style.color=validos&&suficiente?'#166534':'#b91c1c';
+    // El boton permanece habilitado para que el usuario pueda recibir un mensaje claro.
+    // La validacion del submit sigue impidiendo enviar datos invalidos.
+    if (validos && suficiente) {
+      errorEnvio.hidden = true;
+      errorEnvio.textContent = '';
+      intentoEnviar = false;
+    } else if (intentoEnviar) {
+      errorEnvio.hidden = false;
+      errorEnvio.textContent = !validos
+        ? 'No se puede registrar la producción. Selecciona al menos un producto válido, sin repetirlo, y utiliza cantidades enteras positivas.'
+        : 'No se puede registrar la producción. No hay suficiente materia prima para las cantidades seleccionadas.';
+    }
+  }
+  document.getElementById('agregar').addEventListener('click',()=>agregar());
+  try {const arr=JSON.parse(anteriores);if(Array.isArray(arr)&&arr.length){for(const x of arr)agregar(Number(x.id_producto),Number(x.cantidad));}else agregar();}catch(_){agregar();}
+  document.getElementById('produccion-form').addEventListener('submit', e => {
+    intentoEnviar = true;
+    actualizar();
+    if (!errorEnvio.hidden) {
+      e.preventDefault();
+      errorEnvio.focus();
+    }
+  });
+})();
 </script>
