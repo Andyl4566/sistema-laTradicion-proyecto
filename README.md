@@ -3,7 +3,7 @@ Proyecto de base de datos y aplicación web
 
 
 # SGBD
-MySQL Data Base
+MariaDB Server
 # Herramienta CASE
 MySQL Workbench
 
