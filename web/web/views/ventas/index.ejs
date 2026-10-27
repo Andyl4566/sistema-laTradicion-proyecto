@@ -1,182 +1,134 @@
 <div class="dashboard-container">
-
-    <div class="section-heading">
-
-        <div>
-
-            <p class="section-eyebrow">
-                Gestión Comercial
-            </p>
-
-            <h1 class="section-title">
-                Ventas
-            </h1>
-
-            <p class="section-description">
-                Consulta las ventas registradas
-                y registra nuevas operaciones.
-            </p>
-
-        </div>
-
-
-        <a
-            href="/ventas/nueva"
-            class="btn btn-module"
-        >
-            <i class="fas fa-plus"></i>
-            Nueva Venta
-        </a>
-
-    </div>
-
-
-    <% if (mensaje) { %>
-
-        <div class="alert alert-success">
-
-            <i class="fas fa-circle-check"></i>
-
-            <%= mensaje %>
-
-        </div>
-
-    <% } %>
-
-
-    <% if (error) { %>
-
-        <div class="alert alert-error">
-
-            <i class="fas fa-triangle-exclamation"></i>
-
-            <%= error %>
-
-        </div>
-
-    <% } %>
-
-
-    <div class="table-container">
-
-        <table class="data-table">
-
-            <thead>
-
-                <tr>
-
-                    <th>ID</th>
-                    <th>Fecha</th>
-                    <th>Asunto</th>
-                    <th>Cliente</th>
-                    <th>Empleado</th>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>Precio</th>
-                    <th>Total</th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody>
-
-                <% if (!ventas || ventas.length === 0) { %>
-
-                    <tr>
-
-                        <td
-                            colspan="9"
-                            class="empty-table"
-                        >
-                            No hay ventas registradas.
-                        </td>
-
-                    </tr>
-
-                <% } else { %>
-
-
-                    <% ventas.forEach(venta => { %>
-
-                        <tr>
-
-                            <td>
-                                <%= venta.ID_VENTA %>
-                            </td>
-
-
-                            <td>
-
-                                <%= new Date(
-                                    venta.FECHA_VENTA
-                                ).toLocaleDateString(
-                                    'es-GT'
-                                ) %>
-
-                            </td>
-
-
-                            <td>
-                                <%= venta.ASUNTO %>
-                            </td>
-
-
-                            <td>
-                                <%= venta.CLIENTE %>
-                            </td>
-
-
-                            <td>
-                                <%= venta.EMPLEADO %>
-                            </td>
-
-
-                            <td>
-                                <strong>
-                                    <%= venta.PRODUCTO %>
-                                </strong>
-                            </td>
-
-
-                            <td>
-                                <%= venta.CANTIDAD %>
-                            </td>
-
-
-                            <td>
-
-                                Q <%= Number(
-                                    venta.PRECIO_UNITARIO
-                                ).toFixed(2) %>
-
-                            </td>
-
-
-                            <td>
-
-                                <strong>
-
-                                    Q <%= Number(
-                                        venta.MONTO
-                                    ).toFixed(2) %>
-
-                                </strong>
-
-                            </td>
-
-                        </tr>
-
-                    <% }); %>
-
-
-                <% } %>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
+  <div class="section-heading"><div><p class="section-eyebrow">Gestión Comercial</p><h1 class="section-title">Ventas</h1>
+  <p class="section-description">Consulta las ventas registradas y registra nuevas operaciones.</p></div>
+  <a href="/ventas/nueva" class="btn btn-module"><i class="fas fa-plus"></i> Nueva Venta</a></div>
+  <% if (mensaje) { %><div class="alert alert-success"><%= mensaje %></div><% } %>
+  <% if (error) { %><div class="alert alert-error"><%= error %></div><% } %>
+  <style>
+    .ventas-filtros { display:flex; flex-wrap:wrap; align-items:flex-end; gap:12px; margin:16px 0; padding:16px; background:white; border-radius:12px; }
+    .ventas-filtros label { display:flex; flex-direction:column; gap:5px; font-size:12px; font-weight:600; color:#23452a; }
+    .ventas-filtros input, .ventas-filtros select { min-height:38px; padding:8px; border:1px solid #d1d8d2; border-radius:6px; max-width:100%; }
+    .ventas-filtros .ventas-busqueda { min-width:220px; flex:1; }
+    .ventas-filtros .ventas-busqueda input { width:100%; box-sizing:border-box; }
+    .ventas-resumen {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:12px 0 16px;}
+    .ventas-resumen .venta-indicador{background:#edf6ef;border-radius:9px;padding:14px 16px;min-width:0;}
+    .ventas-resumen .venta-indicador.anuladas{background:#fff0f0;}
+    .venta-indicador small{display:block;font-size:12px;color:#31563a;margin-bottom:7px;}
+    .venta-indicador strong{font-size:19px;color:#145b2b;}
+    .venta-indicador.anuladas strong{color:#ae2222;}
+    .ventas-filtros{border:1px solid #e6eee7;}
+    .ventas-filtros:before{content:'Filtrar ventas';font-weight:700;color:#155b2a;width:100%;}
+    .ventas-tabla-wrap{overflow-x:auto;}
+    .venta-estado{display:inline-block;padding:5px 9px;border-radius:6px;font-weight:700;font-size:12px;}
+    .venta-estado.activa{background:#e6f5e8;color:#176b35;}
+    .venta-estado.anulada{background:#ffe9e9;color:#ad2020;}
+    @media(max-width:760px){.ventas-resumen{grid-template-columns:repeat(2,minmax(0,1fr));}.ventas-filtros .ventas-busqueda{flex-basis:100%;}}
+    @media(max-width:450px){.ventas-resumen{grid-template-columns:1fr;}}
+    .ventas-resumen strong { color:#176b35; }
+    .ventas-limpiar { display:inline-block; padding:10px 14px; background:#e8eee9; color:#193d21; border-radius:7px; text-decoration:none; }
+  </style>
+  <form class="ventas-filtros" action="/ventas" method="GET">
+    <label class="ventas-busqueda">Buscar cliente, empleado o asunto
+      <input type="search" name="busqueda" maxlength="100" placeholder="Buscar venta..." value="<%= filtros.busqueda %>">
+    </label>
+    <label>Desde<input type="date" name="desde" value="<%= filtros.desde %>"></label>
+    <label>Hasta<input type="date" name="hasta" value="<%= filtros.hasta %>"></label>
+    <label>Estado<select name="estado">
+      <option value="" <%= !filtros.estado ? 'selected' : '' %>>Todas</option>
+      <option value="ACTIVA" <%= filtros.estado === 'ACTIVA' ? 'selected' : '' %>>Activas</option>
+      <option value="ANULADA" <%= filtros.estado === 'ANULADA' ? 'selected' : '' %>>Anuladas</option>
+    </select></label>
+    <button type="submit" class="btn btn-module">Filtrar</button>
+    <a class="ventas-limpiar" href="/ventas">Limpiar filtros</a>
+  </form>
+  <% const ventasActivas = ventas.filter(v => v.ESTADO === 'ACTIVA').length; %>
+  <% const ventasAnuladas = ventas.filter(v => v.ESTADO === 'ANULADA').length; %>
+  <div class="ventas-resumen">
+    <div class="venta-indicador"><small>Ventas encontradas</small><strong><%= ventas.length %></strong></div>
+    <div class="venta-indicador"><small>Total de ventas activas</small><strong>Q <%= Number(totalActivo).toLocaleString('es-GT',{minimumFractionDigits:2,maximumFractionDigits:2}) %></strong></div>
+    <div class="venta-indicador"><small>Ventas activas</small><strong><%= ventasActivas %></strong></div>
+    <div class="venta-indicador anuladas"><small>Ventas anuladas</small><strong><%= ventasAnuladas %></strong></div>
+  </div>
+  <div class="table-container ventas-tabla-wrap"><table class="data-table"><thead><tr>
+    <th>ID</th><th>Fecha</th><th>Asunto</th><th>Cliente</th><th>Empleado</th>
+    <th>Productos (cantidad)</th><th>Unidades</th><th>Total</th><th>Estado</th><th>Acciones</th>
+  </tr></thead><tbody>
+    <% if (!ventas || ventas.length === 0) { %><tr><td colspan="10" class="empty-table">No hay ventas registradas.</td></tr><% } else { %>
+    <% ventas.forEach(v => { %><tr>
+      <td><%= v.ID_VENTA %></td><td><%= new Date(v.FECHA_VENTA).toLocaleDateString('es-GT') %></td>
+      <td><%= v.ASUNTO %></td><td><%= v.CLIENTE %></td><td><%= v.EMPLEADO %></td>
+      <td><%= v.PRODUCTOS %></td><td><%= v.UNIDADES %></td><td><strong>Q <%= Number(v.MONTO).toFixed(2) %></strong></td>
+      <td><% if (v.ESTADO === 'ANULADA') { %><span class="venta-estado anulada">Anulada</span><% } else { %><span class="venta-estado activa">Activa</span><% } %></td>
+      <td>
+      <% if (usuario && usuario.rol === 'administrador' && v.ESTADO === 'ACTIVA') { %>
+        <button type="button" class="btn btn-anular-venta" data-venta-id="<%= v.ID_VENTA %>" data-venta-asunto="<%= v.ASUNTO %>" style="background:#a61b1b;color:white">Anular</button>
+      <% } else if (v.ESTADO === 'ANULADA') { %>
+        <small title="<%= v.MOTIVO_ANULACION || '' %>"><%= v.MOTIVO_ANULACION || 'Anulada' %></small>
+      <% } else { %>—<% } %>
+      </td>
+    </tr><% }); %><% } %>
+  </tbody></table></div>
 </div>
+
+<% if (usuario && usuario.rol === 'administrador') { %>
+<style>
+  .anulacion-overlay[hidden] { display: none !important; }
+  .anulacion-overlay { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,.58); display:flex; align-items:center; justify-content:center; padding:20px; }
+  .anulacion-dialog { background:#fff; border-radius:14px; width:min(100%,510px); box-shadow:0 18px 50px rgba(0,0,0,.25); padding:26px; color:#243229; }
+  .anulacion-dialog h2 { font-size:1.3rem; margin:0 0 12px; }
+  .anulacion-dialog p { margin:0 0 16px; line-height:1.5; }
+  .anulacion-dialog label { display:block; font-weight:600; margin-bottom:8px; }
+  .anulacion-dialog textarea { width:100%; box-sizing:border-box; border:1px solid #9daaa0; border-radius:8px; padding:10px; font:inherit; resize:vertical; }
+  .anulacion-acciones { display:flex; justify-content:flex-end; gap:10px; margin-top:16px; flex-wrap:wrap; }
+  .anulacion-acciones button { padding:10px 18px; border:0; border-radius:8px; cursor:pointer; font-weight:600; }
+  .anulacion-cancelar { background:#e9eeea; color:#26352b; }
+  .anulacion-confirmar { background:#a61b1b; color:white; }
+  .anulacion-confirmar:disabled { opacity:.5; cursor:not-allowed; }
+</style>
+<div class="anulacion-overlay" id="anulacionOverlay" hidden>
+  <div class="anulacion-dialog" role="dialog" aria-modal="true" aria-labelledby="anulacionTitulo" aria-describedby="anulacionDescripcion">
+    <h2 id="anulacionTitulo">Confirmar anulación</h2>
+    <p id="anulacionDescripcion">Se devolverán los productos de esta venta al inventario. Esta acción no se puede deshacer desde este formulario.</p>
+    <form id="anulacionForm" method="POST">
+      <label for="anulacionMotivo">Motivo de anulación *</label>
+      <textarea id="anulacionMotivo" name="motivo" rows="4" minlength="5" maxlength="500" required placeholder="Escribe el motivo (mínimo 5 caracteres)"></textarea>
+      <div class="anulacion-acciones">
+        <button type="button" class="anulacion-cancelar" id="anulacionCancelar">Cancelar</button>
+        <button type="submit" class="anulacion-confirmar" id="anulacionConfirmar">Confirmar anulación</button>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+(() => {
+  const overlay = document.getElementById('anulacionOverlay');
+  const form = document.getElementById('anulacionForm');
+  const motivo = document.getElementById('anulacionMotivo');
+  const titulo = document.getElementById('anulacionTitulo');
+  const confirmar = document.getElementById('anulacionConfirmar');
+  let origen = null;
+  function cerrar() { overlay.hidden = true; document.body.style.overflow = ''; form.reset(); confirmar.disabled = false; if (origen) origen.focus(); }
+  document.querySelectorAll('.btn-anular-venta').forEach(btn => {
+    btn.addEventListener('click', () => {
+      origen = btn;
+      const id = btn.dataset.ventaId;
+      if (!/^\d+$/.test(id)) return;
+      form.action = '/ventas/' + encodeURIComponent(id) + '/anular';
+      titulo.textContent = 'Anular venta #' + id;
+      overlay.hidden = false;
+      document.body.style.overflow = 'hidden';
+      motivo.focus();
+    });
+  });
+  document.getElementById('anulacionCancelar').addEventListener('click', cerrar);
+  overlay.addEventListener('click', e => { if (e.target === overlay) cerrar(); });
+  document.addEventListener('keydown', e => { if (!overlay.hidden && e.key === 'Escape') cerrar(); });
+  form.addEventListener('submit', e => {
+    if (motivo.value.trim().length < 5) { e.preventDefault(); motivo.setCustomValidity('Escribe un motivo de al menos 5 caracteres.'); motivo.reportValidity(); return; }
+    motivo.setCustomValidity('');
+    confirmar.disabled = true;
+  });
+  motivo.addEventListener('input', () => motivo.setCustomValidity(''));
+})();
+</script>
+<% } %>
