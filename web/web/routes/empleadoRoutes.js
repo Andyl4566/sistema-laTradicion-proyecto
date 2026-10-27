@@ -1,0 +1,11 @@
+const router = require('express').Router();
+const c = require('../controllers/empleadoController');
+const { permitirRoles } = require('../middleware/authMiddleware');
+router.use('/empleados', permitirRoles('administrador'));
+router.get('/empleados',c.listar);
+router.get('/empleados/nuevo',c.nuevo);
+router.post('/empleados/nuevo',c.guardar);
+router.get('/empleados/editar/:id',c.editar);
+router.post('/empleados/editar/:id',c.guardar);
+router.post('/empleados/desactivar/:id',c.desactivar);
+module.exports=router;

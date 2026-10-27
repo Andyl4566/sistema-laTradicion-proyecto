@@ -1,0 +1,11 @@
+const router = require('express').Router();
+const c = require('../controllers/gastoOperativoController');
+const { permitirRoles } = require('../middleware/authMiddleware');
+router.use('/gastos-operativos', permitirRoles('administrador'));
+router.get('/gastos-operativos',c.listar);
+router.get('/gastos-operativos/nuevo',c.nuevo);
+router.post('/gastos-operativos/nuevo',c.guardar);
+router.get('/gastos-operativos/editar/:id',c.editar);
+router.post('/gastos-operativos/editar/:id',c.guardar);
+router.post('/gastos-operativos/eliminar/:id',c.eliminar);
+module.exports=router;
