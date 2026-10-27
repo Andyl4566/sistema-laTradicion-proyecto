@@ -1,0 +1,37 @@
+<div class="dashboard-container prod-detail">
+  <div class="section-heading"><div>
+    <p class="section-eyebrow">Gestión de Producción</p>
+    <h1 class="section-title">Producción #<%= produccion.ID %></h1>
+    <p class="section-description"><%= produccion.NOMBRE %> · <%= new Date(produccion.FECHA).toLocaleDateString('es-GT',{timeZone:'UTC'}) %></p>
+  </div></div>
+  <div class="prod-detail-panel"><h3>Información general</h3><div class="prod-detail-grid">
+    <div><small>Estado</small><strong><%= produccion.ESTADO %></strong></div>
+    <div><small>Descripción</small><strong><%= produccion.DESCRIPCION || '-' %></strong></div>
+    <% if (produccion.ESTADO === 'ANULADA') { %>
+    <div><small>Motivo de anulación</small><strong><%= produccion.MOTIVO || '-' %></strong></div>
+    <div><small>Fecha de anulación</small><strong><%= produccion.FECHA_ANULACION ? new Date(produccion.FECHA_ANULACION).toLocaleString('es-GT') : '-' %></strong></div>
+    <% } %>
+  </div></div>
+  <div class="prod-detail-panel">
+  <h2>Productos fabricados</h2>
+  <div class="table-container"><table class="data-table"><thead><tr><th>Producto</th><th>Cantidad</th></tr></thead><tbody>
+    <% productos.forEach(p => { %><tr><td><%= p.NOMBRE %></td><td><%= p.CANTIDAD %></td></tr><% }); %>
+  </tbody></table></div>
+  </div><div class="prod-detail-panel"><h2>Materias primas consumidas</h2>
+  <div class="table-container"><table class="data-table"><thead><tr><th>Materia prima</th><th>Cantidad consumida</th><th>Unidad</th></tr></thead><tbody>
+    <% consumos.forEach(c => { %><tr><td><%= c.NOMBRE %></td><td><%= c.CANTIDAD === null ? 'No registrada (histórica)' : Number(c.CANTIDAD).toFixed(2) %></td><td><%= c.UNIDAD || '-' %></td></tr><% }); %>
+  </tbody></table></div>
+  <% if (!consumos.length) { %><p>Esta producción no tiene consumos registrados.</p><% } %>
+  </div><a href="/produccion" class="btn btn-module">Volver a Producción</a>
+</div>
+<style>
+.prod-detail .prod-detail-panel{background:#fff;border-radius:12px;padding:18px;margin:15px 0;box-shadow:0 4px 15px #142b1910}
+.prod-detail .prod-detail-panel h2,.prod-detail .prod-detail-panel h3{color:#155b2b;font-size:17px;margin:0 0 13px}
+.prod-detail .prod-detail-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.prod-detail .prod-detail-grid>div{background:#f0f7f2;padding:13px;border-radius:8px;overflow-wrap:anywhere}
+.prod-detail .prod-detail-grid small{display:block;color:#466e51;font-size:12px;margin-bottom:5px}
+.prod-detail .prod-detail-grid strong{font-size:14px}
+.prod-detail .table-container{overflow-x:auto}
+.prod-detail .data-table{width:100%}
+@media(max-width:650px){.prod-detail .prod-detail-grid{grid-template-columns:1fr}}
+</style>
