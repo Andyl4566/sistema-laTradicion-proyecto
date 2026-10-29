@@ -1,0 +1,35 @@
+{
+  "name": "empresa-tortillas-nachos-harina",
+  "version": "1.0.0",
+  "description": "Sistema web conectado a MySQL para Empresa de Tortillas, Nachos y Harina - Entrega 2",
+  "main": "web/app.js",
+  "scripts": {
+    "start": "node web/app.js",
+    "dev": "nodemon web/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "web",
+    "tortillas",
+    "nachos",
+    "harina",
+    "sistema-de-gestion"
+  ],
+  "author": "Desarrollador Backend Senior",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.17.3",
+    "mysql2": "^3.11.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
